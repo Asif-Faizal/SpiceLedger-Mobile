@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'token_interceptor.dart';
 
 @module
 abstract class NetworkModule {
   @lazySingleton
-  Dio get dio {
+  Dio dio(TokenInterceptor tokenInterceptor) {
     final dio = Dio(
       BaseOptions(
         baseUrl: 'http://localhost:8080',
@@ -17,6 +18,7 @@ abstract class NetworkModule {
       ),
     );
 
+    dio.interceptors.add(tokenInterceptor);
     dio.interceptors.add(
       LogInterceptor(
         request: true,
