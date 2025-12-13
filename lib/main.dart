@@ -8,7 +8,7 @@ import 'features/auth/presentation/pages/login_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  configureDependencies();
+  await configureDependencies();
   runApp(const MyApp());
 }
 

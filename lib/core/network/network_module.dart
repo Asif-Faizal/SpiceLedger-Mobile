@@ -8,7 +8,7 @@ abstract class NetworkModule {
   Dio dio(TokenInterceptor tokenInterceptor) {
     final dio = Dio(
       BaseOptions(
-        baseUrl: 'http://localhost:8080',
+        baseUrl: 'http://10.0.2.2:8080',
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
         headers: {
