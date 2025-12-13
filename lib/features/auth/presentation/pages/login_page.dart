@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../admin/presentation/pages/admin_dashboard_page.dart';
+import '../../../inventory/presentation/pages/inventory_page.dart';
 import '../bloc/auth_bloc.dart';
 import 'register_page.dart';
 
@@ -54,16 +56,47 @@ class _LoginPageState extends State<LoginPage> {
                 builder: (context, state) {
                   return state.maybeWhen(
                     loading: () => const CircularProgressIndicator(),
-                    orElse: () => ElevatedButton(
-                      onPressed: () {
-                        context.read<AuthBloc>().add(
-                          AuthEvent.login(
-                            _emailController.text,
-                            _passwordController.text,
+                    orElse: () => Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            context.read<AuthBloc>().add(
+                              AuthEvent.login(
+                                _emailController.text,
+                                _passwordController.text,
+                              ),
+                            );
+                          },
+                          child: const Text('Login'),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const AdminDashboardPage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Go to Admin Dashboard (Requires Admin Login)',
                           ),
-                        );
-                      },
-                      child: const Text('Login'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const InventoryPage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Go to Inventory (Requires User Login)',
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },

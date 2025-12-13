@@ -35,6 +35,22 @@ import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
 import '../../features/auth/domain/usecases/login_usecase.dart' as _i188;
 import '../../features/auth/domain/usecases/register_usecase.dart' as _i941;
 import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i797;
+import '../../features/inventory/data/datasources/inventory_remote_data_source.dart'
+    as _i248;
+import '../../features/inventory/data/repositories/inventory_repository_impl.dart'
+    as _i572;
+import '../../features/inventory/domain/repositories/inventory_repository.dart'
+    as _i422;
+import '../../features/inventory/domain/usecases/add_purchase_lot_usecase.dart'
+    as _i483;
+import '../../features/inventory/domain/usecases/add_sale_usecase.dart'
+    as _i123;
+import '../../features/inventory/domain/usecases/get_current_inventory_usecase.dart'
+    as _i869;
+import '../../features/inventory/domain/usecases/get_grades_usecase.dart'
+    as _i143;
+import '../../features/inventory/presentation/bloc/inventory_bloc.dart'
+    as _i690;
 import '../network/network_module.dart' as _i200;
 import '../network/token_interceptor.dart' as _i34;
 import '../storage/hive_module.dart' as _i824;
@@ -63,13 +79,40 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i517.AdminRemoteDataSource>(
       () => _i517.AdminRemoteDataSourceImpl(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i248.InventoryRemoteDataSource>(
+      () => _i248.InventoryRemoteDataSourceImpl(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i107.AuthRemoteDataSource>(
       () => _i107.AuthRemoteDataSourceImpl(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i422.InventoryRepository>(
+      () =>
+          _i572.InventoryRepositoryImpl(gh<_i248.InventoryRemoteDataSource>()),
     );
     gh.lazySingleton<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(
         gh<_i107.AuthRemoteDataSource>(),
         gh<_i619.EncryptedStorage>(),
+      ),
+    );
+    gh.lazySingleton<_i483.AddPurchaseLotUseCase>(
+      () => _i483.AddPurchaseLotUseCase(gh<_i422.InventoryRepository>()),
+    );
+    gh.lazySingleton<_i869.GetCurrentInventoryUseCase>(
+      () => _i869.GetCurrentInventoryUseCase(gh<_i422.InventoryRepository>()),
+    );
+    gh.lazySingleton<_i143.GetGradesUseCase>(
+      () => _i143.GetGradesUseCase(gh<_i422.InventoryRepository>()),
+    );
+    gh.lazySingleton<_i123.AddSaleUseCase>(
+      () => _i123.AddSaleUseCase(gh<_i422.InventoryRepository>()),
+    );
+    gh.factory<_i690.InventoryBloc>(
+      () => _i690.InventoryBloc(
+        gh<_i143.GetGradesUseCase>(),
+        gh<_i483.AddPurchaseLotUseCase>(),
+        gh<_i123.AddSaleUseCase>(),
+        gh<_i869.GetCurrentInventoryUseCase>(),
       ),
     );
     gh.lazySingleton<_i941.RegisterUseCase>(
