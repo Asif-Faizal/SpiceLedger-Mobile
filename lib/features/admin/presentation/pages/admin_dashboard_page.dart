@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/injection.dart';
 import '../bloc/admin_bloc.dart';
+import '../../data/models/daily_price_model.dart';
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
@@ -9,8 +10,9 @@ class AdminDashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<AdminBloc>()..add(const AdminEvent.loadStats()),
+      create: (context) => getIt<AdminBloc>()
+        ..add(const AdminEvent.loadStats())
+        ..add(const AdminEvent.loadCatalog()),
       child: Scaffold(
         appBar: AppBar(title: const Text('Admin Dashboard')),
         body: const AdminView(),
@@ -151,6 +153,37 @@ class AdminView extends StatelessWidget {
                     child: const Text('Set Price'),
                   ),
                 ],
+              ),
+              const SizedBox(height: 20),
+              state.maybeWhen(
+                catalog: (products, grades, prices) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Products'),
+                    if (products.isEmpty)
+                      const Text('- (none)')
+                    else
+                      ...products.map((p) => Text('- ${p.name}')),
+                    const SizedBox(height: 10),
+                    const Text("Grades & Today's Price"),
+                    ...grades.map((g) {
+                      final items = prices.prices ?? const [];
+                      final item = items.firstWhere(
+                        (e) => e.gradeId == g.id,
+                        orElse: () => const DailyPriceItem(
+                          productId: '',
+                          gradeId: '',
+                          pricePerKg: 0.0,
+                        ),
+                      );
+                      final price = item.gradeId.isEmpty
+                          ? 'N/A'
+                          : item.pricePerKg.toString();
+                      return Text('- ${g.name}: $price');
+                    }),
+                  ],
+                ),
+                orElse: () => const SizedBox.shrink(),
               ),
             ],
           ),

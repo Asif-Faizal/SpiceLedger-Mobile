@@ -22,18 +22,21 @@ mixin _$AdminEvent {
     required TResult Function() loadStats,
     required TResult Function(String name, String description) createGrade,
     required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function() loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadStats,
     TResult? Function(String name, String description)? createGrade,
     TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function()? loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadStats,
     TResult Function(String name, String description)? createGrade,
     TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function()? loadCatalog,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,18 +44,21 @@ mixin _$AdminEvent {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_LoadCatalog value) loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_LoadCatalog value)? loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -125,6 +131,7 @@ class _$LoadStatsImpl implements _LoadStats {
     required TResult Function() loadStats,
     required TResult Function(String name, String description) createGrade,
     required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function() loadCatalog,
   }) {
     return loadStats();
   }
@@ -135,6 +142,7 @@ class _$LoadStatsImpl implements _LoadStats {
     TResult? Function()? loadStats,
     TResult? Function(String name, String description)? createGrade,
     TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function()? loadCatalog,
   }) {
     return loadStats?.call();
   }
@@ -145,6 +153,7 @@ class _$LoadStatsImpl implements _LoadStats {
     TResult Function()? loadStats,
     TResult Function(String name, String description)? createGrade,
     TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
     if (loadStats != null) {
@@ -159,6 +168,7 @@ class _$LoadStatsImpl implements _LoadStats {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_LoadCatalog value) loadCatalog,
   }) {
     return loadStats(this);
   }
@@ -169,6 +179,7 @@ class _$LoadStatsImpl implements _LoadStats {
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_LoadCatalog value)? loadCatalog,
   }) {
     return loadStats?.call(this);
   }
@@ -179,6 +190,7 @@ class _$LoadStatsImpl implements _LoadStats {
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) {
     if (loadStats != null) {
@@ -273,6 +285,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     required TResult Function() loadStats,
     required TResult Function(String name, String description) createGrade,
     required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function() loadCatalog,
   }) {
     return createGrade(name, description);
   }
@@ -283,6 +296,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     TResult? Function()? loadStats,
     TResult? Function(String name, String description)? createGrade,
     TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function()? loadCatalog,
   }) {
     return createGrade?.call(name, description);
   }
@@ -293,6 +307,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     TResult Function()? loadStats,
     TResult Function(String name, String description)? createGrade,
     TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
     if (createGrade != null) {
@@ -307,6 +322,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_LoadCatalog value) loadCatalog,
   }) {
     return createGrade(this);
   }
@@ -317,6 +333,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_LoadCatalog value)? loadCatalog,
   }) {
     return createGrade?.call(this);
   }
@@ -327,6 +344,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) {
     if (createGrade != null) {
@@ -437,6 +455,7 @@ class _$SetPriceImpl implements _SetPrice {
     required TResult Function() loadStats,
     required TResult Function(String name, String description) createGrade,
     required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function() loadCatalog,
   }) {
     return setPrice(date, grade, price);
   }
@@ -447,6 +466,7 @@ class _$SetPriceImpl implements _SetPrice {
     TResult? Function()? loadStats,
     TResult? Function(String name, String description)? createGrade,
     TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function()? loadCatalog,
   }) {
     return setPrice?.call(date, grade, price);
   }
@@ -457,6 +477,7 @@ class _$SetPriceImpl implements _SetPrice {
     TResult Function()? loadStats,
     TResult Function(String name, String description)? createGrade,
     TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
     if (setPrice != null) {
@@ -471,6 +492,7 @@ class _$SetPriceImpl implements _SetPrice {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_LoadCatalog value) loadCatalog,
   }) {
     return setPrice(this);
   }
@@ -481,6 +503,7 @@ class _$SetPriceImpl implements _SetPrice {
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_LoadCatalog value)? loadCatalog,
   }) {
     return setPrice?.call(this);
   }
@@ -491,6 +514,7 @@ class _$SetPriceImpl implements _SetPrice {
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) {
     if (setPrice != null) {
@@ -519,6 +543,125 @@ abstract class _SetPrice implements AdminEvent {
 }
 
 /// @nodoc
+abstract class _$$LoadCatalogImplCopyWith<$Res> {
+  factory _$$LoadCatalogImplCopyWith(
+    _$LoadCatalogImpl value,
+    $Res Function(_$LoadCatalogImpl) then,
+  ) = __$$LoadCatalogImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadCatalogImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$LoadCatalogImpl>
+    implements _$$LoadCatalogImplCopyWith<$Res> {
+  __$$LoadCatalogImplCopyWithImpl(
+    _$LoadCatalogImpl _value,
+    $Res Function(_$LoadCatalogImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$LoadCatalogImpl implements _LoadCatalog {
+  const _$LoadCatalogImpl();
+
+  @override
+  String toString() {
+    return 'AdminEvent.loadCatalog()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoadCatalogImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadStats,
+    required TResult Function(String name, String description) createGrade,
+    required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function() loadCatalog,
+  }) {
+    return loadCatalog();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadStats,
+    TResult? Function(String name, String description)? createGrade,
+    TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function()? loadCatalog,
+  }) {
+    return loadCatalog?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadStats,
+    TResult Function(String name, String description)? createGrade,
+    TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function()? loadCatalog,
+    required TResult orElse(),
+  }) {
+    if (loadCatalog != null) {
+      return loadCatalog();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadStats value) loadStats,
+    required TResult Function(_CreateGrade value) createGrade,
+    required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_LoadCatalog value) loadCatalog,
+  }) {
+    return loadCatalog(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadStats value)? loadStats,
+    TResult? Function(_CreateGrade value)? createGrade,
+    TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_LoadCatalog value)? loadCatalog,
+  }) {
+    return loadCatalog?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadStats value)? loadStats,
+    TResult Function(_CreateGrade value)? createGrade,
+    TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_LoadCatalog value)? loadCatalog,
+    required TResult orElse(),
+  }) {
+    if (loadCatalog != null) {
+      return loadCatalog(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoadCatalog implements AdminEvent {
+  const factory _LoadCatalog() = _$LoadCatalogImpl;
+}
+
+/// @nodoc
 mixin _$AdminState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -527,6 +670,12 @@ mixin _$AdminState {
     required TResult Function(UserStats stats) loaded,
     required TResult Function(String message) success,
     required TResult Function(String message) failure,
+    required TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )
+    catalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
@@ -535,6 +684,12 @@ mixin _$AdminState {
     TResult? Function(UserStats stats)? loaded,
     TResult? Function(String message)? success,
     TResult? Function(String message)? failure,
+    TResult? Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
@@ -543,6 +698,12 @@ mixin _$AdminState {
     TResult Function(UserStats stats)? loaded,
     TResult Function(String message)? success,
     TResult Function(String message)? failure,
+    TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -552,6 +713,7 @@ mixin _$AdminState {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Catalog value) catalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
@@ -560,6 +722,7 @@ mixin _$AdminState {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
+    TResult? Function(_Catalog value)? catalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
@@ -568,6 +731,7 @@ mixin _$AdminState {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Catalog value)? catalog,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -642,6 +806,12 @@ class _$InitialImpl implements _Initial {
     required TResult Function(UserStats stats) loaded,
     required TResult Function(String message) success,
     required TResult Function(String message) failure,
+    required TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )
+    catalog,
   }) {
     return initial();
   }
@@ -654,6 +824,12 @@ class _$InitialImpl implements _Initial {
     TResult? Function(UserStats stats)? loaded,
     TResult? Function(String message)? success,
     TResult? Function(String message)? failure,
+    TResult? Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
   }) {
     return initial?.call();
   }
@@ -666,6 +842,12 @@ class _$InitialImpl implements _Initial {
     TResult Function(UserStats stats)? loaded,
     TResult Function(String message)? success,
     TResult Function(String message)? failure,
+    TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -682,6 +864,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Catalog value) catalog,
   }) {
     return initial(this);
   }
@@ -694,6 +877,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
+    TResult? Function(_Catalog value)? catalog,
   }) {
     return initial?.call(this);
   }
@@ -706,6 +890,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Catalog value)? catalog,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -767,6 +952,12 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(UserStats stats) loaded,
     required TResult Function(String message) success,
     required TResult Function(String message) failure,
+    required TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )
+    catalog,
   }) {
     return loading();
   }
@@ -779,6 +970,12 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(UserStats stats)? loaded,
     TResult? Function(String message)? success,
     TResult? Function(String message)? failure,
+    TResult? Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
   }) {
     return loading?.call();
   }
@@ -791,6 +988,12 @@ class _$LoadingImpl implements _Loading {
     TResult Function(UserStats stats)? loaded,
     TResult Function(String message)? success,
     TResult Function(String message)? failure,
+    TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -807,6 +1010,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Catalog value) catalog,
   }) {
     return loading(this);
   }
@@ -819,6 +1023,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
+    TResult? Function(_Catalog value)? catalog,
   }) {
     return loading?.call(this);
   }
@@ -831,6 +1036,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Catalog value)? catalog,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -919,6 +1125,12 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(UserStats stats) loaded,
     required TResult Function(String message) success,
     required TResult Function(String message) failure,
+    required TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )
+    catalog,
   }) {
     return loaded(stats);
   }
@@ -931,6 +1143,12 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(UserStats stats)? loaded,
     TResult? Function(String message)? success,
     TResult? Function(String message)? failure,
+    TResult? Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
   }) {
     return loaded?.call(stats);
   }
@@ -943,6 +1161,12 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(UserStats stats)? loaded,
     TResult Function(String message)? success,
     TResult Function(String message)? failure,
+    TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -959,6 +1183,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Catalog value) catalog,
   }) {
     return loaded(this);
   }
@@ -971,6 +1196,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
+    TResult? Function(_Catalog value)? catalog,
   }) {
     return loaded?.call(this);
   }
@@ -983,6 +1209,7 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Catalog value)? catalog,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1079,6 +1306,12 @@ class _$SuccessImpl implements _Success {
     required TResult Function(UserStats stats) loaded,
     required TResult Function(String message) success,
     required TResult Function(String message) failure,
+    required TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )
+    catalog,
   }) {
     return success(message);
   }
@@ -1091,6 +1324,12 @@ class _$SuccessImpl implements _Success {
     TResult? Function(UserStats stats)? loaded,
     TResult? Function(String message)? success,
     TResult? Function(String message)? failure,
+    TResult? Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
   }) {
     return success?.call(message);
   }
@@ -1103,6 +1342,12 @@ class _$SuccessImpl implements _Success {
     TResult Function(UserStats stats)? loaded,
     TResult Function(String message)? success,
     TResult Function(String message)? failure,
+    TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1119,6 +1364,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Catalog value) catalog,
   }) {
     return success(this);
   }
@@ -1131,6 +1377,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
+    TResult? Function(_Catalog value)? catalog,
   }) {
     return success?.call(this);
   }
@@ -1143,6 +1390,7 @@ class _$SuccessImpl implements _Success {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Catalog value)? catalog,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1239,6 +1487,12 @@ class _$FailureImpl implements _Failure {
     required TResult Function(UserStats stats) loaded,
     required TResult Function(String message) success,
     required TResult Function(String message) failure,
+    required TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )
+    catalog,
   }) {
     return failure(message);
   }
@@ -1251,6 +1505,12 @@ class _$FailureImpl implements _Failure {
     TResult? Function(UserStats stats)? loaded,
     TResult? Function(String message)? success,
     TResult? Function(String message)? failure,
+    TResult? Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
   }) {
     return failure?.call(message);
   }
@@ -1263,6 +1523,12 @@ class _$FailureImpl implements _Failure {
     TResult Function(UserStats stats)? loaded,
     TResult Function(String message)? success,
     TResult Function(String message)? failure,
+    TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -1279,6 +1545,7 @@ class _$FailureImpl implements _Failure {
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Catalog value) catalog,
   }) {
     return failure(this);
   }
@@ -1291,6 +1558,7 @@ class _$FailureImpl implements _Failure {
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
+    TResult? Function(_Catalog value)? catalog,
   }) {
     return failure?.call(this);
   }
@@ -1303,6 +1571,7 @@ class _$FailureImpl implements _Failure {
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Catalog value)? catalog,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -1321,5 +1590,248 @@ abstract class _Failure implements AdminState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CatalogImplCopyWith<$Res> {
+  factory _$$CatalogImplCopyWith(
+    _$CatalogImpl value,
+    $Res Function(_$CatalogImpl) then,
+  ) = __$$CatalogImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({
+    List<Product> products,
+    List<Grade> grades,
+    DailyPricesResponse prices,
+  });
+
+  $DailyPricesResponseCopyWith<$Res> get prices;
+}
+
+/// @nodoc
+class __$$CatalogImplCopyWithImpl<$Res>
+    extends _$AdminStateCopyWithImpl<$Res, _$CatalogImpl>
+    implements _$$CatalogImplCopyWith<$Res> {
+  __$$CatalogImplCopyWithImpl(
+    _$CatalogImpl _value,
+    $Res Function(_$CatalogImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AdminState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? products = null,
+    Object? grades = null,
+    Object? prices = null,
+  }) {
+    return _then(
+      _$CatalogImpl(
+        null == products
+            ? _value._products
+            : products // ignore: cast_nullable_to_non_nullable
+                  as List<Product>,
+        null == grades
+            ? _value._grades
+            : grades // ignore: cast_nullable_to_non_nullable
+                  as List<Grade>,
+        null == prices
+            ? _value.prices
+            : prices // ignore: cast_nullable_to_non_nullable
+                  as DailyPricesResponse,
+      ),
+    );
+  }
+
+  /// Create a copy of AdminState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DailyPricesResponseCopyWith<$Res> get prices {
+    return $DailyPricesResponseCopyWith<$Res>(_value.prices, (value) {
+      return _then(_value.copyWith(prices: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$CatalogImpl implements _Catalog {
+  const _$CatalogImpl(
+    final List<Product> products,
+    final List<Grade> grades,
+    this.prices,
+  ) : _products = products,
+      _grades = grades;
+
+  final List<Product> _products;
+  @override
+  List<Product> get products {
+    if (_products is EqualUnmodifiableListView) return _products;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_products);
+  }
+
+  final List<Grade> _grades;
+  @override
+  List<Grade> get grades {
+    if (_grades is EqualUnmodifiableListView) return _grades;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_grades);
+  }
+
+  @override
+  final DailyPricesResponse prices;
+
+  @override
+  String toString() {
+    return 'AdminState.catalog(products: $products, grades: $grades, prices: $prices)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CatalogImpl &&
+            const DeepCollectionEquality().equals(other._products, _products) &&
+            const DeepCollectionEquality().equals(other._grades, _grades) &&
+            (identical(other.prices, prices) || other.prices == prices));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_products),
+    const DeepCollectionEquality().hash(_grades),
+    prices,
+  );
+
+  /// Create a copy of AdminState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CatalogImplCopyWith<_$CatalogImpl> get copyWith =>
+      __$$CatalogImplCopyWithImpl<_$CatalogImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(UserStats stats) loaded,
+    required TResult Function(String message) success,
+    required TResult Function(String message) failure,
+    required TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )
+    catalog,
+  }) {
+    return catalog(products, grades, prices);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(UserStats stats)? loaded,
+    TResult? Function(String message)? success,
+    TResult? Function(String message)? failure,
+    TResult? Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
+  }) {
+    return catalog?.call(products, grades, prices);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(UserStats stats)? loaded,
+    TResult Function(String message)? success,
+    TResult Function(String message)? failure,
+    TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
+    required TResult orElse(),
+  }) {
+    if (catalog != null) {
+      return catalog(products, grades, prices);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_Catalog value) catalog,
+  }) {
+    return catalog(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Failure value)? failure,
+    TResult? Function(_Catalog value)? catalog,
+  }) {
+    return catalog?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Success value)? success,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_Catalog value)? catalog,
+    required TResult orElse(),
+  }) {
+    if (catalog != null) {
+      return catalog(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Catalog implements AdminState {
+  const factory _Catalog(
+    final List<Product> products,
+    final List<Grade> grades,
+    final DailyPricesResponse prices,
+  ) = _$CatalogImpl;
+
+  List<Product> get products;
+  List<Grade> get grades;
+  DailyPricesResponse get prices;
+
+  /// Create a copy of AdminState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CatalogImplCopyWith<_$CatalogImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

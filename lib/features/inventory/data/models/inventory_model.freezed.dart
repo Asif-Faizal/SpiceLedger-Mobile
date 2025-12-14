@@ -21,11 +21,11 @@ InventoryModel _$InventoryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$InventoryModel {
-  @JsonKey(name: 'total_quantity')
+  @JsonKey(name: 'total_quantity', fromJson: _doubleOrZero)
   double get totalQuantity => throw _privateConstructorUsedError;
-  @JsonKey(name: 'total_value')
+  @JsonKey(name: 'total_value', fromJson: _doubleOrZero)
   double get totalValue => throw _privateConstructorUsedError;
-  @JsonKey(name: 'current_pnl')
+  @JsonKey(name: 'current_pnl', fromJson: _doubleOrZero)
   double get currentPL => throw _privateConstructorUsedError;
 
   /// Serializes this InventoryModel to a JSON map.
@@ -46,9 +46,10 @@ abstract class $InventoryModelCopyWith<$Res> {
   ) = _$InventoryModelCopyWithImpl<$Res, InventoryModel>;
   @useResult
   $Res call({
-    @JsonKey(name: 'total_quantity') double totalQuantity,
-    @JsonKey(name: 'total_value') double totalValue,
-    @JsonKey(name: 'current_pnl') double currentPL,
+    @JsonKey(name: 'total_quantity', fromJson: _doubleOrZero)
+    double totalQuantity,
+    @JsonKey(name: 'total_value', fromJson: _doubleOrZero) double totalValue,
+    @JsonKey(name: 'current_pnl', fromJson: _doubleOrZero) double currentPL,
   });
 }
 
@@ -101,9 +102,10 @@ abstract class _$$InventoryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    @JsonKey(name: 'total_quantity') double totalQuantity,
-    @JsonKey(name: 'total_value') double totalValue,
-    @JsonKey(name: 'current_pnl') double currentPL,
+    @JsonKey(name: 'total_quantity', fromJson: _doubleOrZero)
+    double totalQuantity,
+    @JsonKey(name: 'total_value', fromJson: _doubleOrZero) double totalValue,
+    @JsonKey(name: 'current_pnl', fromJson: _doubleOrZero) double currentPL,
   });
 }
 
@@ -148,22 +150,25 @@ class __$$InventoryModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$InventoryModelImpl implements _InventoryModel {
   const _$InventoryModelImpl({
-    @JsonKey(name: 'total_quantity') required this.totalQuantity,
-    @JsonKey(name: 'total_value') required this.totalValue,
-    @JsonKey(name: 'current_pnl') required this.currentPL,
+    @JsonKey(name: 'total_quantity', fromJson: _doubleOrZero)
+    required this.totalQuantity,
+    @JsonKey(name: 'total_value', fromJson: _doubleOrZero)
+    required this.totalValue,
+    @JsonKey(name: 'current_pnl', fromJson: _doubleOrZero)
+    required this.currentPL,
   });
 
   factory _$InventoryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InventoryModelImplFromJson(json);
 
   @override
-  @JsonKey(name: 'total_quantity')
+  @JsonKey(name: 'total_quantity', fromJson: _doubleOrZero)
   final double totalQuantity;
   @override
-  @JsonKey(name: 'total_value')
+  @JsonKey(name: 'total_value', fromJson: _doubleOrZero)
   final double totalValue;
   @override
-  @JsonKey(name: 'current_pnl')
+  @JsonKey(name: 'current_pnl', fromJson: _doubleOrZero)
   final double currentPL;
 
   @override
@@ -208,22 +213,25 @@ class _$InventoryModelImpl implements _InventoryModel {
 
 abstract class _InventoryModel implements InventoryModel {
   const factory _InventoryModel({
-    @JsonKey(name: 'total_quantity') required final double totalQuantity,
-    @JsonKey(name: 'total_value') required final double totalValue,
-    @JsonKey(name: 'current_pnl') required final double currentPL,
+    @JsonKey(name: 'total_quantity', fromJson: _doubleOrZero)
+    required final double totalQuantity,
+    @JsonKey(name: 'total_value', fromJson: _doubleOrZero)
+    required final double totalValue,
+    @JsonKey(name: 'current_pnl', fromJson: _doubleOrZero)
+    required final double currentPL,
   }) = _$InventoryModelImpl;
 
   factory _InventoryModel.fromJson(Map<String, dynamic> json) =
       _$InventoryModelImpl.fromJson;
 
   @override
-  @JsonKey(name: 'total_quantity')
+  @JsonKey(name: 'total_quantity', fromJson: _doubleOrZero)
   double get totalQuantity;
   @override
-  @JsonKey(name: 'total_value')
+  @JsonKey(name: 'total_value', fromJson: _doubleOrZero)
   double get totalValue;
   @override
-  @JsonKey(name: 'current_pnl')
+  @JsonKey(name: 'current_pnl', fromJson: _doubleOrZero)
   double get currentPL;
 
   /// Create a copy of InventoryModel

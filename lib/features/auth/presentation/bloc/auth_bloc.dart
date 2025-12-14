@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/register_usecase.dart';
+import '../../domain/entities/user_entity.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -24,7 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final result = await loginUseCase(event.email, event.password);
     result.fold(
       (failure) => emit(AuthState.failure(failure.message)),
-      (user) => emit(const AuthState.authenticated()),
+      (user) => emit(AuthState.authenticated(user)),
     );
   }
 

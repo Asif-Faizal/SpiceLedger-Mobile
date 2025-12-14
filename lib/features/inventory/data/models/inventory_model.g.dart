@@ -8,9 +8,9 @@ part of 'inventory_model.dart';
 
 _$InventoryModelImpl _$$InventoryModelImplFromJson(Map<String, dynamic> json) =>
     _$InventoryModelImpl(
-      totalQuantity: (json['total_quantity'] as num).toDouble(),
-      totalValue: (json['total_value'] as num).toDouble(),
-      currentPL: (json['current_pnl'] as num).toDouble(),
+      totalQuantity: _doubleOrZero(json['total_quantity']),
+      totalValue: _doubleOrZero(json['total_value']),
+      currentPL: _doubleOrZero(json['current_pnl']),
     );
 
 Map<String, dynamic> _$$InventoryModelImplToJson(

@@ -1,13 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class UserEntity extends Equatable {
-  final String? token;
-  // Add other user fields if needed, for now just token is returned by login
-  // But register sends name/email/password.
-  // Let's assume on login we get a token.
+  final String token;
+  final String refreshToken;
+  final bool isAdmin;
 
-  const UserEntity({required this.token});
+  const UserEntity({
+    required this.token,
+    required this.refreshToken,
+    required this.isAdmin,
+  });
 
   @override
-  List<Object?> get props => [token];
+  List<Object?> get props => [token, refreshToken, isAdmin];
 }

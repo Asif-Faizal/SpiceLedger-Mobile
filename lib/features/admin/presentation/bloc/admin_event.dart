@@ -7,4 +7,5 @@ class AdminEvent with _$AdminEvent {
       _CreateGrade;
   const factory AdminEvent.setPrice(String date, String grade, double price) =
       _SetPrice;
+  const factory AdminEvent.loadCatalog() = _LoadCatalog;
 }

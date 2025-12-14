@@ -5,6 +5,12 @@ import '../../domain/entities/user_stats.dart';
 import '../../domain/usecases/create_grade_usecase.dart';
 import '../../domain/usecases/get_user_stats_usecase.dart';
 import '../../domain/usecases/set_daily_price_usecase.dart';
+import '../../domain/entities/product.dart';
+import '../../domain/usecases/get_products_usecase.dart';
+import '../../domain/usecases/get_daily_prices_usecase.dart';
+import '../../../inventory/domain/usecases/get_grades_usecase.dart';
+import '../../../inventory/domain/entities/grade.dart';
+import '../../data/models/daily_price_model.dart';
 
 part 'admin_event.dart';
 part 'admin_state.dart';
@@ -15,15 +21,22 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   final GetUserStatsUseCase getUserStatsUseCase;
   final CreateGradeUseCase createGradeUseCase;
   final SetDailyPriceUseCase setDailyPriceUseCase;
+  final GetProductsUseCase getProductsUseCase;
+  final GetDailyPricesUseCase getDailyPricesUseCase;
+  final GetGradesUseCase getGradesUseCase;
 
   AdminBloc(
     this.getUserStatsUseCase,
     this.createGradeUseCase,
     this.setDailyPriceUseCase,
+    this.getProductsUseCase,
+    this.getDailyPricesUseCase,
+    this.getGradesUseCase,
   ) : super(const AdminState.initial()) {
     on<_LoadStats>(_onLoadStats);
     on<_CreateGrade>(_onCreateGrade);
     on<_SetPrice>(_onSetPrice);
+    on<_LoadCatalog>(_onLoadCatalog);
   }
 
   Future<void> _onLoadStats(_LoadStats event, Emitter<AdminState> emit) async {
@@ -58,5 +71,49 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
       (failure) => emit(AdminState.failure(failure.message)),
       (_) => emit(const AdminState.success('Price Set')),
     );
+  }
+
+  Future<void> _onLoadCatalog(
+    _LoadCatalog event,
+    Emitter<AdminState> emit,
+  ) async {
+    emit(const AdminState.loading());
+    final today = DateTime.now().toIso8601String().split('T')[0];
+    final productsResult = await getProductsUseCase();
+    final gradesResult = await getGradesUseCase();
+    final pricesResult = await getDailyPricesUseCase(today);
+
+    // Require grades to succeed; products/prices are optional
+    final grades = await gradesResult.fold(
+      (failure) async {
+        return <Grade>[];
+      },
+      (data) async => data,
+    );
+
+    if (grades.isEmpty) {
+      // If grades fail, show failure
+      gradesResult.fold(
+        (failure) => emit(AdminState.failure(failure.message)),
+        (_) {},
+      );
+      return;
+    }
+
+    final products = await productsResult.fold(
+      (failure) async {
+        return <Product>[];
+      },
+      (data) async => data,
+    );
+
+    final prices = await pricesResult.fold(
+      (failure) async {
+        return DailyPricesResponse(date: today, prices: const []);
+      },
+      (data) async => DailyPricesResponse(date: data.date, prices: data.prices ?? const []),
+    );
+
+    emit(AdminState.catalog(products, grades, prices));
   }
 }

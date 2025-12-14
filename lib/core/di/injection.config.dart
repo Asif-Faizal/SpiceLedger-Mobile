@@ -22,6 +22,10 @@ import '../../features/admin/domain/repositories/admin_repository.dart'
     as _i583;
 import '../../features/admin/domain/usecases/create_grade_usecase.dart'
     as _i442;
+import '../../features/admin/domain/usecases/get_daily_prices_usecase.dart'
+    as _i6;
+import '../../features/admin/domain/usecases/get_products_usecase.dart'
+    as _i289;
 import '../../features/admin/domain/usecases/get_user_stats_usecase.dart'
     as _i348;
 import '../../features/admin/domain/usecases/set_daily_price_usecase.dart'
@@ -133,6 +137,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i348.GetUserStatsUseCase>(
       () => _i348.GetUserStatsUseCase(gh<_i583.AdminRepository>()),
     );
+    gh.lazySingleton<_i6.GetDailyPricesUseCase>(
+      () => _i6.GetDailyPricesUseCase(gh<_i583.AdminRepository>()),
+    );
+    gh.lazySingleton<_i289.GetProductsUseCase>(
+      () => _i289.GetProductsUseCase(gh<_i583.AdminRepository>()),
+    );
     gh.factory<_i797.AuthBloc>(
       () =>
           _i797.AuthBloc(gh<_i188.LoginUseCase>(), gh<_i941.RegisterUseCase>()),
@@ -142,6 +152,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i348.GetUserStatsUseCase>(),
         gh<_i442.CreateGradeUseCase>(),
         gh<_i495.SetDailyPriceUseCase>(),
+        gh<_i289.GetProductsUseCase>(),
+        gh<_i6.GetDailyPricesUseCase>(),
+        gh<_i143.GetGradesUseCase>(),
       ),
     );
     return this;

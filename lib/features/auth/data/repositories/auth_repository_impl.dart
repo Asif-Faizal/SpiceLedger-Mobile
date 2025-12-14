@@ -21,8 +21,9 @@ class AuthRepositoryImpl implements AuthRepository {
   ) async {
     try {
       final userModel = await remoteDataSource.login(email, password);
-      // Save token
       await storage.write('auth_token', userModel.token);
+      await storage.write('refresh_token', userModel.refreshToken);
+      await storage.write('is_admin', userModel.isAdmin.toString());
       return Right(userModel.toEntity());
     } on Failure catch (e) {
       return Left(e);

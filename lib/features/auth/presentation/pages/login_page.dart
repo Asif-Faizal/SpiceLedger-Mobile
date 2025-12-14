@@ -23,11 +23,25 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           state.maybeWhen(
-            authenticated: () {
+            authenticated: (user) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Login Successful!')),
               );
-              // Navigate to Home
+              if (user.isAdmin) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AdminDashboardPage(),
+                  ),
+                );
+              } else {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const InventoryPage(),
+                  ),
+                );
+              }
             },
             failure: (message) {
               ScaffoldMessenger.of(
@@ -56,47 +70,16 @@ class _LoginPageState extends State<LoginPage> {
                 builder: (context, state) {
                   return state.maybeWhen(
                     loading: () => const CircularProgressIndicator(),
-                    orElse: () => Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            context.read<AuthBloc>().add(
-                              AuthEvent.login(
-                                _emailController.text,
-                                _passwordController.text,
-                              ),
-                            );
-                          },
-                          child: const Text('Login'),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const AdminDashboardPage(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Go to Admin Dashboard (Requires Admin Login)',
+                    orElse: () => ElevatedButton(
+                      onPressed: () {
+                        context.read<AuthBloc>().add(
+                          AuthEvent.login(
+                            _emailController.text,
+                            _passwordController.text,
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const InventoryPage(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Go to Inventory (Requires User Login)',
-                          ),
-                        ),
-                      ],
+                        );
+                      },
+                      child: const Text('Login'),
                     ),
                   );
                 },

@@ -22,6 +22,10 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserModel {
   String get token => throw _privateConstructorUsedError;
+  @JsonKey(name: 'refresh_token')
+  String get refreshToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_admin')
+  bool get isAdmin => throw _privateConstructorUsedError;
 
   /// Serializes this UserModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +42,11 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call({String token});
+  $Res call({
+    String token,
+    @JsonKey(name: 'refresh_token') String refreshToken,
+    @JsonKey(name: 'is_admin') bool isAdmin,
+  });
 }
 
 /// @nodoc
@@ -55,13 +63,25 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? token = null}) {
+  $Res call({
+    Object? token = null,
+    Object? refreshToken = null,
+    Object? isAdmin = null,
+  }) {
     return _then(
       _value.copyWith(
             token: null == token
                 ? _value.token
                 : token // ignore: cast_nullable_to_non_nullable
                       as String,
+            refreshToken: null == refreshToken
+                ? _value.refreshToken
+                : refreshToken // ignore: cast_nullable_to_non_nullable
+                      as String,
+            isAdmin: null == isAdmin
+                ? _value.isAdmin
+                : isAdmin // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
@@ -77,7 +97,11 @@ abstract class _$$UserModelImplCopyWith<$Res>
   ) = __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String token});
+  $Res call({
+    String token,
+    @JsonKey(name: 'refresh_token') String refreshToken,
+    @JsonKey(name: 'is_admin') bool isAdmin,
+  });
 }
 
 /// @nodoc
@@ -93,13 +117,25 @@ class __$$UserModelImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? token = null}) {
+  $Res call({
+    Object? token = null,
+    Object? refreshToken = null,
+    Object? isAdmin = null,
+  }) {
     return _then(
       _$UserModelImpl(
         token: null == token
             ? _value.token
             : token // ignore: cast_nullable_to_non_nullable
                   as String,
+        refreshToken: null == refreshToken
+            ? _value.refreshToken
+            : refreshToken // ignore: cast_nullable_to_non_nullable
+                  as String,
+        isAdmin: null == isAdmin
+            ? _value.isAdmin
+            : isAdmin // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -108,17 +144,27 @@ class __$$UserModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UserModelImpl implements _UserModel {
-  const _$UserModelImpl({required this.token});
+  const _$UserModelImpl({
+    required this.token,
+    @JsonKey(name: 'refresh_token') required this.refreshToken,
+    @JsonKey(name: 'is_admin') required this.isAdmin,
+  });
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
 
   @override
   final String token;
+  @override
+  @JsonKey(name: 'refresh_token')
+  final String refreshToken;
+  @override
+  @JsonKey(name: 'is_admin')
+  final bool isAdmin;
 
   @override
   String toString() {
-    return 'UserModel(token: $token)';
+    return 'UserModel(token: $token, refreshToken: $refreshToken, isAdmin: $isAdmin)';
   }
 
   @override
@@ -126,12 +172,15 @@ class _$UserModelImpl implements _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, token);
+  int get hashCode => Object.hash(runtimeType, token, refreshToken, isAdmin);
 
   /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
@@ -148,13 +197,23 @@ class _$UserModelImpl implements _UserModel {
 }
 
 abstract class _UserModel implements UserModel {
-  const factory _UserModel({required final String token}) = _$UserModelImpl;
+  const factory _UserModel({
+    required final String token,
+    @JsonKey(name: 'refresh_token') required final String refreshToken,
+    @JsonKey(name: 'is_admin') required final bool isAdmin,
+  }) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
 
   @override
   String get token;
+  @override
+  @JsonKey(name: 'refresh_token')
+  String get refreshToken;
+  @override
+  @JsonKey(name: 'is_admin')
+  bool get isAdmin;
 
   /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
