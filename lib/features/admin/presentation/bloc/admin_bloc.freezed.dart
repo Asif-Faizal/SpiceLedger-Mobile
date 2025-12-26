@@ -20,22 +20,43 @@ mixin _$AdminEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadStats,
-    required TResult Function(String name, String description) createGrade,
-    required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function(String productId, String name, String description)
+    createGrade,
+    required TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )
+    setPrice,
     required TResult Function() loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadStats,
-    TResult? Function(String name, String description)? createGrade,
-    TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function(String productId, String name, String description)?
+    createGrade,
+    TResult? Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult? Function()? loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadStats,
-    TResult Function(String name, String description)? createGrade,
-    TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function(String productId, String name, String description)?
+    createGrade,
+    TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -129,8 +150,15 @@ class _$LoadStatsImpl implements _LoadStats {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadStats,
-    required TResult Function(String name, String description) createGrade,
-    required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function(String productId, String name, String description)
+    createGrade,
+    required TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )
+    setPrice,
     required TResult Function() loadCatalog,
   }) {
     return loadStats();
@@ -140,8 +168,15 @@ class _$LoadStatsImpl implements _LoadStats {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadStats,
-    TResult? Function(String name, String description)? createGrade,
-    TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function(String productId, String name, String description)?
+    createGrade,
+    TResult? Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult? Function()? loadCatalog,
   }) {
     return loadStats?.call();
@@ -151,8 +186,15 @@ class _$LoadStatsImpl implements _LoadStats {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadStats,
-    TResult Function(String name, String description)? createGrade,
-    TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function(String productId, String name, String description)?
+    createGrade,
+    TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
@@ -211,7 +253,7 @@ abstract class _$$CreateGradeImplCopyWith<$Res> {
     $Res Function(_$CreateGradeImpl) then,
   ) = __$$CreateGradeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String name, String description});
+  $Res call({String productId, String name, String description});
 }
 
 /// @nodoc
@@ -227,9 +269,17 @@ class __$$CreateGradeImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? name = null, Object? description = null}) {
+  $Res call({
+    Object? productId = null,
+    Object? name = null,
+    Object? description = null,
+  }) {
     return _then(
       _$CreateGradeImpl(
+        null == productId
+            ? _value.productId
+            : productId // ignore: cast_nullable_to_non_nullable
+                  as String,
         null == name
             ? _value.name
             : name // ignore: cast_nullable_to_non_nullable
@@ -246,8 +296,10 @@ class __$$CreateGradeImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreateGradeImpl implements _CreateGrade {
-  const _$CreateGradeImpl(this.name, this.description);
+  const _$CreateGradeImpl(this.productId, this.name, this.description);
 
+  @override
+  final String productId;
   @override
   final String name;
   @override
@@ -255,7 +307,7 @@ class _$CreateGradeImpl implements _CreateGrade {
 
   @override
   String toString() {
-    return 'AdminEvent.createGrade(name: $name, description: $description)';
+    return 'AdminEvent.createGrade(productId: $productId, name: $name, description: $description)';
   }
 
   @override
@@ -263,13 +315,15 @@ class _$CreateGradeImpl implements _CreateGrade {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateGradeImpl &&
+            (identical(other.productId, productId) ||
+                other.productId == productId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, description);
+  int get hashCode => Object.hash(runtimeType, productId, name, description);
 
   /// Create a copy of AdminEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -283,35 +337,56 @@ class _$CreateGradeImpl implements _CreateGrade {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadStats,
-    required TResult Function(String name, String description) createGrade,
-    required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function(String productId, String name, String description)
+    createGrade,
+    required TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )
+    setPrice,
     required TResult Function() loadCatalog,
   }) {
-    return createGrade(name, description);
+    return createGrade(productId, name, description);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadStats,
-    TResult? Function(String name, String description)? createGrade,
-    TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function(String productId, String name, String description)?
+    createGrade,
+    TResult? Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult? Function()? loadCatalog,
   }) {
-    return createGrade?.call(name, description);
+    return createGrade?.call(productId, name, description);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadStats,
-    TResult Function(String name, String description)? createGrade,
-    TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function(String productId, String name, String description)?
+    createGrade,
+    TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
     if (createGrade != null) {
-      return createGrade(name, description);
+      return createGrade(productId, name, description);
     }
     return orElse();
   }
@@ -355,9 +430,13 @@ class _$CreateGradeImpl implements _CreateGrade {
 }
 
 abstract class _CreateGrade implements AdminEvent {
-  const factory _CreateGrade(final String name, final String description) =
-      _$CreateGradeImpl;
+  const factory _CreateGrade(
+    final String productId,
+    final String name,
+    final String description,
+  ) = _$CreateGradeImpl;
 
+  String get productId;
   String get name;
   String get description;
 
@@ -375,7 +454,7 @@ abstract class _$$SetPriceImplCopyWith<$Res> {
     $Res Function(_$SetPriceImpl) then,
   ) = __$$SetPriceImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String date, String grade, double price});
+  $Res call({String date, String productId, String gradeId, double price});
 }
 
 /// @nodoc
@@ -391,16 +470,25 @@ class __$$SetPriceImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? date = null, Object? grade = null, Object? price = null}) {
+  $Res call({
+    Object? date = null,
+    Object? productId = null,
+    Object? gradeId = null,
+    Object? price = null,
+  }) {
     return _then(
       _$SetPriceImpl(
         null == date
             ? _value.date
             : date // ignore: cast_nullable_to_non_nullable
                   as String,
-        null == grade
-            ? _value.grade
-            : grade // ignore: cast_nullable_to_non_nullable
+        null == productId
+            ? _value.productId
+            : productId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        null == gradeId
+            ? _value.gradeId
+            : gradeId // ignore: cast_nullable_to_non_nullable
                   as String,
         null == price
             ? _value.price
@@ -414,18 +502,20 @@ class __$$SetPriceImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SetPriceImpl implements _SetPrice {
-  const _$SetPriceImpl(this.date, this.grade, this.price);
+  const _$SetPriceImpl(this.date, this.productId, this.gradeId, this.price);
 
   @override
   final String date;
   @override
-  final String grade;
+  final String productId;
+  @override
+  final String gradeId;
   @override
   final double price;
 
   @override
   String toString() {
-    return 'AdminEvent.setPrice(date: $date, grade: $grade, price: $price)';
+    return 'AdminEvent.setPrice(date: $date, productId: $productId, gradeId: $gradeId, price: $price)';
   }
 
   @override
@@ -434,12 +524,14 @@ class _$SetPriceImpl implements _SetPrice {
         (other.runtimeType == runtimeType &&
             other is _$SetPriceImpl &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.grade, grade) || other.grade == grade) &&
+            (identical(other.productId, productId) ||
+                other.productId == productId) &&
+            (identical(other.gradeId, gradeId) || other.gradeId == gradeId) &&
             (identical(other.price, price) || other.price == price));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, date, grade, price);
+  int get hashCode => Object.hash(runtimeType, date, productId, gradeId, price);
 
   /// Create a copy of AdminEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -453,35 +545,56 @@ class _$SetPriceImpl implements _SetPrice {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadStats,
-    required TResult Function(String name, String description) createGrade,
-    required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function(String productId, String name, String description)
+    createGrade,
+    required TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )
+    setPrice,
     required TResult Function() loadCatalog,
   }) {
-    return setPrice(date, grade, price);
+    return setPrice(date, productId, gradeId, price);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadStats,
-    TResult? Function(String name, String description)? createGrade,
-    TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function(String productId, String name, String description)?
+    createGrade,
+    TResult? Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult? Function()? loadCatalog,
   }) {
-    return setPrice?.call(date, grade, price);
+    return setPrice?.call(date, productId, gradeId, price);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadStats,
-    TResult Function(String name, String description)? createGrade,
-    TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function(String productId, String name, String description)?
+    createGrade,
+    TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
     if (setPrice != null) {
-      return setPrice(date, grade, price);
+      return setPrice(date, productId, gradeId, price);
     }
     return orElse();
   }
@@ -527,12 +640,14 @@ class _$SetPriceImpl implements _SetPrice {
 abstract class _SetPrice implements AdminEvent {
   const factory _SetPrice(
     final String date,
-    final String grade,
+    final String productId,
+    final String gradeId,
     final double price,
   ) = _$SetPriceImpl;
 
   String get date;
-  String get grade;
+  String get productId;
+  String get gradeId;
   double get price;
 
   /// Create a copy of AdminEvent
@@ -586,8 +701,15 @@ class _$LoadCatalogImpl implements _LoadCatalog {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadStats,
-    required TResult Function(String name, String description) createGrade,
-    required TResult Function(String date, String grade, double price) setPrice,
+    required TResult Function(String productId, String name, String description)
+    createGrade,
+    required TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )
+    setPrice,
     required TResult Function() loadCatalog,
   }) {
     return loadCatalog();
@@ -597,8 +719,15 @@ class _$LoadCatalogImpl implements _LoadCatalog {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadStats,
-    TResult? Function(String name, String description)? createGrade,
-    TResult? Function(String date, String grade, double price)? setPrice,
+    TResult? Function(String productId, String name, String description)?
+    createGrade,
+    TResult? Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult? Function()? loadCatalog,
   }) {
     return loadCatalog?.call();
@@ -608,8 +737,15 @@ class _$LoadCatalogImpl implements _LoadCatalog {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadStats,
-    TResult Function(String name, String description)? createGrade,
-    TResult Function(String date, String grade, double price)? setPrice,
+    TResult Function(String productId, String name, String description)?
+    createGrade,
+    TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {

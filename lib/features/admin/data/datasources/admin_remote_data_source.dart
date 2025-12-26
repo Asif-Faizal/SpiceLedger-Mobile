@@ -7,8 +7,13 @@ import '../models/daily_price_model.dart';
 
 abstract class AdminRemoteDataSource {
   Future<UserStatsModel> getUserStats();
-  Future<void> createGrade(String name, String description);
-  Future<void> setDailyPrice(String date, String grade, double price);
+  Future<void> createGrade(String productId, String name, String description);
+  Future<void> setDailyPrice(
+    String date,
+    String productId,
+    String gradeId,
+    double price,
+  );
   Future<List<ProductModel>> getProducts();
   Future<DailyPricesResponse> getDailyPrices(String date);
 }
@@ -30,11 +35,19 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
   }
 
   @override
-  Future<void> createGrade(String name, String description) async {
+  Future<void> createGrade(
+    String productId,
+    String name,
+    String description,
+  ) async {
     try {
       await client.post(
         '/api/grades',
-        data: {'name': name, 'description': description},
+        data: {
+          'product_id': productId,
+          'name': name,
+          'description': description,
+        },
       );
     } on DioException catch (e) {
       throw ServerFailure(e.message ?? 'Failed to create grade');
@@ -42,11 +55,21 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
   }
 
   @override
-  Future<void> setDailyPrice(String date, String grade, double price) async {
+  Future<void> setDailyPrice(
+    String date,
+    String productId,
+    String gradeId,
+    double price,
+  ) async {
     try {
       await client.post(
         '/api/prices',
-        data: {'date': date, 'grade': grade, 'price': price},
+        data: {
+          'date': date,
+          'product_id': productId,
+          'grade_id': gradeId,
+          'price_per_kg': price,
+        },
       );
     } on DioException catch (e) {
       throw ServerFailure(e.message ?? 'Failed to set price');

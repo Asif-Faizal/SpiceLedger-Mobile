@@ -11,6 +11,7 @@ _$GradeModelImpl _$$GradeModelImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
+      productId: json['product_id'] as String?,
     );
 
 Map<String, dynamic> _$$GradeModelImplToJson(_$GradeModelImpl instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$GradeModelImplToJson(_$GradeModelImpl instance) =>
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
+      'product_id': instance.productId,
     };

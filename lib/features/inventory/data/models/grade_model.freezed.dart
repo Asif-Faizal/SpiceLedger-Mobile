@@ -24,6 +24,8 @@ mixin _$GradeModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'product_id')
+  String? get productId => throw _privateConstructorUsedError;
 
   /// Serializes this GradeModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +44,12 @@ abstract class $GradeModelCopyWith<$Res> {
     $Res Function(GradeModel) then,
   ) = _$GradeModelCopyWithImpl<$Res, GradeModel>;
   @useResult
-  $Res call({String id, String name, String description});
+  $Res call({
+    String id,
+    String name,
+    String description,
+    @JsonKey(name: 'product_id') String? productId,
+  });
 }
 
 /// @nodoc
@@ -63,6 +70,7 @@ class _$GradeModelCopyWithImpl<$Res, $Val extends GradeModel>
     Object? id = null,
     Object? name = null,
     Object? description = null,
+    Object? productId = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -78,6 +86,10 @@ class _$GradeModelCopyWithImpl<$Res, $Val extends GradeModel>
                 ? _value.description
                 : description // ignore: cast_nullable_to_non_nullable
                       as String,
+            productId: freezed == productId
+                ? _value.productId
+                : productId // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -93,7 +105,12 @@ abstract class _$$GradeModelImplCopyWith<$Res>
   ) = __$$GradeModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String description});
+  $Res call({
+    String id,
+    String name,
+    String description,
+    @JsonKey(name: 'product_id') String? productId,
+  });
 }
 
 /// @nodoc
@@ -113,6 +130,7 @@ class __$$GradeModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? description = null,
+    Object? productId = freezed,
   }) {
     return _then(
       _$GradeModelImpl(
@@ -128,6 +146,10 @@ class __$$GradeModelImplCopyWithImpl<$Res>
             ? _value.description
             : description // ignore: cast_nullable_to_non_nullable
                   as String,
+        productId: freezed == productId
+            ? _value.productId
+            : productId // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -140,6 +162,7 @@ class _$GradeModelImpl implements _GradeModel {
     required this.id,
     required this.name,
     required this.description,
+    @JsonKey(name: 'product_id') this.productId,
   });
 
   factory _$GradeModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -151,10 +174,13 @@ class _$GradeModelImpl implements _GradeModel {
   final String name;
   @override
   final String description;
+  @override
+  @JsonKey(name: 'product_id')
+  final String? productId;
 
   @override
   String toString() {
-    return 'GradeModel(id: $id, name: $name, description: $description)';
+    return 'GradeModel(id: $id, name: $name, description: $description, productId: $productId)';
   }
 
   @override
@@ -165,12 +191,15 @@ class _$GradeModelImpl implements _GradeModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.productId, productId) ||
+                other.productId == productId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, description, productId);
 
   /// Create a copy of GradeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -191,6 +220,7 @@ abstract class _GradeModel implements GradeModel {
     required final String id,
     required final String name,
     required final String description,
+    @JsonKey(name: 'product_id') final String? productId,
   }) = _$GradeModelImpl;
 
   factory _GradeModel.fromJson(Map<String, dynamic> json) =
@@ -202,6 +232,9 @@ abstract class _GradeModel implements GradeModel {
   String get name;
   @override
   String get description;
+  @override
+  @JsonKey(name: 'product_id')
+  String? get productId;
 
   /// Create a copy of GradeModel
   /// with the given fields replaced by the non-null parameter values.

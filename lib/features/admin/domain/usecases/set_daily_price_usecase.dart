@@ -11,9 +11,10 @@ class SetDailyPriceUseCase {
 
   Future<Either<Failure, void>> call(
     String date,
-    String grade,
+    String productId,
+    String gradeId,
     double price,
   ) async {
-    return await repository.setDailyPrice(date, grade, price);
+    return await repository.setDailyPrice(date, productId, gradeId, price);
   }
 }

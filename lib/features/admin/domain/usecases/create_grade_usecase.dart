@@ -9,7 +9,11 @@ class CreateGradeUseCase {
 
   CreateGradeUseCase(this.repository);
 
-  Future<Either<Failure, void>> call(String name, String description) async {
-    return await repository.createGrade(name, description);
+  Future<Either<Failure, void>> call(
+    String productId,
+    String name,
+    String description,
+  ) async {
+    return await repository.createGrade(productId, name, description);
   }
 }

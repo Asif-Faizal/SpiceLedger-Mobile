@@ -27,11 +27,12 @@ class AdminRepositoryImpl implements AdminRepository {
 
   @override
   Future<Either<Failure, void>> createGrade(
+    String productId,
     String name,
     String description,
   ) async {
     try {
-      await remoteDataSource.createGrade(name, description);
+      await remoteDataSource.createGrade(productId, name, description);
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -41,11 +42,12 @@ class AdminRepositoryImpl implements AdminRepository {
   @override
   Future<Either<Failure, void>> setDailyPrice(
     String date,
-    String grade,
+    String productId,
+    String gradeId,
     double price,
   ) async {
     try {
-      await remoteDataSource.setDailyPrice(date, grade, price);
+      await remoteDataSource.setDailyPrice(date, productId, gradeId, price);
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

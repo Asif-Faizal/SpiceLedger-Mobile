@@ -53,7 +53,11 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     Emitter<AdminState> emit,
   ) async {
     emit(const AdminState.loading());
-    final result = await createGradeUseCase(event.name, event.description);
+    final result = await createGradeUseCase(
+      event.productId,
+      event.name,
+      event.description,
+    );
     result.fold(
       (failure) => emit(AdminState.failure(failure.message)),
       (_) => emit(const AdminState.success('Grade Created')),
@@ -64,7 +68,8 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     emit(const AdminState.loading());
     final result = await setDailyPriceUseCase(
       event.date,
-      event.grade,
+      event.productId,
+      event.gradeId,
       event.price,
     );
     result.fold(

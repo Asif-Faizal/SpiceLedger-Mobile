@@ -10,6 +10,7 @@ class GradeModel with _$GradeModel {
     required String id,
     required String name,
     required String description,
+    @JsonKey(name: 'product_id') String? productId,
   }) = _GradeModel;
 
   factory GradeModel.fromJson(Map<String, dynamic> json) =>
@@ -17,5 +18,6 @@ class GradeModel with _$GradeModel {
 }
 
 extension GradeModelX on GradeModel {
-  Grade toEntity() => Grade(id: id, name: name, description: description);
+  Grade toEntity() =>
+      Grade(id: id, name: name, description: description, productId: productId);
 }
