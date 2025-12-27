@@ -29,6 +29,7 @@ mixin _$AdminEvent {
       double price,
     )
     setPrice,
+    required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,6 +44,7 @@ mixin _$AdminEvent {
       double price,
     )?
     setPrice,
+    TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +59,7 @@ mixin _$AdminEvent {
       double price,
     )?
     setPrice,
+    TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -65,6 +68,7 @@ mixin _$AdminEvent {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,6 +76,7 @@ mixin _$AdminEvent {
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -79,6 +84,7 @@ mixin _$AdminEvent {
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -159,6 +165,7 @@ class _$LoadStatsImpl implements _LoadStats {
       double price,
     )
     setPrice,
+    required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
   }) {
     return loadStats();
@@ -177,6 +184,7 @@ class _$LoadStatsImpl implements _LoadStats {
       double price,
     )?
     setPrice,
+    TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
   }) {
     return loadStats?.call();
@@ -195,6 +203,7 @@ class _$LoadStatsImpl implements _LoadStats {
       double price,
     )?
     setPrice,
+    TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
@@ -210,6 +219,7 @@ class _$LoadStatsImpl implements _LoadStats {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
   }) {
     return loadStats(this);
@@ -221,6 +231,7 @@ class _$LoadStatsImpl implements _LoadStats {
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
   }) {
     return loadStats?.call(this);
@@ -232,6 +243,7 @@ class _$LoadStatsImpl implements _LoadStats {
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) {
@@ -346,6 +358,7 @@ class _$CreateGradeImpl implements _CreateGrade {
       double price,
     )
     setPrice,
+    required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
   }) {
     return createGrade(productId, name, description);
@@ -364,6 +377,7 @@ class _$CreateGradeImpl implements _CreateGrade {
       double price,
     )?
     setPrice,
+    TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
   }) {
     return createGrade?.call(productId, name, description);
@@ -382,6 +396,7 @@ class _$CreateGradeImpl implements _CreateGrade {
       double price,
     )?
     setPrice,
+    TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
@@ -397,6 +412,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
   }) {
     return createGrade(this);
@@ -408,6 +424,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
   }) {
     return createGrade?.call(this);
@@ -419,6 +436,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) {
@@ -554,6 +572,7 @@ class _$SetPriceImpl implements _SetPrice {
       double price,
     )
     setPrice,
+    required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
   }) {
     return setPrice(date, productId, gradeId, price);
@@ -572,6 +591,7 @@ class _$SetPriceImpl implements _SetPrice {
       double price,
     )?
     setPrice,
+    TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
   }) {
     return setPrice?.call(date, productId, gradeId, price);
@@ -590,6 +610,7 @@ class _$SetPriceImpl implements _SetPrice {
       double price,
     )?
     setPrice,
+    TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
@@ -605,6 +626,7 @@ class _$SetPriceImpl implements _SetPrice {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
   }) {
     return setPrice(this);
@@ -616,6 +638,7 @@ class _$SetPriceImpl implements _SetPrice {
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
   }) {
     return setPrice?.call(this);
@@ -627,6 +650,7 @@ class _$SetPriceImpl implements _SetPrice {
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) {
@@ -654,6 +678,197 @@ abstract class _SetPrice implements AdminEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SetPriceImplCopyWith<_$SetPriceImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CreateProductImplCopyWith<$Res> {
+  factory _$$CreateProductImplCopyWith(
+    _$CreateProductImpl value,
+    $Res Function(_$CreateProductImpl) then,
+  ) = __$$CreateProductImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String name, String description});
+}
+
+/// @nodoc
+class __$$CreateProductImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$CreateProductImpl>
+    implements _$$CreateProductImplCopyWith<$Res> {
+  __$$CreateProductImplCopyWithImpl(
+    _$CreateProductImpl _value,
+    $Res Function(_$CreateProductImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? name = null, Object? description = null}) {
+    return _then(
+      _$CreateProductImpl(
+        null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$CreateProductImpl implements _CreateProduct {
+  const _$CreateProductImpl(this.name, this.description);
+
+  @override
+  final String name;
+  @override
+  final String description;
+
+  @override
+  String toString() {
+    return 'AdminEvent.createProduct(name: $name, description: $description)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateProductImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name, description);
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateProductImplCopyWith<_$CreateProductImpl> get copyWith =>
+      __$$CreateProductImplCopyWithImpl<_$CreateProductImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadStats,
+    required TResult Function(String productId, String name, String description)
+    createGrade,
+    required TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )
+    setPrice,
+    required TResult Function(String name, String description) createProduct,
+    required TResult Function() loadCatalog,
+  }) {
+    return createProduct(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadStats,
+    TResult? Function(String productId, String name, String description)?
+    createGrade,
+    TResult? Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
+    TResult? Function(String name, String description)? createProduct,
+    TResult? Function()? loadCatalog,
+  }) {
+    return createProduct?.call(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadStats,
+    TResult Function(String productId, String name, String description)?
+    createGrade,
+    TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
+    TResult Function(String name, String description)? createProduct,
+    TResult Function()? loadCatalog,
+    required TResult orElse(),
+  }) {
+    if (createProduct != null) {
+      return createProduct(name, description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadStats value) loadStats,
+    required TResult Function(_CreateGrade value) createGrade,
+    required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_CreateProduct value) createProduct,
+    required TResult Function(_LoadCatalog value) loadCatalog,
+  }) {
+    return createProduct(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadStats value)? loadStats,
+    TResult? Function(_CreateGrade value)? createGrade,
+    TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_CreateProduct value)? createProduct,
+    TResult? Function(_LoadCatalog value)? loadCatalog,
+  }) {
+    return createProduct?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadStats value)? loadStats,
+    TResult Function(_CreateGrade value)? createGrade,
+    TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_CreateProduct value)? createProduct,
+    TResult Function(_LoadCatalog value)? loadCatalog,
+    required TResult orElse(),
+  }) {
+    if (createProduct != null) {
+      return createProduct(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreateProduct implements AdminEvent {
+  const factory _CreateProduct(final String name, final String description) =
+      _$CreateProductImpl;
+
+  String get name;
+  String get description;
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CreateProductImplCopyWith<_$CreateProductImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -710,6 +925,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
       double price,
     )
     setPrice,
+    required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
   }) {
     return loadCatalog();
@@ -728,6 +944,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
       double price,
     )?
     setPrice,
+    TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
   }) {
     return loadCatalog?.call();
@@ -746,6 +963,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
       double price,
     )?
     setPrice,
+    TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
     required TResult orElse(),
   }) {
@@ -761,6 +979,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     required TResult Function(_LoadStats value) loadStats,
     required TResult Function(_CreateGrade value) createGrade,
     required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
   }) {
     return loadCatalog(this);
@@ -772,6 +991,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     TResult? Function(_LoadStats value)? loadStats,
     TResult? Function(_CreateGrade value)? createGrade,
     TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
   }) {
     return loadCatalog?.call(this);
@@ -783,6 +1003,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     TResult Function(_LoadStats value)? loadStats,
     TResult Function(_CreateGrade value)? createGrade,
     TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
     required TResult orElse(),
   }) {

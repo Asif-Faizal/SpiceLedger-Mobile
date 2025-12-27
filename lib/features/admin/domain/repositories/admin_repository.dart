@@ -17,6 +17,10 @@ abstract class AdminRepository {
     String gradeId,
     double price,
   );
+  Future<Either<Failure, void>> createProduct(
+    String name,
+    String description,
+  );
   Future<Either<Failure, List<Product>>> getProducts();
   Future<Either<Failure, DailyPricesResponse>> getDailyPrices(String date);
 }

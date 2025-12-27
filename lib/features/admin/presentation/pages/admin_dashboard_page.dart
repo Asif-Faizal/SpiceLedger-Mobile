@@ -5,6 +5,7 @@ import '../bloc/admin_bloc.dart';
 import '../../data/models/daily_price_model.dart';
 import '../../domain/entities/product.dart';
 import '../../../inventory/domain/entities/grade.dart';
+ 
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
@@ -25,6 +26,54 @@ class AdminDashboardPage extends StatelessWidget {
 
 class AdminView extends StatelessWidget {
   const AdminView({super.key});
+
+  void _showAddProductDialog(BuildContext context) {
+    final nameController = TextEditingController();
+    final descController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Add Product'),
+        content: Form(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Product Name'),
+                validator: (v) =>
+                    (v == null || v.trim().isEmpty) ? 'Required' : null,
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: descController,
+                decoration: const InputDecoration(labelText: 'Description'),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              final name = nameController.text.trim();
+              final desc = descController.text.trim();
+              if (name.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Product name is required')),
+                );
+                return;
+              }
+              context
+                  .read<AdminBloc>()
+                  .add(AdminEvent.createProduct(name, desc));
+              Navigator.pop(ctx);
+            },
+            child: const Text('Add'),
+          ),
+        ],
+      ),
+    );
+  }
 
   void _showCreateGradeDialog(BuildContext context) {
     final nameController = TextEditingController();
@@ -51,7 +100,7 @@ class AdminView extends StatelessWidget {
           children: [
             if (products.isNotEmpty)
               DropdownButtonFormField<String>(
-                value: selectedProductId,
+                initialValue: selectedProductId,
                 items: products
                     .map(
                       (p) => DropdownMenuItem(
@@ -143,7 +192,7 @@ class AdminView extends StatelessWidget {
                     const InputDecoration(labelText: 'Date (YYYY-MM-DD)'),
               ),
               DropdownButtonFormField<String>(
-                value: selectedProductId,
+                initialValue: selectedProductId,
                 items: products
                     .map(
                       (p) => DropdownMenuItem(
@@ -164,7 +213,7 @@ class AdminView extends StatelessWidget {
                 decoration: const InputDecoration(labelText: 'Product'),
               ),
               DropdownButtonFormField<String>(
-                value: selectedGradeId,
+                initialValue: selectedGradeId,
                 items: grades
                     .where((gr) => gr.productId == selectedProductId)
                     .map(
@@ -216,6 +265,7 @@ class AdminView extends StatelessWidget {
               context,
             ).showSnackBar(SnackBar(content: Text(msg)));
             context.read<AdminBloc>().add(const AdminEvent.loadStats());
+            context.read<AdminBloc>().add(const AdminEvent.loadCatalog());
           },
           failure: (msg) => ScaffoldMessenger.of(
             context,
@@ -249,6 +299,10 @@ class AdminView extends StatelessWidget {
                     onPressed: () => _showSetPriceDialog(context),
                     child: const Text('Set Price'),
                   ),
+                  ElevatedButton(
+                    onPressed: () => _showAddProductDialog(context),
+                    child: const Text('Add Product'),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -256,28 +310,66 @@ class AdminView extends StatelessWidget {
                 catalog: (products, grades, prices) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Products'),
-                    if (products.isEmpty)
-                      const Text('- (none)')
-                    else
-                      ...products.map((p) => Text('- ${p.name}')),
-                    const SizedBox(height: 10),
-                    const Text("Grades & Today's Price"),
-                    ...grades.map((g) {
-                      final items = prices.prices ?? const [];
-                      final item = items.firstWhere(
-                        (e) => e.gradeId == g.id,
-                        orElse: () => const DailyPriceItem(
-                          productId: '',
-                          gradeId: '',
-                          pricePerKg: 0.0,
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Products',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(height: 8),
+                            if (products.isEmpty)
+                              const Text('- (none)')
+                            else
+                              ...products.map(
+                                (p) => ListTile(
+                                  dense: true,
+                                  title: Text(p.name),
+                                  subtitle: Text(p.description),
+                                ),
+                              ),
+                          ],
                         ),
-                      );
-                      final price = item.gradeId.isEmpty
-                          ? 'N/A'
-                          : item.pricePerKg.toString();
-                      return Text('- ${g.name}: $price');
-                    }),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Grades & Today's Price",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(height: 8),
+                            ...grades.map((g) {
+                              final items = prices.prices ?? const [];
+                              final item = items.firstWhere(
+                                (e) => e.gradeId == g.id,
+                                orElse: () => const DailyPriceItem(
+                                  productId: '',
+                                  gradeId: '',
+                                  pricePerKg: 0.0,
+                                ),
+                              );
+                              final price = item.gradeId.isEmpty
+                                  ? 'N/A'
+                                  : item.pricePerKg.toString();
+                              return ListTile(
+                                dense: true,
+                                title: Text(g.name),
+                                trailing: Text(price),
+                              );
+                            }),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 orElse: () => const SizedBox.shrink(),

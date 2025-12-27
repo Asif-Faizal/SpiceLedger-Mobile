@@ -8,6 +8,7 @@ import '../models/daily_price_model.dart';
 abstract class AdminRemoteDataSource {
   Future<UserStatsModel> getUserStats();
   Future<void> createGrade(String productId, String name, String description);
+  Future<void> createProduct(String name, String description);
   Future<void> setDailyPrice(
     String date,
     String productId,
@@ -51,6 +52,21 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
       );
     } on DioException catch (e) {
       throw ServerFailure(e.message ?? 'Failed to create grade');
+    }
+  }
+
+  @override
+  Future<void> createProduct(String name, String description) async {
+    try {
+      await client.post(
+        '/api/products',
+        data: {
+          'name': name,
+          'description': description,
+        },
+      );
+    } on DioException catch (e) {
+      throw ServerFailure(e.message ?? 'Failed to create product');
     }
   }
 

@@ -55,6 +55,19 @@ class AdminRepositoryImpl implements AdminRepository {
   }
 
   @override
+  Future<Either<Failure, void>> createProduct(
+    String name,
+    String description,
+  ) async {
+    try {
+      await remoteDataSource.createProduct(name, description);
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<Product>>> getProducts() async {
     try {
       final models = await remoteDataSource.getProducts();

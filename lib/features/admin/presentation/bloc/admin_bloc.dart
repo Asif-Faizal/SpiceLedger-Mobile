@@ -11,6 +11,7 @@ import '../../domain/usecases/get_daily_prices_usecase.dart';
 import '../../../inventory/domain/usecases/get_grades_usecase.dart';
 import '../../../inventory/domain/entities/grade.dart';
 import '../../data/models/daily_price_model.dart';
+import '../../domain/usecases/create_product_usecase.dart';
 
 part 'admin_event.dart';
 part 'admin_state.dart';
@@ -24,6 +25,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   final GetProductsUseCase getProductsUseCase;
   final GetDailyPricesUseCase getDailyPricesUseCase;
   final GetGradesUseCase getGradesUseCase;
+  final CreateProductUseCase createProductUseCase;
 
   AdminBloc(
     this.getUserStatsUseCase,
@@ -32,11 +34,13 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     this.getProductsUseCase,
     this.getDailyPricesUseCase,
     this.getGradesUseCase,
+    this.createProductUseCase,
   ) : super(const AdminState.initial()) {
     on<_LoadStats>(_onLoadStats);
     on<_CreateGrade>(_onCreateGrade);
     on<_SetPrice>(_onSetPrice);
     on<_LoadCatalog>(_onLoadCatalog);
+    on<_CreateProduct>(_onCreateProduct);
   }
 
   Future<void> _onLoadStats(_LoadStats event, Emitter<AdminState> emit) async {
@@ -75,6 +79,21 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     result.fold(
       (failure) => emit(AdminState.failure(failure.message)),
       (_) => emit(const AdminState.success('Price Set')),
+    );
+  }
+
+  Future<void> _onCreateProduct(
+    _CreateProduct event,
+    Emitter<AdminState> emit,
+  ) async {
+    emit(const AdminState.loading());
+    final result = await createProductUseCase(
+      event.name,
+      event.description,
+    );
+    result.fold(
+      (failure) => emit(AdminState.failure(failure.message)),
+      (_) => emit(const AdminState.success('Product Created')),
     );
   }
 
