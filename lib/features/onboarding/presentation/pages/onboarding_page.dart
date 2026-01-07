@@ -6,50 +6,26 @@ import '../../presentation/bloc/onboarding_cubit.dart';
 import '../../../auth/presentation/pages/login_page.dart';
 import '../../../auth/presentation/pages/register_page.dart';
 
-class OnboardingPage extends StatefulWidget {
+class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
-
-  @override
-  State<OnboardingPage> createState() => _OnboardingPageState();
-}
-
-class _OnboardingPageState extends State<OnboardingPage> {
-  final _controller = PageController();
-
-  void _navigateTo(int index) {
-    _controller.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => OnboardingCubit(),
       child: BlocBuilder<OnboardingCubit, int>(
         builder: (context, index) {
+          final cubit = context.read<OnboardingCubit>();
           return Scaffold(
             body: SafeArea(
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Row(
                       children: [
                         Expanded(child: _ProgressBar(current: index, total: 3)),
                         TextButton(
-                          onPressed: () => _navigateTo(2),
+                          onPressed: () => cubit.navigateTo(2),
                           child: const Text('Skip'),
                         ),
                       ],
@@ -57,16 +33,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                   Expanded(
                     child: PageView.builder(
-                      controller: _controller,
-                      onPageChanged: (i) =>
-                          context.read<OnboardingCubit>().setIndex(i),
+                      controller: cubit.controller,
+                      onPageChanged: (i) => context.read<OnboardingCubit>().setIndex(i),
                       itemCount: 3,
                       itemBuilder: (context, i) {
                         final current = context.watch<OnboardingCubit>().state;
                         final active = i == current;
                         final Widget child = switch (i) {
-                          0 => _PageTrackInventory(navigateTo: _navigateTo),
-                          1 => _PageProfitLoss(navigateTo: _navigateTo),
+                          0 => const _PageTrackInventory(),
+                          1 => const _PageProfitLoss(),
                           _ => const _PageBuySellAnalyze(),
                         };
                         return AnimatedSwitcher(
@@ -198,8 +173,7 @@ class _SplitColumn extends StatelessWidget {
 }
 
 class _PageTrackInventory extends StatelessWidget {
-  final void Function(int) navigateTo;
-  const _PageTrackInventory({required this.navigateTo});
+  const _PageTrackInventory();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -224,11 +198,11 @@ class _PageTrackInventory extends StatelessWidget {
             PrimaryButton(
               label: 'Get Started',
               trailingIcon: Icons.arrow_forward,
-              onPressed: () => navigateTo(1),
+              onPressed: () => context.read<OnboardingCubit>().navigateTo(1),
             ),
             const SizedBox(height: 8),
             InkWell(
-              onTap: () => navigateTo(1),
+              onTap: () => context.read<OnboardingCubit>().navigateTo(1),
               child: Text(
                 'Protected by enterprise-grade encryption',
                 style: Theme.of(context).textTheme.bodySmall,
@@ -242,8 +216,7 @@ class _PageTrackInventory extends StatelessWidget {
 }
 
 class _PageProfitLoss extends StatelessWidget {
-  final void Function(int) navigateTo;
-  const _PageProfitLoss({required this.navigateTo});
+  const _PageProfitLoss();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -271,13 +244,13 @@ class _PageProfitLoss extends StatelessWidget {
             PrimaryButton(
               label: 'Continue',
               trailingIcon: Icons.arrow_forward,
-              onPressed: () => navigateTo(2),
+              onPressed: () => context.read<OnboardingCubit>().navigateTo(2),
             ),
             const SizedBox(height: 8),
             Center(
               child: TextLinkButton(
                 label: 'Learn more about our metrics',
-                onPressed: () => navigateTo(2),
+                onPressed: () => context.read<OnboardingCubit>().navigateTo(2),
                 trailingIcon: Icons.open_in_new,
                 expanded: false,
               ),
