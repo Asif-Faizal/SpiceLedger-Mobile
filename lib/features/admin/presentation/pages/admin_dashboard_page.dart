@@ -79,71 +79,98 @@ class AdminView extends StatelessWidget {
     final nameController = TextEditingController();
     final descController = TextEditingController();
     String? selectedProductId;
-
-    final state = context.read<AdminBloc>().state;
-    List<Product> products = [];
-    state.maybeWhen(
-      catalog: (p, g, prices) {
-        products = p;
-        if (products.isNotEmpty) selectedProductId = products.first.id;
+    final adminBloc = context.read<AdminBloc>();
+    final st = adminBloc.state;
+    bool shouldLoad = true;
+    st.maybeWhen(
+      catalog: (products, grades, prices) {
+        shouldLoad = products.isEmpty;
       },
       orElse: () {},
     );
-    final manualProductController = TextEditingController();
+    if (shouldLoad) {
+      adminBloc.add(const AdminEvent.loadCatalog());
+    }
 
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Create Grade'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (products.isNotEmpty)
-              DropdownButtonFormField<String>(
-                initialValue: selectedProductId,
-                items: products
-                    .map(
-                      (p) => DropdownMenuItem(
-                        value: p.id,
-                        child: Text(p.name),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setState) => AlertDialog(
+          title: const Text('Create Grade'),
+          content: BlocBuilder<AdminBloc, AdminState>(
+            bloc: adminBloc,
+            builder: (context, state) {
+              return state.maybeWhen(
+                catalog: (products, grades, prices) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DropdownButtonFormField<String>(
+                      initialValue:
+                          selectedProductId ?? (products.isNotEmpty ? products.first.id : null),
+                      items: products
+                          .map(
+                            (p) => DropdownMenuItem(
+                              value: p.id,
+                              child: Text(p.name),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (v) => setState(() => selectedProductId = v),
+                      decoration: const InputDecoration(labelText: 'Product'),
+                    ),
+                    if (products.isEmpty)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child:
+                            Text('No products available. Please add a product first.'),
                       ),
-                    )
-                    .toList(),
-                onChanged: (v) => selectedProductId = v,
-                decoration: const InputDecoration(labelText: 'Product'),
-              )
-            else
-              TextField(
-                controller: manualProductController,
-                decoration: const InputDecoration(labelText: 'Product ID'),
-              ),
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(labelText: 'Grade Name'),
-            ),
-            TextField(
-              controller: descController,
-              decoration: const InputDecoration(labelText: 'Description'),
+                    TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(labelText: 'Grade Name'),
+                    ),
+                    TextField(
+                      controller: descController,
+                      decoration: const InputDecoration(labelText: 'Description'),
+                    ),
+                  ],
+                ),
+                orElse: () => const SizedBox(
+                  height: 48,
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+              );
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                final st = context.read<AdminBloc>().state;
+                String pid = '';
+                st.maybeWhen(
+                  catalog: (p, g, prices) {
+                    pid = selectedProductId ?? (p.isNotEmpty ? p.first.id : '');
+                  },
+                  orElse: () {},
+                );
+                if (pid.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Select a product')),
+                  );
+                  return;
+                }
+                context.read<AdminBloc>().add(
+                  AdminEvent.createGrade(
+                    pid,
+                    nameController.text,
+                    descController.text,
+                  ),
+                );
+                Navigator.pop(ctx);
+              },
+              child: const Text('Create'),
             ),
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              final pid = selectedProductId ?? manualProductController.text;
-              if (pid.isEmpty) return;
-              context.read<AdminBloc>().add(
-                AdminEvent.createGrade(
-                  pid,
-                  nameController.text,
-                  descController.text,
-                ),
-              );
-              Navigator.pop(ctx);
-            },
-            child: const Text('Create'),
-          ),
-        ],
       ),
     );
   }

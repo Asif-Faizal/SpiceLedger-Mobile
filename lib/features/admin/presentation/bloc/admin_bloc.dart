@@ -107,22 +107,12 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     final gradesResult = await getGradesUseCase();
     final pricesResult = await getDailyPricesUseCase(today);
 
-    // Require grades to succeed; products/prices are optional
     final grades = await gradesResult.fold(
       (failure) async {
         return <Grade>[];
       },
       (data) async => data,
     );
-
-    if (grades.isEmpty) {
-      // If grades fail, show failure
-      gradesResult.fold(
-        (failure) => emit(AdminState.failure(failure.message)),
-        (_) {},
-      );
-      return;
-    }
 
     final products = await productsResult.fold(
       (failure) async {
