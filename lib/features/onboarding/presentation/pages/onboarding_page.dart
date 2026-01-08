@@ -295,15 +295,7 @@ class _PageBuySellAnalyze extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             SecondaryButton(
-              label: 'User Login',
-              trailingIcon: Icons.arrow_forward,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const LoginPage()));
-              },
-            ),
-            const SizedBox(height: 10),
-            TextLinkButton(
-              label: 'Admin Login',
+              label: 'Login',
               trailingIcon: Icons.arrow_forward,
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => const LoginPage()));

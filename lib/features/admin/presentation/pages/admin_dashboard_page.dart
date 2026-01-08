@@ -5,6 +5,7 @@ import '../bloc/admin_bloc.dart';
 import '../../data/models/daily_price_model.dart';
 import '../../domain/entities/product.dart';
 import '../../../inventory/domain/entities/grade.dart';
+import '../../../../core/theme/components/snackbars.dart';
  
 
 class AdminDashboardPage extends StatelessWidget {
@@ -58,9 +59,7 @@ class AdminView extends StatelessWidget {
               final name = nameController.text.trim();
               final desc = descController.text.trim();
               if (name.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Product name is required')),
-                );
+                showErrorSnackbar(context, 'Product name is required');
                 return;
               }
               context
@@ -153,9 +152,7 @@ class AdminView extends StatelessWidget {
                   orElse: () {},
                 );
                 if (pid.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Select a product')),
-                  );
+                  showErrorSnackbar(context, 'Select a product');
                   return;
                 }
                 context.read<AdminBloc>().add(
@@ -199,9 +196,7 @@ class AdminView extends StatelessWidget {
       orElse: () {},
     );
     if (products.isEmpty || grades.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Load products and grades first.')),
-      );
+      showInfoSnackbar(context, 'Load products and grades first.');
       return;
     }
 
@@ -288,15 +283,11 @@ class AdminView extends StatelessWidget {
       listener: (context, state) {
         state.maybeWhen(
           success: (msg) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(msg)));
+            showSuccessSnackbar(context, msg);
             context.read<AdminBloc>().add(const AdminEvent.loadStats());
             context.read<AdminBloc>().add(const AdminEvent.loadCatalog());
           },
-          failure: (msg) => ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(msg))),
+          failure: (msg) => showErrorSnackbar(context, msg),
           orElse: () {},
         );
       },

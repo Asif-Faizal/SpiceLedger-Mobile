@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/injection.dart';
 import '../../domain/entities/grade.dart';
 import '../bloc/inventory_bloc.dart';
+import '../../../../core/theme/components/snackbars.dart';
 
 class InventoryPage extends StatelessWidget {
   const InventoryPage({super.key});
@@ -25,11 +26,7 @@ class InventoryView extends StatelessWidget {
 
   void _showAddLotDialog(BuildContext context, List<Grade> grades) {
     if (grades.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No grades available. Ask Admin to create grades.'),
-        ),
-      );
+      showInfoSnackbar(context, 'No grades available. Ask Admin to create grades.');
       return;
     }
     final dateController = TextEditingController(
@@ -96,9 +93,7 @@ class InventoryView extends StatelessWidget {
 
   void _showAddSaleDialog(BuildContext context, List<Grade> grades) {
     if (grades.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('No grades available.')));
+      showInfoSnackbar(context, 'No grades available.');
       return;
     }
     final dateController = TextEditingController(
@@ -169,14 +164,10 @@ class InventoryView extends StatelessWidget {
       listener: (context, state) {
         state.maybeWhen(
           success: (msg) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(msg)));
+            showSuccessSnackbar(context, msg);
             context.read<InventoryBloc>().add(const InventoryEvent.loadData());
           },
-          failure: (msg) => ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(msg))),
+          failure: (msg) => showErrorSnackbar(context, msg),
           orElse: () {},
         );
       },
