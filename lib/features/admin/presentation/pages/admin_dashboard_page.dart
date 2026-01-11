@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/injection.dart';
 import '../bloc/admin_bloc.dart';
-import '../../data/models/daily_price_model.dart';
 import '../../domain/entities/product.dart';
 import '../../../inventory/domain/entities/grade.dart';
 import '../../../../core/theme/components/snackbars.dart';
- 
+import '../../data/models/dashboard_model.dart';
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
@@ -15,8 +14,9 @@ class AdminDashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminBloc>()
-        ..add(const AdminEvent.loadStats())
-        ..add(const AdminEvent.loadCatalog()),
+        ..add(AdminEvent.loadDashboard(
+          date: DateTime.now().toIso8601String().split('T')[0],
+        )),
       child: Scaffold(
         appBar: AppBar(title: const Text('Admin Dashboard')),
         body: const AdminView(),
@@ -284,30 +284,27 @@ class AdminView extends StatelessWidget {
         state.maybeWhen(
           success: (msg) {
             showSuccessSnackbar(context, msg);
-            context.read<AdminBloc>().add(const AdminEvent.loadStats());
-            context.read<AdminBloc>().add(const AdminEvent.loadCatalog());
+            context.read<AdminBloc>().add(const AdminEvent.loadDashboard());
           },
           failure: (msg) => showErrorSnackbar(context, msg),
           orElse: () {},
         );
       },
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               state.maybeWhen(
-                loaded: (stats) => Text(
-                  'Total Users: ${stats.totalUsers}',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                loading: () => const CircularProgressIndicator(),
-                orElse: () => const Text('No stats loaded'),
+                loading: () => const _DashboardLoading(),
+                dashboard: (data) => _DashboardContent(data: data),
+                orElse: () => const _DashboardLoading(),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               Wrap(
                 spacing: 10,
+                runSpacing: 10,
                 children: [
                   ElevatedButton(
                     onPressed: () => _showCreateGradeDialog(context),
@@ -323,76 +320,242 @@ class AdminView extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              state.maybeWhen(
-                catalog: (products, grades, prices) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Products',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            const SizedBox(height: 8),
-                            if (products.isEmpty)
-                              const Text('- (none)')
-                            else
-                              ...products.map(
-                                (p) => ListTile(
-                                  dense: true,
-                                  title: Text(p.name),
-                                  subtitle: Text(p.description),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Grades & Today's Price",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            const SizedBox(height: 8),
-                            ...grades.map((g) {
-                              final items = prices.prices ?? const [];
-                              final item = items.firstWhere(
-                                (e) => e.gradeId == g.id,
-                                orElse: () => const DailyPriceItem(
-                                  productId: '',
-                                  gradeId: '',
-                                  pricePerKg: 0.0,
-                                ),
-                              );
-                              final price = item.gradeId.isEmpty
-                                  ? 'N/A'
-                                  : item.pricePerKg.toString();
-                              return ListTile(
-                                dense: true,
-                                title: Text(g.name),
-                                trailing: Text(price),
-                              );
-                            }),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                orElse: () => const SizedBox.shrink(),
-              ),
             ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _DashboardContent extends StatelessWidget {
+  final DashboardResponse data;
+  const _DashboardContent({required this.data});
+
+  Color _deltaColor(double v) =>
+      v >= 0 ? const Color(0xFF16A34A) : const Color(0xFFDC2626);
+  IconData _deltaIcon(double v) => v >= 0 ? Icons.arrow_upward : Icons.arrow_downward;
+
+  @override
+  Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Total Users', style: text.labelMedium),
+                      const SizedBox(height: 8),
+                      Text('${data.users.total}', style: text.titleLarge),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Icon(_deltaIcon(data.users.monthlyChangePct),
+                              size: 16, color: _deltaColor(data.users.monthlyChangePct)),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${data.users.monthlyChangePct.toStringAsFixed(1)}%',
+                            style: text.labelMedium?.copyWith(
+                              color: _deltaColor(data.users.monthlyChangePct),
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text('vs last month', style: text.labelSmall),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Total Products', style: text.labelMedium),
+                      const SizedBox(height: 8),
+                      Text('${data.products.total}', style: text.titleLarge),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Icon(_deltaIcon(data.products.monthlyChangePct),
+                              size: 16, color: _deltaColor(data.products.monthlyChangePct)),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${data.products.monthlyChangePct.toStringAsFixed(1)}%',
+                            style: text.labelMedium?.copyWith(
+                              color: _deltaColor(data.products.monthlyChangePct),
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text('vs last month', style: text.labelSmall),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Total Grades', style: text.labelMedium),
+                      const SizedBox(height: 8),
+                      Text('${data.grades.total}', style: text.titleLarge),
+                      const SizedBox(height: 6),
+                      Text('Quality variants across products', style: text.labelSmall),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Price Updates", style: text.titleMedium),
+                const SizedBox(height: 8),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    columns: const [
+                      DataColumn(label: Text('Product')),
+                      DataColumn(label: Text('Grade')),
+                      DataColumn(label: Text('Price/kg')),
+                      DataColumn(label: Text('Change')),
+                    ],
+                    rows: data.priceUpdates.map((u) {
+                      final color = _deltaColor(u.changePercent);
+                      final icon = _deltaIcon(u.changePercent);
+                      return DataRow(
+                        cells: [
+                          DataCell(Text(u.product)),
+                          DataCell(Text(u.grade)),
+                          DataCell(Text(u.price.toStringAsFixed(2))),
+                          DataCell(Row(
+                            children: [
+                              Icon(icon, color: color, size: 16),
+                              const SizedBox(width: 4),
+                              Text(
+                                '${u.changePercent.toStringAsFixed(1)}%',
+                                style: text.labelMedium?.copyWith(color: color),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                '(${u.changeDelta.toStringAsFixed(2)})',
+                                style: text.labelSmall,
+                              ),
+                            ],
+                          )),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _DashboardLoading extends StatelessWidget {
+  const _DashboardLoading();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const [
+        Row(
+          children: [
+            Expanded(child: _ShimmerBox(height: 120)),
+            SizedBox(width: 12),
+            Expanded(child: _ShimmerBox(height: 120)),
+            SizedBox(width: 12),
+            Expanded(child: _ShimmerBox(height: 120)),
+          ],
+        ),
+        SizedBox(height: 16),
+        _ShimmerBox(height: 260),
+      ],
+    );
+  }
+}
+
+class _ShimmerBox extends StatefulWidget {
+  final double height;
+  final double? width;
+  const _ShimmerBox({required this.height, this.width});
+  @override
+  State<_ShimmerBox> createState() => _ShimmerBoxState();
+}
+
+class _ShimmerBoxState extends State<_ShimmerBox> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1))
+      ..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        final t = _controller.value;
+        return Container(
+          height: widget.height,
+          width: widget.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.zero,
+            color: Colors.transparent,
+          ),
+          child: ShaderMask(
+            shaderCallback: (rect) {
+              return LinearGradient(
+                begin: Alignment(-1.0 + t * 2, 0.0),
+                end: Alignment(1.0 + t * 2, 0.0),
+                colors: const [
+                  Color(0xFFF2F4F7),
+                  Color(0xFFE5E7EB),
+                  Color(0xFFF2F4F7),
+                ],
+                stops: const [0.0, 0.5, 1.0],
+              ).createShader(rect);
+            },
+            blendMode: BlendMode.srcATop,
+            child: Container(
+              color: const Color(0xFFF2F4F7),
+            ),
           ),
         );
       },

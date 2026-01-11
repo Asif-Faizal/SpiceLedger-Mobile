@@ -12,6 +12,8 @@ import '../../../inventory/domain/usecases/get_grades_usecase.dart';
 import '../../../inventory/domain/entities/grade.dart';
 import '../../data/models/daily_price_model.dart';
 import '../../domain/usecases/create_product_usecase.dart';
+import '../../data/models/dashboard_model.dart';
+import '../../domain/usecases/get_dashboard_usecase.dart';
 
 part 'admin_event.dart';
 part 'admin_state.dart';
@@ -26,6 +28,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
   final GetDailyPricesUseCase getDailyPricesUseCase;
   final GetGradesUseCase getGradesUseCase;
   final CreateProductUseCase createProductUseCase;
+  final GetDashboardUseCase getDashboardUseCase;
 
   AdminBloc(
     this.getUserStatsUseCase,
@@ -35,12 +38,14 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     this.getDailyPricesUseCase,
     this.getGradesUseCase,
     this.createProductUseCase,
+    this.getDashboardUseCase,
   ) : super(const AdminState.initial()) {
     on<_LoadStats>(_onLoadStats);
     on<_CreateGrade>(_onCreateGrade);
     on<_SetPrice>(_onSetPrice);
     on<_LoadCatalog>(_onLoadCatalog);
     on<_CreateProduct>(_onCreateProduct);
+    on<_LoadDashboard>(_onLoadDashboard);
   }
 
   Future<void> _onLoadStats(_LoadStats event, Emitter<AdminState> emit) async {
@@ -129,5 +134,17 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     );
 
     emit(AdminState.catalog(products, grades, prices));
+  }
+
+  Future<void> _onLoadDashboard(
+    _LoadDashboard event,
+    Emitter<AdminState> emit,
+  ) async {
+    emit(const AdminState.loading());
+    final result = await getDashboardUseCase(date: event.date);
+    result.fold(
+      (failure) => emit(AdminState.failure(failure.message)),
+      (data) => emit(AdminState.dashboard(data)),
+    );
   }
 }

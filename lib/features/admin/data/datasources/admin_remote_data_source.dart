@@ -4,6 +4,8 @@ import '../../../../core/error/failures.dart';
 import '../models/user_stats_model.dart';
 import '../models/product_model.dart';
 import '../models/daily_price_model.dart';
+import '../models/dashboard_model.dart';
+import '../graphql/dashboard_query.dart';
 
 abstract class AdminRemoteDataSource {
   Future<UserStatsModel> getUserStats();
@@ -17,6 +19,7 @@ abstract class AdminRemoteDataSource {
   );
   Future<List<ProductModel>> getProducts();
   Future<DailyPricesResponse> getDailyPrices(String date);
+  Future<DashboardResponse> getDashboard({String? date});
 }
 
 @LazySingleton(as: AdminRemoteDataSource)
@@ -111,6 +114,31 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
       return DailyPricesResponse.fromJson(response.data);
     } on DioException catch (e) {
       throw ServerFailure(e.message ?? 'Failed to get daily prices');
+    }
+  }
+
+  @override
+  Future<DashboardResponse> getDashboard({String? date}) async {
+    try {
+      final response = await client.post(
+        '/api/graphql',
+        data: {
+          'query': dashboardQuery,
+          'variables': {'date': date},
+        },
+      );
+      final body = response.data as Map<String, dynamic>;
+      if (body['errors'] != null) {
+        throw ServerFailure('GraphQL error');
+      }
+      final data = body['data'] as Map<String, dynamic>?;
+      final dashboard = data?['dashboard'] as Map<String, dynamic>?;
+      if (dashboard == null) {
+        throw ServerFailure('Invalid GraphQL response');
+      }
+      return DashboardResponse.fromJson(dashboard);
+    } on DioException catch (e) {
+      throw ServerFailure(e.message ?? 'Failed to get dashboard');
     }
   }
 }

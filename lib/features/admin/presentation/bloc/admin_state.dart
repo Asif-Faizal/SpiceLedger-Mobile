@@ -12,4 +12,5 @@ class AdminState with _$AdminState {
     List<Grade> grades,
     DailyPricesResponse prices,
   ) = _Catalog;
+  const factory AdminState.dashboard(DashboardResponse dashboard) = _Dashboard;
 }

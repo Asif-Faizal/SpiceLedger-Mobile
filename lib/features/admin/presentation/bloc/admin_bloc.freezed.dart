@@ -31,6 +31,7 @@ mixin _$AdminEvent {
     setPrice,
     required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
+    required TResult Function(String? date) loadDashboard,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
@@ -46,6 +47,7 @@ mixin _$AdminEvent {
     setPrice,
     TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
+    TResult? Function(String? date)? loadDashboard,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
@@ -61,6 +63,7 @@ mixin _$AdminEvent {
     setPrice,
     TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
+    TResult Function(String? date)? loadDashboard,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +73,7 @@ mixin _$AdminEvent {
     required TResult Function(_SetPrice value) setPrice,
     required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
+    required TResult Function(_LoadDashboard value) loadDashboard,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
@@ -78,6 +82,7 @@ mixin _$AdminEvent {
     TResult? Function(_SetPrice value)? setPrice,
     TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
+    TResult? Function(_LoadDashboard value)? loadDashboard,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
@@ -86,6 +91,7 @@ mixin _$AdminEvent {
     TResult Function(_SetPrice value)? setPrice,
     TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
+    TResult Function(_LoadDashboard value)? loadDashboard,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -167,6 +173,7 @@ class _$LoadStatsImpl implements _LoadStats {
     setPrice,
     required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
+    required TResult Function(String? date) loadDashboard,
   }) {
     return loadStats();
   }
@@ -186,6 +193,7 @@ class _$LoadStatsImpl implements _LoadStats {
     setPrice,
     TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
+    TResult? Function(String? date)? loadDashboard,
   }) {
     return loadStats?.call();
   }
@@ -205,6 +213,7 @@ class _$LoadStatsImpl implements _LoadStats {
     setPrice,
     TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
+    TResult Function(String? date)? loadDashboard,
     required TResult orElse(),
   }) {
     if (loadStats != null) {
@@ -221,6 +230,7 @@ class _$LoadStatsImpl implements _LoadStats {
     required TResult Function(_SetPrice value) setPrice,
     required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
+    required TResult Function(_LoadDashboard value) loadDashboard,
   }) {
     return loadStats(this);
   }
@@ -233,6 +243,7 @@ class _$LoadStatsImpl implements _LoadStats {
     TResult? Function(_SetPrice value)? setPrice,
     TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
+    TResult? Function(_LoadDashboard value)? loadDashboard,
   }) {
     return loadStats?.call(this);
   }
@@ -245,6 +256,7 @@ class _$LoadStatsImpl implements _LoadStats {
     TResult Function(_SetPrice value)? setPrice,
     TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
+    TResult Function(_LoadDashboard value)? loadDashboard,
     required TResult orElse(),
   }) {
     if (loadStats != null) {
@@ -360,6 +372,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     setPrice,
     required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
+    required TResult Function(String? date) loadDashboard,
   }) {
     return createGrade(productId, name, description);
   }
@@ -379,6 +392,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     setPrice,
     TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
+    TResult? Function(String? date)? loadDashboard,
   }) {
     return createGrade?.call(productId, name, description);
   }
@@ -398,6 +412,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     setPrice,
     TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
+    TResult Function(String? date)? loadDashboard,
     required TResult orElse(),
   }) {
     if (createGrade != null) {
@@ -414,6 +429,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     required TResult Function(_SetPrice value) setPrice,
     required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
+    required TResult Function(_LoadDashboard value) loadDashboard,
   }) {
     return createGrade(this);
   }
@@ -426,6 +442,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     TResult? Function(_SetPrice value)? setPrice,
     TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
+    TResult? Function(_LoadDashboard value)? loadDashboard,
   }) {
     return createGrade?.call(this);
   }
@@ -438,6 +455,7 @@ class _$CreateGradeImpl implements _CreateGrade {
     TResult Function(_SetPrice value)? setPrice,
     TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
+    TResult Function(_LoadDashboard value)? loadDashboard,
     required TResult orElse(),
   }) {
     if (createGrade != null) {
@@ -574,6 +592,7 @@ class _$SetPriceImpl implements _SetPrice {
     setPrice,
     required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
+    required TResult Function(String? date) loadDashboard,
   }) {
     return setPrice(date, productId, gradeId, price);
   }
@@ -593,6 +612,7 @@ class _$SetPriceImpl implements _SetPrice {
     setPrice,
     TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
+    TResult? Function(String? date)? loadDashboard,
   }) {
     return setPrice?.call(date, productId, gradeId, price);
   }
@@ -612,6 +632,7 @@ class _$SetPriceImpl implements _SetPrice {
     setPrice,
     TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
+    TResult Function(String? date)? loadDashboard,
     required TResult orElse(),
   }) {
     if (setPrice != null) {
@@ -628,6 +649,7 @@ class _$SetPriceImpl implements _SetPrice {
     required TResult Function(_SetPrice value) setPrice,
     required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
+    required TResult Function(_LoadDashboard value) loadDashboard,
   }) {
     return setPrice(this);
   }
@@ -640,6 +662,7 @@ class _$SetPriceImpl implements _SetPrice {
     TResult? Function(_SetPrice value)? setPrice,
     TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
+    TResult? Function(_LoadDashboard value)? loadDashboard,
   }) {
     return setPrice?.call(this);
   }
@@ -652,6 +675,7 @@ class _$SetPriceImpl implements _SetPrice {
     TResult Function(_SetPrice value)? setPrice,
     TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
+    TResult Function(_LoadDashboard value)? loadDashboard,
     required TResult orElse(),
   }) {
     if (setPrice != null) {
@@ -771,6 +795,7 @@ class _$CreateProductImpl implements _CreateProduct {
     setPrice,
     required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
+    required TResult Function(String? date) loadDashboard,
   }) {
     return createProduct(name, description);
   }
@@ -790,6 +815,7 @@ class _$CreateProductImpl implements _CreateProduct {
     setPrice,
     TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
+    TResult? Function(String? date)? loadDashboard,
   }) {
     return createProduct?.call(name, description);
   }
@@ -809,6 +835,7 @@ class _$CreateProductImpl implements _CreateProduct {
     setPrice,
     TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
+    TResult Function(String? date)? loadDashboard,
     required TResult orElse(),
   }) {
     if (createProduct != null) {
@@ -825,6 +852,7 @@ class _$CreateProductImpl implements _CreateProduct {
     required TResult Function(_SetPrice value) setPrice,
     required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
+    required TResult Function(_LoadDashboard value) loadDashboard,
   }) {
     return createProduct(this);
   }
@@ -837,6 +865,7 @@ class _$CreateProductImpl implements _CreateProduct {
     TResult? Function(_SetPrice value)? setPrice,
     TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
+    TResult? Function(_LoadDashboard value)? loadDashboard,
   }) {
     return createProduct?.call(this);
   }
@@ -849,6 +878,7 @@ class _$CreateProductImpl implements _CreateProduct {
     TResult Function(_SetPrice value)? setPrice,
     TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
+    TResult Function(_LoadDashboard value)? loadDashboard,
     required TResult orElse(),
   }) {
     if (createProduct != null) {
@@ -927,6 +957,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     setPrice,
     required TResult Function(String name, String description) createProduct,
     required TResult Function() loadCatalog,
+    required TResult Function(String? date) loadDashboard,
   }) {
     return loadCatalog();
   }
@@ -946,6 +977,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     setPrice,
     TResult? Function(String name, String description)? createProduct,
     TResult? Function()? loadCatalog,
+    TResult? Function(String? date)? loadDashboard,
   }) {
     return loadCatalog?.call();
   }
@@ -965,6 +997,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     setPrice,
     TResult Function(String name, String description)? createProduct,
     TResult Function()? loadCatalog,
+    TResult Function(String? date)? loadDashboard,
     required TResult orElse(),
   }) {
     if (loadCatalog != null) {
@@ -981,6 +1014,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     required TResult Function(_SetPrice value) setPrice,
     required TResult Function(_CreateProduct value) createProduct,
     required TResult Function(_LoadCatalog value) loadCatalog,
+    required TResult Function(_LoadDashboard value) loadDashboard,
   }) {
     return loadCatalog(this);
   }
@@ -993,6 +1027,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     TResult? Function(_SetPrice value)? setPrice,
     TResult? Function(_CreateProduct value)? createProduct,
     TResult? Function(_LoadCatalog value)? loadCatalog,
+    TResult? Function(_LoadDashboard value)? loadDashboard,
   }) {
     return loadCatalog?.call(this);
   }
@@ -1005,6 +1040,7 @@ class _$LoadCatalogImpl implements _LoadCatalog {
     TResult Function(_SetPrice value)? setPrice,
     TResult Function(_CreateProduct value)? createProduct,
     TResult Function(_LoadCatalog value)? loadCatalog,
+    TResult Function(_LoadDashboard value)? loadDashboard,
     required TResult orElse(),
   }) {
     if (loadCatalog != null) {
@@ -1016,6 +1052,193 @@ class _$LoadCatalogImpl implements _LoadCatalog {
 
 abstract class _LoadCatalog implements AdminEvent {
   const factory _LoadCatalog() = _$LoadCatalogImpl;
+}
+
+/// @nodoc
+abstract class _$$LoadDashboardImplCopyWith<$Res> {
+  factory _$$LoadDashboardImplCopyWith(
+    _$LoadDashboardImpl value,
+    $Res Function(_$LoadDashboardImpl) then,
+  ) = __$$LoadDashboardImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? date});
+}
+
+/// @nodoc
+class __$$LoadDashboardImplCopyWithImpl<$Res>
+    extends _$AdminEventCopyWithImpl<$Res, _$LoadDashboardImpl>
+    implements _$$LoadDashboardImplCopyWith<$Res> {
+  __$$LoadDashboardImplCopyWithImpl(
+    _$LoadDashboardImpl _value,
+    $Res Function(_$LoadDashboardImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? date = freezed}) {
+    return _then(
+      _$LoadDashboardImpl(
+        date: freezed == date
+            ? _value.date
+            : date // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$LoadDashboardImpl implements _LoadDashboard {
+  const _$LoadDashboardImpl({this.date});
+
+  @override
+  final String? date;
+
+  @override
+  String toString() {
+    return 'AdminEvent.loadDashboard(date: $date)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadDashboardImpl &&
+            (identical(other.date, date) || other.date == date));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, date);
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadDashboardImplCopyWith<_$LoadDashboardImpl> get copyWith =>
+      __$$LoadDashboardImplCopyWithImpl<_$LoadDashboardImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadStats,
+    required TResult Function(String productId, String name, String description)
+    createGrade,
+    required TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )
+    setPrice,
+    required TResult Function(String name, String description) createProduct,
+    required TResult Function() loadCatalog,
+    required TResult Function(String? date) loadDashboard,
+  }) {
+    return loadDashboard(date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadStats,
+    TResult? Function(String productId, String name, String description)?
+    createGrade,
+    TResult? Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
+    TResult? Function(String name, String description)? createProduct,
+    TResult? Function()? loadCatalog,
+    TResult? Function(String? date)? loadDashboard,
+  }) {
+    return loadDashboard?.call(date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadStats,
+    TResult Function(String productId, String name, String description)?
+    createGrade,
+    TResult Function(
+      String date,
+      String productId,
+      String gradeId,
+      double price,
+    )?
+    setPrice,
+    TResult Function(String name, String description)? createProduct,
+    TResult Function()? loadCatalog,
+    TResult Function(String? date)? loadDashboard,
+    required TResult orElse(),
+  }) {
+    if (loadDashboard != null) {
+      return loadDashboard(date);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadStats value) loadStats,
+    required TResult Function(_CreateGrade value) createGrade,
+    required TResult Function(_SetPrice value) setPrice,
+    required TResult Function(_CreateProduct value) createProduct,
+    required TResult Function(_LoadCatalog value) loadCatalog,
+    required TResult Function(_LoadDashboard value) loadDashboard,
+  }) {
+    return loadDashboard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadStats value)? loadStats,
+    TResult? Function(_CreateGrade value)? createGrade,
+    TResult? Function(_SetPrice value)? setPrice,
+    TResult? Function(_CreateProduct value)? createProduct,
+    TResult? Function(_LoadCatalog value)? loadCatalog,
+    TResult? Function(_LoadDashboard value)? loadDashboard,
+  }) {
+    return loadDashboard?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadStats value)? loadStats,
+    TResult Function(_CreateGrade value)? createGrade,
+    TResult Function(_SetPrice value)? setPrice,
+    TResult Function(_CreateProduct value)? createProduct,
+    TResult Function(_LoadCatalog value)? loadCatalog,
+    TResult Function(_LoadDashboard value)? loadDashboard,
+    required TResult orElse(),
+  }) {
+    if (loadDashboard != null) {
+      return loadDashboard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoadDashboard implements AdminEvent {
+  const factory _LoadDashboard({final String? date}) = _$LoadDashboardImpl;
+
+  String? get date;
+
+  /// Create a copy of AdminEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadDashboardImplCopyWith<_$LoadDashboardImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1033,6 +1256,7 @@ mixin _$AdminState {
       DailyPricesResponse prices,
     )
     catalog,
+    required TResult Function(DashboardResponse dashboard) dashboard,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
@@ -1047,6 +1271,7 @@ mixin _$AdminState {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult? Function(DashboardResponse dashboard)? dashboard,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
@@ -1061,6 +1286,7 @@ mixin _$AdminState {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult Function(DashboardResponse dashboard)? dashboard,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1071,6 +1297,7 @@ mixin _$AdminState {
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
     required TResult Function(_Catalog value) catalog,
+    required TResult Function(_Dashboard value) dashboard,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
@@ -1080,6 +1307,7 @@ mixin _$AdminState {
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
     TResult? Function(_Catalog value)? catalog,
+    TResult? Function(_Dashboard value)? dashboard,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
@@ -1089,6 +1317,7 @@ mixin _$AdminState {
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     TResult Function(_Catalog value)? catalog,
+    TResult Function(_Dashboard value)? dashboard,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -1169,6 +1398,7 @@ class _$InitialImpl implements _Initial {
       DailyPricesResponse prices,
     )
     catalog,
+    required TResult Function(DashboardResponse dashboard) dashboard,
   }) {
     return initial();
   }
@@ -1187,6 +1417,7 @@ class _$InitialImpl implements _Initial {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult? Function(DashboardResponse dashboard)? dashboard,
   }) {
     return initial?.call();
   }
@@ -1205,6 +1436,7 @@ class _$InitialImpl implements _Initial {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult Function(DashboardResponse dashboard)? dashboard,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1222,6 +1454,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
     required TResult Function(_Catalog value) catalog,
+    required TResult Function(_Dashboard value) dashboard,
   }) {
     return initial(this);
   }
@@ -1235,6 +1468,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
     TResult? Function(_Catalog value)? catalog,
+    TResult? Function(_Dashboard value)? dashboard,
   }) {
     return initial?.call(this);
   }
@@ -1248,6 +1482,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     TResult Function(_Catalog value)? catalog,
+    TResult Function(_Dashboard value)? dashboard,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1315,6 +1550,7 @@ class _$LoadingImpl implements _Loading {
       DailyPricesResponse prices,
     )
     catalog,
+    required TResult Function(DashboardResponse dashboard) dashboard,
   }) {
     return loading();
   }
@@ -1333,6 +1569,7 @@ class _$LoadingImpl implements _Loading {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult? Function(DashboardResponse dashboard)? dashboard,
   }) {
     return loading?.call();
   }
@@ -1351,6 +1588,7 @@ class _$LoadingImpl implements _Loading {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult Function(DashboardResponse dashboard)? dashboard,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1368,6 +1606,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
     required TResult Function(_Catalog value) catalog,
+    required TResult Function(_Dashboard value) dashboard,
   }) {
     return loading(this);
   }
@@ -1381,6 +1620,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
     TResult? Function(_Catalog value)? catalog,
+    TResult? Function(_Dashboard value)? dashboard,
   }) {
     return loading?.call(this);
   }
@@ -1394,6 +1634,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     TResult Function(_Catalog value)? catalog,
+    TResult Function(_Dashboard value)? dashboard,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1488,6 +1729,7 @@ class _$LoadedImpl implements _Loaded {
       DailyPricesResponse prices,
     )
     catalog,
+    required TResult Function(DashboardResponse dashboard) dashboard,
   }) {
     return loaded(stats);
   }
@@ -1506,6 +1748,7 @@ class _$LoadedImpl implements _Loaded {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult? Function(DashboardResponse dashboard)? dashboard,
   }) {
     return loaded?.call(stats);
   }
@@ -1524,6 +1767,7 @@ class _$LoadedImpl implements _Loaded {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult Function(DashboardResponse dashboard)? dashboard,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1541,6 +1785,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
     required TResult Function(_Catalog value) catalog,
+    required TResult Function(_Dashboard value) dashboard,
   }) {
     return loaded(this);
   }
@@ -1554,6 +1799,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
     TResult? Function(_Catalog value)? catalog,
+    TResult? Function(_Dashboard value)? dashboard,
   }) {
     return loaded?.call(this);
   }
@@ -1567,6 +1813,7 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     TResult Function(_Catalog value)? catalog,
+    TResult Function(_Dashboard value)? dashboard,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1669,6 +1916,7 @@ class _$SuccessImpl implements _Success {
       DailyPricesResponse prices,
     )
     catalog,
+    required TResult Function(DashboardResponse dashboard) dashboard,
   }) {
     return success(message);
   }
@@ -1687,6 +1935,7 @@ class _$SuccessImpl implements _Success {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult? Function(DashboardResponse dashboard)? dashboard,
   }) {
     return success?.call(message);
   }
@@ -1705,6 +1954,7 @@ class _$SuccessImpl implements _Success {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult Function(DashboardResponse dashboard)? dashboard,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1722,6 +1972,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
     required TResult Function(_Catalog value) catalog,
+    required TResult Function(_Dashboard value) dashboard,
   }) {
     return success(this);
   }
@@ -1735,6 +1986,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
     TResult? Function(_Catalog value)? catalog,
+    TResult? Function(_Dashboard value)? dashboard,
   }) {
     return success?.call(this);
   }
@@ -1748,6 +2000,7 @@ class _$SuccessImpl implements _Success {
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     TResult Function(_Catalog value)? catalog,
+    TResult Function(_Dashboard value)? dashboard,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1850,6 +2103,7 @@ class _$FailureImpl implements _Failure {
       DailyPricesResponse prices,
     )
     catalog,
+    required TResult Function(DashboardResponse dashboard) dashboard,
   }) {
     return failure(message);
   }
@@ -1868,6 +2122,7 @@ class _$FailureImpl implements _Failure {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult? Function(DashboardResponse dashboard)? dashboard,
   }) {
     return failure?.call(message);
   }
@@ -1886,6 +2141,7 @@ class _$FailureImpl implements _Failure {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult Function(DashboardResponse dashboard)? dashboard,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -1903,6 +2159,7 @@ class _$FailureImpl implements _Failure {
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
     required TResult Function(_Catalog value) catalog,
+    required TResult Function(_Dashboard value) dashboard,
   }) {
     return failure(this);
   }
@@ -1916,6 +2173,7 @@ class _$FailureImpl implements _Failure {
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
     TResult? Function(_Catalog value)? catalog,
+    TResult? Function(_Dashboard value)? dashboard,
   }) {
     return failure?.call(this);
   }
@@ -1929,6 +2187,7 @@ class _$FailureImpl implements _Failure {
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     TResult Function(_Catalog value)? catalog,
+    TResult Function(_Dashboard value)? dashboard,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -2087,6 +2346,7 @@ class _$CatalogImpl implements _Catalog {
       DailyPricesResponse prices,
     )
     catalog,
+    required TResult Function(DashboardResponse dashboard) dashboard,
   }) {
     return catalog(products, grades, prices);
   }
@@ -2105,6 +2365,7 @@ class _$CatalogImpl implements _Catalog {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult? Function(DashboardResponse dashboard)? dashboard,
   }) {
     return catalog?.call(products, grades, prices);
   }
@@ -2123,6 +2384,7 @@ class _$CatalogImpl implements _Catalog {
       DailyPricesResponse prices,
     )?
     catalog,
+    TResult Function(DashboardResponse dashboard)? dashboard,
     required TResult orElse(),
   }) {
     if (catalog != null) {
@@ -2140,6 +2402,7 @@ class _$CatalogImpl implements _Catalog {
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
     required TResult Function(_Catalog value) catalog,
+    required TResult Function(_Dashboard value) dashboard,
   }) {
     return catalog(this);
   }
@@ -2153,6 +2416,7 @@ class _$CatalogImpl implements _Catalog {
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
     TResult? Function(_Catalog value)? catalog,
+    TResult? Function(_Dashboard value)? dashboard,
   }) {
     return catalog?.call(this);
   }
@@ -2166,6 +2430,7 @@ class _$CatalogImpl implements _Catalog {
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
     TResult Function(_Catalog value)? catalog,
+    TResult Function(_Dashboard value)? dashboard,
     required TResult orElse(),
   }) {
     if (catalog != null) {
@@ -2190,5 +2455,205 @@ abstract class _Catalog implements AdminState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CatalogImplCopyWith<_$CatalogImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DashboardImplCopyWith<$Res> {
+  factory _$$DashboardImplCopyWith(
+    _$DashboardImpl value,
+    $Res Function(_$DashboardImpl) then,
+  ) = __$$DashboardImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DashboardResponse dashboard});
+
+  $DashboardResponseCopyWith<$Res> get dashboard;
+}
+
+/// @nodoc
+class __$$DashboardImplCopyWithImpl<$Res>
+    extends _$AdminStateCopyWithImpl<$Res, _$DashboardImpl>
+    implements _$$DashboardImplCopyWith<$Res> {
+  __$$DashboardImplCopyWithImpl(
+    _$DashboardImpl _value,
+    $Res Function(_$DashboardImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AdminState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? dashboard = null}) {
+    return _then(
+      _$DashboardImpl(
+        null == dashboard
+            ? _value.dashboard
+            : dashboard // ignore: cast_nullable_to_non_nullable
+                  as DashboardResponse,
+      ),
+    );
+  }
+
+  /// Create a copy of AdminState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardResponseCopyWith<$Res> get dashboard {
+    return $DashboardResponseCopyWith<$Res>(_value.dashboard, (value) {
+      return _then(_value.copyWith(dashboard: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$DashboardImpl implements _Dashboard {
+  const _$DashboardImpl(this.dashboard);
+
+  @override
+  final DashboardResponse dashboard;
+
+  @override
+  String toString() {
+    return 'AdminState.dashboard(dashboard: $dashboard)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DashboardImpl &&
+            (identical(other.dashboard, dashboard) ||
+                other.dashboard == dashboard));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, dashboard);
+
+  /// Create a copy of AdminState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DashboardImplCopyWith<_$DashboardImpl> get copyWith =>
+      __$$DashboardImplCopyWithImpl<_$DashboardImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(UserStats stats) loaded,
+    required TResult Function(String message) success,
+    required TResult Function(String message) failure,
+    required TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )
+    catalog,
+    required TResult Function(DashboardResponse dashboard) dashboard,
+  }) {
+    return dashboard(this.dashboard);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(UserStats stats)? loaded,
+    TResult? Function(String message)? success,
+    TResult? Function(String message)? failure,
+    TResult? Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
+    TResult? Function(DashboardResponse dashboard)? dashboard,
+  }) {
+    return dashboard?.call(this.dashboard);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(UserStats stats)? loaded,
+    TResult Function(String message)? success,
+    TResult Function(String message)? failure,
+    TResult Function(
+      List<Product> products,
+      List<Grade> grades,
+      DailyPricesResponse prices,
+    )?
+    catalog,
+    TResult Function(DashboardResponse dashboard)? dashboard,
+    required TResult orElse(),
+  }) {
+    if (dashboard != null) {
+      return dashboard(this.dashboard);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_Catalog value) catalog,
+    required TResult Function(_Dashboard value) dashboard,
+  }) {
+    return dashboard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Failure value)? failure,
+    TResult? Function(_Catalog value)? catalog,
+    TResult? Function(_Dashboard value)? dashboard,
+  }) {
+    return dashboard?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Success value)? success,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_Catalog value)? catalog,
+    TResult Function(_Dashboard value)? dashboard,
+    required TResult orElse(),
+  }) {
+    if (dashboard != null) {
+      return dashboard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Dashboard implements AdminState {
+  const factory _Dashboard(final DashboardResponse dashboard) = _$DashboardImpl;
+
+  DashboardResponse get dashboard;
+
+  /// Create a copy of AdminState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DashboardImplCopyWith<_$DashboardImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

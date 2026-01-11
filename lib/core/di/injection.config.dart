@@ -26,6 +26,8 @@ import '../../features/admin/domain/usecases/create_product_usecase.dart'
     as _i74;
 import '../../features/admin/domain/usecases/get_daily_prices_usecase.dart'
     as _i6;
+import '../../features/admin/domain/usecases/get_dashboard_usecase.dart'
+    as _i311;
 import '../../features/admin/domain/usecases/get_products_usecase.dart'
     as _i289;
 import '../../features/admin/domain/usecases/get_user_stats_usecase.dart'
@@ -130,6 +132,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i583.AdminRepository>(
       () => _i335.AdminRepositoryImpl(gh<_i517.AdminRemoteDataSource>()),
     );
+    gh.factory<_i311.GetDashboardUseCase>(
+      () => _i311.GetDashboardUseCase(gh<_i583.AdminRepository>()),
+    );
+    gh.lazySingleton<_i74.CreateProductUseCase>(
+      () => _i74.CreateProductUseCase(gh<_i583.AdminRepository>()),
+    );
+    gh.lazySingleton<_i6.GetDailyPricesUseCase>(
+      () => _i6.GetDailyPricesUseCase(gh<_i583.AdminRepository>()),
+    );
     gh.lazySingleton<_i442.CreateGradeUseCase>(
       () => _i442.CreateGradeUseCase(gh<_i583.AdminRepository>()),
     );
@@ -139,14 +150,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i348.GetUserStatsUseCase>(
       () => _i348.GetUserStatsUseCase(gh<_i583.AdminRepository>()),
     );
-    gh.lazySingleton<_i6.GetDailyPricesUseCase>(
-      () => _i6.GetDailyPricesUseCase(gh<_i583.AdminRepository>()),
-    );
     gh.lazySingleton<_i289.GetProductsUseCase>(
       () => _i289.GetProductsUseCase(gh<_i583.AdminRepository>()),
     );
-    gh.lazySingleton<_i74.CreateProductUseCase>(
-      () => _i74.CreateProductUseCase(gh<_i583.AdminRepository>()),
+    gh.factory<_i797.AuthBloc>(
+      () =>
+          _i797.AuthBloc(gh<_i188.LoginUseCase>(), gh<_i941.RegisterUseCase>()),
     );
     gh.factory<_i55.AdminBloc>(
       () => _i55.AdminBloc(
@@ -157,11 +166,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i6.GetDailyPricesUseCase>(),
         gh<_i143.GetGradesUseCase>(),
         gh<_i74.CreateProductUseCase>(),
+        gh<_i311.GetDashboardUseCase>(),
       ),
-    );
-    gh.factory<_i797.AuthBloc>(
-      () =>
-          _i797.AuthBloc(gh<_i188.LoginUseCase>(), gh<_i941.RegisterUseCase>()),
     );
     return this;
   }

@@ -19,4 +19,5 @@ class AdminEvent with _$AdminEvent {
     String description,
   ) = _CreateProduct;
   const factory AdminEvent.loadCatalog() = _LoadCatalog;
+  const factory AdminEvent.loadDashboard({String? date}) = _LoadDashboard;
 }

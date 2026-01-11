@@ -8,6 +8,7 @@ import '../datasources/admin_remote_data_source.dart';
 import '../models/user_stats_model.dart';
 import '../models/product_model.dart';
 import '../models/daily_price_model.dart';
+import '../models/dashboard_model.dart';
 
 @LazySingleton(as: AdminRepository)
 class AdminRepositoryImpl implements AdminRepository {
@@ -81,6 +82,16 @@ class AdminRepositoryImpl implements AdminRepository {
   Future<Either<Failure, DailyPricesResponse>> getDailyPrices(String date) async {
     try {
       final resp = await remoteDataSource.getDailyPrices(date);
+      return Right(resp);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DashboardResponse>> getDashboard({String? date}) async {
+    try {
+      final resp = await remoteDataSource.getDashboard(date: date);
       return Right(resp);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
