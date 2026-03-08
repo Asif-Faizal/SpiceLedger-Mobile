@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'token_interceptor.dart';
+import '../config/env_config.dart';
 
 @module
 abstract class NetworkModule {
@@ -8,7 +9,7 @@ abstract class NetworkModule {
   Dio dio(TokenInterceptor tokenInterceptor) {
     final dio = Dio(
       BaseOptions(
-        baseUrl: 'http://10.0.2.2:8080',
+        baseUrl: ApiConfig.baseUrl,
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
         headers: {

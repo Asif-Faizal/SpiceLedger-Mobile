@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../core/config/env_config.dart';
 import '../../../../core/error/failures.dart';
 import '../models/user_model.dart';
 
@@ -18,8 +21,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<UserModel> login(String email, String password) async {
     try {
       final response = await client.post(
-        '/api/auth/login',
+        '/rest/accounts/login',
         data: {'email': email, 'password': password},
+        options: Options(headers: ApiConfig.basicAuthHeaders),
       );
       if (response.statusCode == 200) {
         return UserModel.fromJson(response.data);
