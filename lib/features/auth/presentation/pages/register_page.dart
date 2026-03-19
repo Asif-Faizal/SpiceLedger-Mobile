@@ -5,7 +5,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/register_form_cubit.dart';
-import 'login_page.dart';
+import 'check_email_page.dart';
 import '../../../../core/theme/components/snackbars.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -16,13 +16,33 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => RegisterFormCubit()..setEmail(initialEmail ?? ''),
-      child: const _RegisterView(),
+      child: _RegisterView(initialEmail: initialEmail),
     );
   }
 }
 
-class _RegisterView extends StatelessWidget {
-  const _RegisterView();
+class _RegisterView extends StatefulWidget {
+  final String? initialEmail;
+  const _RegisterView({this.initialEmail});
+
+  @override
+  State<_RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<_RegisterView> {
+  late final TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController(text: widget.initialEmail ?? '');
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +89,12 @@ class _RegisterView extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 TextField(
+                  controller: _emailController,
+                  readOnly: true,
                   onChanged: (v) =>
                       context.read<RegisterFormCubit>().setEmail(v),
                   decoration: const InputDecoration(
-                    labelText: 'Work Email',
+                    labelText: 'Email',
                     hintText: 'name@company.com',
                   ),
                 ),
@@ -183,7 +205,7 @@ class _RegisterView extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (_) => const LoginPage()),
+                          MaterialPageRoute(builder: (_) => CheckEmailPage()),
                         );
                       },
                     ),

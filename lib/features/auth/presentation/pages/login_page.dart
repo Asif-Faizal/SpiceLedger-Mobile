@@ -7,7 +7,7 @@ import '../../../admin/presentation/pages/admin_dashboard_page.dart';
 import '../../../inventory/presentation/pages/inventory_page.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/login_form_cubit.dart';
-import 'register_page.dart';
+import 'check_email_page.dart';
 import '../../../../core/theme/components/snackbars.dart';
 
 class LoginPage extends StatelessWidget {
@@ -18,13 +18,33 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => LoginFormCubit()..setEmail(initialEmail ?? ''),
-      child: const _LoginView(),
+      child: _LoginView(initialEmail: initialEmail),
     );
   }
 }
 
-class _LoginView extends StatelessWidget {
-  const _LoginView();
+class _LoginView extends StatefulWidget {
+  final String? initialEmail;
+  const _LoginView({this.initialEmail});
+
+  @override
+  State<_LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<_LoginView> {
+  late final TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController(text: widget.initialEmail ?? '');
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +89,8 @@ class _LoginView extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 TextField(
+                  controller: _emailController,
+                  readOnly: true,
                   onChanged: (v) => context.read<LoginFormCubit>().setEmail(v),
                   decoration: const InputDecoration(
                     labelText: 'Email',
@@ -141,10 +163,7 @@ class _LoginView extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BlocProvider.value(
-                              value: context.read<AuthBloc>(),
-                              child: const RegisterPage(),
-                            ),
+                            builder: (context) => CheckEmailPage(),
                           ),
                         );
                       },

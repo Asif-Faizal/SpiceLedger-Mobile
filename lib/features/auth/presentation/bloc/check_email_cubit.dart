@@ -70,6 +70,8 @@ class CheckEmailCubit extends Cubit<CheckEmailState> {
       state.copyWith(
         email: value,
         isValid: isValid,
+        status: CheckEmailStatus.initial,
+        emailExists: null,
         emailError: () => isValid
             ? null
             : (value.trim().isEmpty
