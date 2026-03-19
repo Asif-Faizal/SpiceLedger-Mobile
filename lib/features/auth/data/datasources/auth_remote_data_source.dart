@@ -5,7 +5,10 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/network/error_handler.dart';
 import '../../../../core/network/models/api_response.dart';
 import '../models/user/user_model.dart';
+import '../models/login/login_request_model.dart';
+import '../models/register/register_request_model.dart';
 import '../models/email_check/email_check_model.dart';
+import '../../domain/entities/user_entity.dart';
 
 abstract class AuthRemoteDataSource {
   Future<LoginResponseModel> login(String email, String password);
@@ -22,9 +25,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<LoginResponseModel> login(String email, String password) async {
     try {
+      final request = LoginRequestModel(
+        email: email,
+        password: password,
+        deviceId: 'dev_987',
+      );
       final response = await client.post(
         '/rest/accounts/login',
-        data: {'email': email, 'password': password},
+        data: request.toJson(),
         options: Options(headers: ApiConfig.basicAuthHeaders),
       );
 
@@ -46,9 +54,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<UserModel> register(String name, String email, String password) async {
     try {
+      final request = RegisterRequestModel(
+        name: name,
+        email: email,
+        password: password,
+        userType: UserType.merchant,
+      );
       final response = await client.post(
         '/rest/accounts',
-        data: {'name': name, 'email': email, 'password': password},
+        data: request.toJson(),
         options: Options(headers: ApiConfig.basicAuthHeaders),
       );
 

@@ -42,7 +42,7 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart'
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
 import '../../features/auth/domain/usecases/check_email_usecase.dart' as _i879;
 import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i797;
-import '../../features/auth/presentation/bloc/check_email_cubit.dart' as _i43;
+import '../../features/auth/presentation/cubit/check_email_cubit.dart' as _i43;
 import '../../features/inventory/data/datasources/inventory_remote_data_source.dart'
     as _i248;
 import '../../features/inventory/data/repositories/inventory_repository_impl.dart'

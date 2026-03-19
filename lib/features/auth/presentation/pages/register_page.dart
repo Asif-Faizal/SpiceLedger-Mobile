@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
 import '../bloc/auth_bloc.dart';
-import '../bloc/register_form_cubit.dart';
+import '../cubit/register_form_cubit.dart';
 import 'check_email_page.dart';
 import '../../../../core/theme/components/snackbars.dart';
+import 'login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   final String? initialEmail;
@@ -53,7 +54,10 @@ class _RegisterViewState extends State<_RegisterView> {
           state.maybeWhen(
             success: (message) {
               showSuccessSnackbar(context, message);
-              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const LoginPage()),
+              );
             },
             failure: (message) {
               showErrorSnackbar(context, message);

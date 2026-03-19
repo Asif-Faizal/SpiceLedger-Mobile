@@ -6,7 +6,8 @@ import '../../../../core/theme/components/buttons.dart';
 import '../../../admin/presentation/pages/admin_dashboard_page.dart';
 import '../../../inventory/presentation/pages/inventory_page.dart';
 import '../bloc/auth_bloc.dart';
-import '../bloc/login_form_cubit.dart';
+import '../cubit/login_form_cubit.dart';
+import '../../domain/entities/user_entity.dart';
 import 'check_email_page.dart';
 import '../../../../core/theme/components/snackbars.dart';
 
@@ -54,7 +55,7 @@ class _LoginViewState extends State<_LoginView> {
           state.maybeWhen(
             authenticated: (user) {
               showSuccessSnackbar(context, 'Login Successful!');
-              if (user.isAdmin) {
+              if (user.userType == UserType.admin) {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (_) => const AdminDashboardPage()),

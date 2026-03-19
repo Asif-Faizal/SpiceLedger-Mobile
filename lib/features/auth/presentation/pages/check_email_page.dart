@@ -5,7 +5,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
 import '../../../../core/theme/components/logo.dart';
 import '../../../../core/theme/components/snackbars.dart';
-import '../bloc/check_email_cubit.dart';
+import '../cubit/check_email_cubit.dart';
 import 'login_page.dart';
 import 'register_page.dart';
 

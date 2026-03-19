@@ -34,13 +34,3 @@ extension UserModelX on UserModel {
   UserEntity toEntity() =>
       UserEntity(id: id, name: name, userType: userType, email: email);
 }
-
-@JsonEnum()
-enum UserType {
-  @JsonValue('admin')
-  admin,
-  @JsonValue('merchant')
-  merchant,
-  @JsonValue('guest')
-  guest,
-}

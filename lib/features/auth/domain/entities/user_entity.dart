@@ -1,6 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../data/models/user/user_model.dart';
+@JsonEnum()
+enum UserType {
+  @JsonValue('admin')
+  admin,
+  @JsonValue('merchant')
+  merchant,
+  @JsonValue('guest')
+  guest,
+}
 
 class UserEntity extends Equatable {
   final String id;
