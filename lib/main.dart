@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:spice_ledger/features/onboarding/presentation/pages/splash_screen.dart';
 import 'core/di/injection.dart';
-import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'core/theme/app_theme.dart';
 
 void main() async {
@@ -18,13 +16,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => getIt<AuthBloc>())],
-      child: MaterialApp(
-        title: 'Spice Ledger',
-        theme: AppTheme.light,
-        home: const SplashScreen(),
-      ),
+    return MaterialApp(
+      title: 'Spice Ledger',
+      theme: AppTheme.light,
+      home: const SplashScreen(),
     );
   }
 }

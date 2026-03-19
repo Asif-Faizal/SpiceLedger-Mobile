@@ -41,8 +41,12 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart'
     as _i153;
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
 import '../../features/auth/domain/usecases/check_email_usecase.dart' as _i879;
-import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i797;
-import '../../features/auth/presentation/cubit/check_email_cubit.dart' as _i43;
+import '../../features/auth/domain/usecases/login_usecase.dart' as _i188;
+import '../../features/auth/domain/usecases/register_usecase.dart' as _i941;
+import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i208;
+import '../../features/auth/presentation/bloc/register/register_bloc.dart'
+    as _i210;
+import '../../features/auth/presentation/cubit/check_email_cubit.dart' as _i699;
 import '../../features/inventory/data/datasources/inventory_remote_data_source.dart'
     as _i248;
 import '../../features/inventory/data/repositories/inventory_repository_impl.dart'
@@ -86,9 +90,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i619.EncryptedStorage>(),
         gh<_i738.Box<dynamic>>(),
       ),
-    );
-    gh.factory<_i797.AuthBloc>(
-      () => _i797.AuthBloc(gh<InvalidType>(), gh<InvalidType>()),
     );
     gh.factory<_i34.TokenInterceptor>(
       () => _i34.TokenInterceptor(gh<_i619.EncryptedStorage>()),
@@ -141,6 +142,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i879.CheckEmailUseCase>(
       () => _i879.CheckEmailUseCase(gh<_i787.AuthRepository>()),
     );
+    gh.lazySingleton<_i188.LoginUseCase>(
+      () => _i188.LoginUseCase(gh<_i787.AuthRepository>()),
+    );
+    gh.lazySingleton<_i941.RegisterUseCase>(
+      () => _i941.RegisterUseCase(gh<_i787.AuthRepository>()),
+    );
     gh.lazySingleton<_i583.AdminRepository>(
       () => _i335.AdminRepositoryImpl(gh<_i517.AdminRemoteDataSource>()),
     );
@@ -165,8 +172,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i495.SetDailyPriceUseCase>(
       () => _i495.SetDailyPriceUseCase(gh<_i583.AdminRepository>()),
     );
-    gh.factory<_i43.CheckEmailCubit>(
-      () => _i43.CheckEmailCubit(gh<_i879.CheckEmailUseCase>()),
+    gh.factory<_i208.LoginBloc>(
+      () => _i208.LoginBloc(gh<_i188.LoginUseCase>()),
+    );
+    gh.factory<_i699.CheckEmailCubit>(
+      () => _i699.CheckEmailCubit(gh<_i879.CheckEmailUseCase>()),
+    );
+    gh.factory<_i210.RegisterBloc>(
+      () => _i210.RegisterBloc(gh<_i941.RegisterUseCase>()),
     );
     gh.factory<_i55.AdminBloc>(
       () => _i55.AdminBloc(

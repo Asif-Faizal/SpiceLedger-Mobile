@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
-import '../bloc/auth_bloc.dart';
+import '../bloc/register/register_bloc.dart';
 import '../cubit/register_form_cubit.dart';
 import 'check_email_page.dart';
 import '../../../../core/theme/components/snackbars.dart';
@@ -15,8 +16,15 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => RegisterFormCubit()..setEmail(initialEmail ?? ''),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => RegisterFormCubit()..setEmail(initialEmail ?? ''),
+        ),
+        BlocProvider(
+          create: (_) => getIt<RegisterBloc>(),
+        ),
+      ],
       child: _RegisterView(initialEmail: initialEmail),
     );
   }
@@ -49,11 +57,11 @@ class _RegisterViewState extends State<_RegisterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: BlocListener<AuthBloc, AuthState>(
+      body: BlocListener<RegisterBloc, RegisterState>(
         listener: (context, state) {
           state.maybeWhen(
-            success: (message) {
-              showSuccessSnackbar(context, message);
+            success: (user) {
+              showSuccessSnackbar(context, 'Account created successfully!');
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -170,7 +178,7 @@ class _RegisterViewState extends State<_RegisterView> {
                   },
                 ),
                 const Spacer(),
-                BlocBuilder<AuthBloc, AuthState>(
+                BlocBuilder<RegisterBloc, RegisterState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       loading: () =>
@@ -180,16 +188,15 @@ class _RegisterViewState extends State<_RegisterView> {
                           label: 'Create Account',
                           trailingIcon: Icons.arrow_forward,
                           onPressed: () {
-                            final form = context
-                                .read<RegisterFormCubit>()
-                                .state;
-                            context.read<AuthBloc>().add(
-                              AuthEvent.register(
-                                form.name,
-                                form.email,
-                                form.password,
-                              ),
-                            );
+                            final form =
+                                context.read<RegisterFormCubit>().state;
+                            context.read<RegisterBloc>().add(
+                                  RegisterEvent.registerSubmitted(
+                                    form.name,
+                                    form.email,
+                                    form.password,
+                                  ),
+                                );
                           },
                         );
                       },

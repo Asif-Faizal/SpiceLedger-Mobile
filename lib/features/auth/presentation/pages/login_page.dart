@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
 import '../../../admin/presentation/pages/admin_dashboard_page.dart';
 import '../../../inventory/presentation/pages/inventory_page.dart';
-import '../bloc/auth_bloc.dart';
+import '../bloc/login/login_bloc.dart';
 import '../cubit/login_form_cubit.dart';
 import '../../domain/entities/user_entity.dart';
 import 'check_email_page.dart';
@@ -17,8 +18,15 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => LoginFormCubit()..setEmail(initialEmail ?? ''),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => LoginFormCubit()..setEmail(initialEmail ?? ''),
+        ),
+        BlocProvider(
+          create: (_) => getIt<LoginBloc>(),
+        ),
+      ],
       child: _LoginView(initialEmail: initialEmail),
     );
   }
@@ -50,10 +58,10 @@ class _LoginViewState extends State<_LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<AuthBloc, AuthState>(
+      body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           state.maybeWhen(
-            authenticated: (user) {
+            success: (user) {
               showSuccessSnackbar(context, 'Login Successful!');
               if (user.userType == UserType.admin) {
                 Navigator.pushReplacement(
@@ -130,7 +138,7 @@ class _LoginViewState extends State<_LoginView> {
                   ),
                 ),
                 const Spacer(),
-                BlocBuilder<AuthBloc, AuthState>(
+                BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       loading: () =>
@@ -141,9 +149,12 @@ class _LoginViewState extends State<_LoginView> {
                           trailingIcon: Icons.arrow_forward,
                           onPressed: () {
                             final form = context.read<LoginFormCubit>().state;
-                            context.read<AuthBloc>().add(
-                              AuthEvent.login(form.email, form.password),
-                            );
+                            context.read<LoginBloc>().add(
+                                  LoginEvent.loginSubmitted(
+                                    form.email,
+                                    form.password,
+                                  ),
+                                );
                           },
                         );
                       },
