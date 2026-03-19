@@ -64,7 +64,9 @@ class _RegisterViewState extends State<_RegisterView> {
               showSuccessSnackbar(context, 'Account created successfully!');
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => const LoginPage()),
+                MaterialPageRoute(
+                  builder: (_) => LoginPage(initialEmail: user.email),
+                ),
               );
             },
             failure: (message) {
@@ -180,26 +182,26 @@ class _RegisterViewState extends State<_RegisterView> {
                 const Spacer(),
                 BlocBuilder<RegisterBloc, RegisterState>(
                   builder: (context, state) {
-                    return state.maybeWhen(
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      orElse: () {
-                        return PrimaryButton(
-                          label: 'Create Account',
-                          trailingIcon: Icons.arrow_forward,
-                          onPressed: () {
-                            final form =
-                                context.read<RegisterFormCubit>().state;
-                            context.read<RegisterBloc>().add(
-                                  RegisterEvent.registerSubmitted(
-                                    form.name,
-                                    form.email,
-                                    form.password,
-                                  ),
-                                );
-                          },
-                        );
-                      },
+                    final isLoading = state.maybeWhen(
+                      loading: () => true,
+                      orElse: () => false,
+                    );
+                    return PrimaryButton(
+                      label: isLoading ? 'Creating Account...' : 'Create Account',
+                      trailingIcon: isLoading ? null : Icons.arrow_forward,
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              final form =
+                                  context.read<RegisterFormCubit>().state;
+                              context.read<RegisterBloc>().add(
+                                    RegisterEvent.registerSubmitted(
+                                      form.name,
+                                      form.email,
+                                      form.password,
+                                    ),
+                                  );
+                            },
                     );
                   },
                 ),

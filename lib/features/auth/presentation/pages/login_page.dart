@@ -140,24 +140,24 @@ class _LoginViewState extends State<_LoginView> {
                 const Spacer(),
                 BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) {
-                    return state.maybeWhen(
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      orElse: () {
-                        return PrimaryButton(
-                          label: 'Log in',
-                          trailingIcon: Icons.arrow_forward,
-                          onPressed: () {
-                            final form = context.read<LoginFormCubit>().state;
-                            context.read<LoginBloc>().add(
-                                  LoginEvent.loginSubmitted(
-                                    form.email,
-                                    form.password,
-                                  ),
-                                );
-                          },
-                        );
-                      },
+                    final isLoading = state.maybeWhen(
+                      loading: () => true,
+                      orElse: () => false,
+                    );
+                    return PrimaryButton(
+                      label: isLoading ? 'Logging in...' : 'Log in',
+                      trailingIcon: isLoading ? null : Icons.arrow_forward,
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              final form = context.read<LoginFormCubit>().state;
+                              context.read<LoginBloc>().add(
+                                    LoginEvent.loginSubmitted(
+                                      form.email,
+                                      form.password,
+                                    ),
+                                  );
+                            },
                     );
                   },
                 ),
