@@ -14,9 +14,11 @@ class AdminDashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AdminBloc>()
-        ..add(AdminEvent.loadDashboard(
-          date: DateTime.now().toIso8601String().split('T')[0],
-        )),
+        ..add(
+          AdminEvent.loadDashboard(
+            date: DateTime.now().toIso8601String().split('T')[0],
+          ),
+        ),
       child: Scaffold(
         appBar: AppBar(title: const Text('Admin Dashboard')),
         body: const AdminView(),
@@ -62,9 +64,9 @@ class AdminView extends StatelessWidget {
                 showErrorSnackbar(context, 'Product name is required');
                 return;
               }
-              context
-                  .read<AdminBloc>()
-                  .add(AdminEvent.createProduct(name, desc));
+              context.read<AdminBloc>().add(
+                AdminEvent.createProduct(name, desc),
+              );
               Navigator.pop(ctx);
             },
             child: const Text('Add'),
@@ -105,7 +107,8 @@ class AdminView extends StatelessWidget {
                   children: [
                     DropdownButtonFormField<String>(
                       initialValue:
-                          selectedProductId ?? (products.isNotEmpty ? products.first.id : null),
+                          selectedProductId ??
+                          (products.isNotEmpty ? products.first.id : null),
                       items: products
                           .map(
                             (p) => DropdownMenuItem(
@@ -120,16 +123,21 @@ class AdminView extends StatelessWidget {
                     if (products.isEmpty)
                       const Padding(
                         padding: EdgeInsets.only(top: 8.0),
-                        child:
-                            Text('No products available. Please add a product first.'),
+                        child: Text(
+                          'No products available. Please add a product first.',
+                        ),
                       ),
                     TextField(
                       controller: nameController,
-                      decoration: const InputDecoration(labelText: 'Grade Name'),
+                      decoration: const InputDecoration(
+                        labelText: 'Grade Name',
+                      ),
                     ),
                     TextField(
                       controller: descController,
-                      decoration: const InputDecoration(labelText: 'Description'),
+                      decoration: const InputDecoration(
+                        labelText: 'Description',
+                      ),
                     ),
                   ],
                 ),
@@ -210,17 +218,15 @@ class AdminView extends StatelessWidget {
             children: [
               TextField(
                 controller: dateController,
-                decoration:
-                    const InputDecoration(labelText: 'Date (YYYY-MM-DD)'),
+                decoration: const InputDecoration(
+                  labelText: 'Date (YYYY-MM-DD)',
+                ),
               ),
               DropdownButtonFormField<String>(
                 initialValue: selectedProductId,
                 items: products
                     .map(
-                      (p) => DropdownMenuItem(
-                        value: p.id,
-                        child: Text(p.name),
-                      ),
+                      (p) => DropdownMenuItem(value: p.id, child: Text(p.name)),
                     )
                     .toList(),
                 onChanged: (v) {
@@ -229,7 +235,9 @@ class AdminView extends StatelessWidget {
                     final filtered = grades
                         .where((gr) => gr.productId == selectedProductId)
                         .toList();
-                    selectedGradeId = filtered.isNotEmpty ? filtered.first.id : null;
+                    selectedGradeId = filtered.isNotEmpty
+                        ? filtered.first.id
+                        : null;
                   });
                 },
                 decoration: const InputDecoration(labelText: 'Product'),
@@ -239,10 +247,8 @@ class AdminView extends StatelessWidget {
                 items: grades
                     .where((gr) => gr.productId == selectedProductId)
                     .map(
-                      (gr) => DropdownMenuItem(
-                        value: gr.id,
-                        child: Text(gr.name),
-                      ),
+                      (gr) =>
+                          DropdownMenuItem(value: gr.id, child: Text(gr.name)),
                     )
                     .toList(),
                 onChanged: (v) => setState(() => selectedGradeId = v),
@@ -258,7 +264,8 @@ class AdminView extends StatelessWidget {
             TextButton(
               onPressed: () {
                 final price = double.tryParse(priceController.text) ?? 0.0;
-                if (selectedProductId == null || selectedGradeId == null) return;
+                if (selectedProductId == null || selectedGradeId == null)
+                  return;
                 context.read<AdminBloc>().add(
                   AdminEvent.setPrice(
                     dateController.text,
@@ -334,7 +341,8 @@ class _DashboardContent extends StatelessWidget {
 
   Color _deltaColor(double v) =>
       v >= 0 ? const Color(0xFF16A34A) : const Color(0xFFDC2626);
-  IconData _deltaIcon(double v) => v >= 0 ? Icons.arrow_upward : Icons.arrow_downward;
+  IconData _deltaIcon(double v) =>
+      v >= 0 ? Icons.arrow_upward : Icons.arrow_downward;
 
   @override
   Widget build(BuildContext context) {
@@ -356,8 +364,11 @@ class _DashboardContent extends StatelessWidget {
                       const SizedBox(height: 6),
                       Row(
                         children: [
-                          Icon(_deltaIcon(data.users.monthlyChangePct),
-                              size: 16, color: _deltaColor(data.users.monthlyChangePct)),
+                          Icon(
+                            _deltaIcon(data.users.monthlyChangePct),
+                            size: 16,
+                            color: _deltaColor(data.users.monthlyChangePct),
+                          ),
                           const SizedBox(width: 4),
                           Text(
                             '${data.users.monthlyChangePct.toStringAsFixed(1)}%',
@@ -388,13 +399,18 @@ class _DashboardContent extends StatelessWidget {
                       const SizedBox(height: 6),
                       Row(
                         children: [
-                          Icon(_deltaIcon(data.products.monthlyChangePct),
-                              size: 16, color: _deltaColor(data.products.monthlyChangePct)),
+                          Icon(
+                            _deltaIcon(data.products.monthlyChangePct),
+                            size: 16,
+                            color: _deltaColor(data.products.monthlyChangePct),
+                          ),
                           const SizedBox(width: 4),
                           Text(
                             '${data.products.monthlyChangePct.toStringAsFixed(1)}%',
                             style: text.labelMedium?.copyWith(
-                              color: _deltaColor(data.products.monthlyChangePct),
+                              color: _deltaColor(
+                                data.products.monthlyChangePct,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 6),
@@ -418,7 +434,10 @@ class _DashboardContent extends StatelessWidget {
                       const SizedBox(height: 8),
                       Text('${data.grades.total}', style: text.titleLarge),
                       const SizedBox(height: 6),
-                      Text('Quality variants across products', style: text.labelSmall),
+                      Text(
+                        'Quality variants across products',
+                        style: text.labelSmall,
+                      ),
                     ],
                   ),
                 ),
@@ -452,21 +471,25 @@ class _DashboardContent extends StatelessWidget {
                           DataCell(Text(u.product)),
                           DataCell(Text(u.grade)),
                           DataCell(Text(u.price.toStringAsFixed(2))),
-                          DataCell(Row(
-                            children: [
-                              Icon(icon, color: color, size: 16),
-                              const SizedBox(width: 4),
-                              Text(
-                                '${u.changePercent.toStringAsFixed(1)}%',
-                                style: text.labelMedium?.copyWith(color: color),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '(${u.changeDelta.toStringAsFixed(2)})',
-                                style: text.labelSmall,
-                              ),
-                            ],
-                          )),
+                          DataCell(
+                            Row(
+                              children: [
+                                Icon(icon, color: color, size: 16),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '${u.changePercent.toStringAsFixed(1)}%',
+                                  style: text.labelMedium?.copyWith(
+                                    color: color,
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '(${u.changeDelta.toStringAsFixed(2)})',
+                                  style: text.labelSmall,
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       );
                     }).toList(),
@@ -485,8 +508,8 @@ class _DashboardLoading extends StatelessWidget {
   const _DashboardLoading();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
+    return const Column(
+      children: [
         Row(
           children: [
             Expanded(child: _ShimmerBox(height: 120)),
@@ -511,13 +534,16 @@ class _ShimmerBox extends StatefulWidget {
   State<_ShimmerBox> createState() => _ShimmerBoxState();
 }
 
-class _ShimmerBoxState extends State<_ShimmerBox> with SingleTickerProviderStateMixin {
+class _ShimmerBoxState extends State<_ShimmerBox>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1))
-      ..repeat();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat();
   }
 
   @override
@@ -535,7 +561,7 @@ class _ShimmerBoxState extends State<_ShimmerBox> with SingleTickerProviderState
         return Container(
           height: widget.height,
           width: widget.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.zero,
             color: Colors.transparent,
           ),
@@ -553,9 +579,7 @@ class _ShimmerBoxState extends State<_ShimmerBox> with SingleTickerProviderState
               ).createShader(rect);
             },
             blendMode: BlendMode.srcATop,
-            child: Container(
-              color: const Color(0xFFF2F4F7),
-            ),
+            child: Container(color: const Color(0xFFF2F4F7)),
           ),
         );
       },

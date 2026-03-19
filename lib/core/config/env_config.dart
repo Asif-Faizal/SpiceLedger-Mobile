@@ -4,6 +4,10 @@ class ApiConfig {
   static const String basicAuthUser = String.fromEnvironment('BASIC_AUTH_USER');
   static const String basicAuthPass = String.fromEnvironment('BASIC_AUTH_PASS');
   static const String _baseUrl = String.fromEnvironment('BASE_URL');
+  static const int restApiTimeout = int.fromEnvironment(
+    'REST_API_TIMEOUT',
+    defaultValue: 30,
+  );
 
   static String get baseUrl {
     if (_baseUrl.isEmpty) return 'http://127.0.0.1:8080';

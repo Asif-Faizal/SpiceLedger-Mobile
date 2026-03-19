@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/config/env_config.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/network/models/api_response.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
@@ -25,12 +24,23 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         data: {'email': email, 'password': password},
         options: Options(headers: ApiConfig.basicAuthHeaders),
       );
-      if (response.statusCode == 200) {
-        return UserModel.fromJson(response.data);
+
+      final apiResponse = ApiResponse<UserModel>.fromJson(
+        response.data as Map<String, dynamic>,
+        (json) => UserModel.fromJson(json),
+      );
+
+      if (apiResponse.success && apiResponse.data != null) {
+        return apiResponse.data!;
       } else {
-        throw const ServerFailure('Login failed');
+        throw ServerFailure(apiResponse.message);
       }
     } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final apiResponse = ApiResponse.fromJson(responseData, (json) => json);
+        throw ServerFailure(apiResponse.message);
+      }
       throw ServerFailure(e.message ?? 'Login failed');
     }
   }
@@ -42,10 +52,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         '/api/auth/register',
         data: {'name': name, 'email': email, 'password': password},
       );
-      if (response.statusCode != 200 && response.statusCode != 201) {
-        throw const ServerFailure('Registration failed');
+
+      final apiResponse = ApiResponse.fromJson(
+        response.data as Map<String, dynamic>,
+        (json) => json,
+      );
+
+      if (!apiResponse.success) {
+        throw ServerFailure(apiResponse.message);
       }
     } on DioException catch (e) {
+      final responseData = e.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        final apiResponse = ApiResponse.fromJson(responseData, (json) => json);
+        throw ServerFailure(apiResponse.message);
+      }
       throw ServerFailure(e.message ?? 'Registration failed');
     }
   }
