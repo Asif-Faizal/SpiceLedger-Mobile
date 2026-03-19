@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -40,9 +40,11 @@ import '../../features/auth/data/datasources/auth_remote_data_source.dart'
 import '../../features/auth/data/repositories/auth_repository_impl.dart'
     as _i153;
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
+import '../../features/auth/domain/usecases/check_email_usecase.dart' as _i879;
 import '../../features/auth/domain/usecases/login_usecase.dart' as _i188;
 import '../../features/auth/domain/usecases/register_usecase.dart' as _i941;
 import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i797;
+import '../../features/auth/presentation/bloc/check_email_cubit.dart' as _i43;
 import '../../features/inventory/data/datasources/inventory_remote_data_source.dart'
     as _i248;
 import '../../features/inventory/data/repositories/inventory_repository_impl.dart'
@@ -59,6 +61,7 @@ import '../../features/inventory/domain/usecases/get_grades_usecase.dart'
     as _i143;
 import '../../features/inventory/presentation/bloc/inventory_bloc.dart'
     as _i690;
+import '../../features/onboarding/presentation/bloc/splash_cubit.dart' as _i128;
 import '../network/network_module.dart' as _i200;
 import '../network/token_interceptor.dart' as _i34;
 import '../storage/hive_module.dart' as _i824;
@@ -73,16 +76,19 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final storageModule = _$StorageModule();
     final networkModule = _$NetworkModule();
-    gh.lazySingleton<_i619.EncryptedStorage>(() => _i619.EncryptedStorage());
     await gh.lazySingletonAsync<_i738.Box<dynamic>>(
       () => storageModule.cacheBox,
       preResolve: true,
     );
+    gh.lazySingleton<_i619.EncryptedStorage>(() => _i619.EncryptedStorage());
     gh.factory<_i34.TokenInterceptor>(
       () => _i34.TokenInterceptor(gh<_i619.EncryptedStorage>()),
     );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.dio(gh<_i34.TokenInterceptor>()),
+    );
+    gh.factory<_i128.SplashCubit>(
+      () => _i128.SplashCubit(gh<_i619.EncryptedStorage>()),
     );
     gh.lazySingleton<_i517.AdminRemoteDataSource>(
       () => _i517.AdminRemoteDataSourceImpl(gh<_i361.Dio>()),
@@ -106,14 +112,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i483.AddPurchaseLotUseCase>(
       () => _i483.AddPurchaseLotUseCase(gh<_i422.InventoryRepository>()),
     );
+    gh.lazySingleton<_i123.AddSaleUseCase>(
+      () => _i123.AddSaleUseCase(gh<_i422.InventoryRepository>()),
+    );
     gh.lazySingleton<_i869.GetCurrentInventoryUseCase>(
       () => _i869.GetCurrentInventoryUseCase(gh<_i422.InventoryRepository>()),
     );
     gh.lazySingleton<_i143.GetGradesUseCase>(
       () => _i143.GetGradesUseCase(gh<_i422.InventoryRepository>()),
-    );
-    gh.lazySingleton<_i123.AddSaleUseCase>(
-      () => _i123.AddSaleUseCase(gh<_i422.InventoryRepository>()),
     );
     gh.factory<_i690.InventoryBloc>(
       () => _i690.InventoryBloc(
@@ -123,11 +129,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i869.GetCurrentInventoryUseCase>(),
       ),
     );
-    gh.lazySingleton<_i941.RegisterUseCase>(
-      () => _i941.RegisterUseCase(gh<_i787.AuthRepository>()),
+    gh.lazySingleton<_i879.CheckEmailUseCase>(
+      () => _i879.CheckEmailUseCase(gh<_i787.AuthRepository>()),
     );
     gh.lazySingleton<_i188.LoginUseCase>(
       () => _i188.LoginUseCase(gh<_i787.AuthRepository>()),
+    );
+    gh.lazySingleton<_i941.RegisterUseCase>(
+      () => _i941.RegisterUseCase(gh<_i787.AuthRepository>()),
     );
     gh.lazySingleton<_i583.AdminRepository>(
       () => _i335.AdminRepositoryImpl(gh<_i517.AdminRemoteDataSource>()),
@@ -135,27 +144,30 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i311.GetDashboardUseCase>(
       () => _i311.GetDashboardUseCase(gh<_i583.AdminRepository>()),
     );
+    gh.lazySingleton<_i442.CreateGradeUseCase>(
+      () => _i442.CreateGradeUseCase(gh<_i583.AdminRepository>()),
+    );
     gh.lazySingleton<_i74.CreateProductUseCase>(
       () => _i74.CreateProductUseCase(gh<_i583.AdminRepository>()),
     );
     gh.lazySingleton<_i6.GetDailyPricesUseCase>(
       () => _i6.GetDailyPricesUseCase(gh<_i583.AdminRepository>()),
     );
-    gh.lazySingleton<_i442.CreateGradeUseCase>(
-      () => _i442.CreateGradeUseCase(gh<_i583.AdminRepository>()),
-    );
-    gh.lazySingleton<_i495.SetDailyPriceUseCase>(
-      () => _i495.SetDailyPriceUseCase(gh<_i583.AdminRepository>()),
+    gh.lazySingleton<_i289.GetProductsUseCase>(
+      () => _i289.GetProductsUseCase(gh<_i583.AdminRepository>()),
     );
     gh.lazySingleton<_i348.GetUserStatsUseCase>(
       () => _i348.GetUserStatsUseCase(gh<_i583.AdminRepository>()),
     );
-    gh.lazySingleton<_i289.GetProductsUseCase>(
-      () => _i289.GetProductsUseCase(gh<_i583.AdminRepository>()),
+    gh.lazySingleton<_i495.SetDailyPriceUseCase>(
+      () => _i495.SetDailyPriceUseCase(gh<_i583.AdminRepository>()),
     );
     gh.factory<_i797.AuthBloc>(
       () =>
           _i797.AuthBloc(gh<_i188.LoginUseCase>(), gh<_i941.RegisterUseCase>()),
+    );
+    gh.factory<_i43.CheckEmailCubit>(
+      () => _i43.CheckEmailCubit(gh<_i879.CheckEmailUseCase>()),
     );
     gh.factory<_i55.AdminBloc>(
       () => _i55.AdminBloc(

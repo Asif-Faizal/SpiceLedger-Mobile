@@ -2,9 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/storage/secure_storage.dart';
+import '../../domain/entities/email_check_entity.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_data_source.dart';
+import '../models/email_check_model.dart';
 import '../models/user_model.dart';
 
 @LazySingleton(as: AuthRepository)
@@ -41,6 +43,18 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await remoteDataSource.register(name, email, password);
       return const Right(null);
+    } on Failure catch (e) {
+      return Left(e);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, EmailCheckEntity>> checkEmail(String email) async {
+    try {
+      final model = await remoteDataSource.checkEmail(email);
+      return Right(model.toEntity());
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {

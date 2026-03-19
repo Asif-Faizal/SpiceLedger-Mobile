@@ -15,3 +15,35 @@ class ServerFailure extends Failure {
 class CacheFailure extends Failure {
   const CacheFailure(super.message);
 }
+
+class NetworkFailure extends Failure {
+  const NetworkFailure(super.message);
+}
+
+class UnauthorizedFailure extends Failure {
+  const UnauthorizedFailure(super.message);
+}
+
+class ForbiddenFailure extends Failure {
+  const ForbiddenFailure(super.message);
+}
+
+class NotFoundFailure extends Failure {
+  const NotFoundFailure(super.message);
+}
+
+class ServiceUnavailableFailure extends Failure {
+  const ServiceUnavailableFailure(super.message);
+}
+
+class ValidationFailure extends Failure {
+  const ValidationFailure(super.message);
+}
+
+class ConflictFailure extends Failure {
+  const ConflictFailure(super.message);
+}
+
+class InternalServerFailure extends Failure {
+  const InternalServerFailure(super.message);
+}

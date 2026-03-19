@@ -5,14 +5,14 @@ part 'inventory_model.freezed.dart';
 part 'inventory_model.g.dart';
 
 @freezed
-class InventoryModel with _$InventoryModel {
+abstract class InventoryModel with _$InventoryModel {
   const factory InventoryModel({
     @JsonKey(name: 'total_quantity', fromJson: _doubleOrZero)
-        required double totalQuantity,
+    required double totalQuantity,
     @JsonKey(name: 'total_value', fromJson: _doubleOrZero)
-        required double totalValue,
+    required double totalValue,
     @JsonKey(name: 'current_pnl', fromJson: _doubleOrZero)
-        required double currentPL,
+    required double currentPL,
   }) = _InventoryModel;
 
   factory InventoryModel.fromJson(Map<String, dynamic> json) =>

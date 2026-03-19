@@ -4,11 +4,12 @@ part 'daily_price_model.freezed.dart';
 part 'daily_price_model.g.dart';
 
 @freezed
-class DailyPriceItem with _$DailyPriceItem {
+abstract class DailyPriceItem with _$DailyPriceItem {
   const factory DailyPriceItem({
     @JsonKey(name: 'product_id') required String productId,
     @JsonKey(name: 'grade_id') required String gradeId,
-    @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero) required double pricePerKg,
+    @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)
+    required double pricePerKg,
   }) = _DailyPriceItem;
 
   factory DailyPriceItem.fromJson(Map<String, dynamic> json) =>
@@ -16,7 +17,7 @@ class DailyPriceItem with _$DailyPriceItem {
 }
 
 @freezed
-class DailyPricesResponse with _$DailyPricesResponse {
+abstract class DailyPricesResponse with _$DailyPricesResponse {
   const factory DailyPricesResponse({
     required String date,
     List<DailyPriceItem>? prices,

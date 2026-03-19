@@ -2,12 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/config/env_config.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/network/error_handler.dart';
 import '../../../../core/network/models/api_response.dart';
+import '../models/email_check_model.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<UserModel> login(String email, String password);
   Future<void> register(String name, String email, String password);
+  Future<EmailCheckModel> checkEmail(String email);
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -35,13 +38,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       } else {
         throw ServerFailure(apiResponse.message);
       }
-    } on DioException catch (e) {
-      final responseData = e.response?.data;
-      if (responseData is Map<String, dynamic>) {
-        final apiResponse = ApiResponse.fromJson(responseData, (json) => json);
-        throw ServerFailure(apiResponse.message);
-      }
-      throw ServerFailure(e.message ?? 'Login failed');
+    } catch (e) {
+      throw ErrorHandler.handle(e);
     }
   }
 
@@ -61,13 +59,32 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (!apiResponse.success) {
         throw ServerFailure(apiResponse.message);
       }
-    } on DioException catch (e) {
-      final responseData = e.response?.data;
-      if (responseData is Map<String, dynamic>) {
-        final apiResponse = ApiResponse.fromJson(responseData, (json) => json);
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+
+  @override
+  Future<EmailCheckModel> checkEmail(String email) async {
+    try {
+      final response = await client.get(
+        '/rest/accounts/check-email',
+        queryParameters: {'email': email},
+        options: Options(headers: ApiConfig.basicAuthHeaders),
+      );
+
+      final apiResponse = ApiResponse<EmailCheckModel>.fromJson(
+        response.data,
+        (json) => EmailCheckModel.fromJson(json),
+      );
+
+      if (apiResponse.success && apiResponse.data != null) {
+        return apiResponse.data!;
+      } else {
         throw ServerFailure(apiResponse.message);
       }
-      throw ServerFailure(e.message ?? 'Registration failed');
+    } catch (e) {
+      throw ErrorHandler.handle(e);
     }
   }
 }

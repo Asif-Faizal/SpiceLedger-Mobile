@@ -6,17 +6,17 @@ part of 'dashboard_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DashboardUsersSummaryImpl _$$DashboardUsersSummaryImplFromJson(
+_DashboardUsersSummary _$DashboardUsersSummaryFromJson(
   Map<String, dynamic> json,
-) => _$DashboardUsersSummaryImpl(
+) => _DashboardUsersSummary(
   total: (json['total'] as num).toInt(),
   weeklyNew: (json['weekly_new'] as num).toInt(),
   weeklyChangePct: (json['weekly_change_pct'] as num).toDouble(),
   monthlyChangePct: (json['monthly_change_pct'] as num).toDouble(),
 );
 
-Map<String, dynamic> _$$DashboardUsersSummaryImplToJson(
-  _$DashboardUsersSummaryImpl instance,
+Map<String, dynamic> _$DashboardUsersSummaryToJson(
+  _DashboardUsersSummary instance,
 ) => <String, dynamic>{
   'total': instance.total,
   'weekly_new': instance.weeklyNew,
@@ -24,31 +24,31 @@ Map<String, dynamic> _$$DashboardUsersSummaryImplToJson(
   'monthly_change_pct': instance.monthlyChangePct,
 };
 
-_$DashboardProductsSummaryImpl _$$DashboardProductsSummaryImplFromJson(
+_DashboardProductsSummary _$DashboardProductsSummaryFromJson(
   Map<String, dynamic> json,
-) => _$DashboardProductsSummaryImpl(
+) => _DashboardProductsSummary(
   total: (json['total'] as num).toInt(),
   monthlyChangePct: (json['monthly_change_pct'] as num).toDouble(),
 );
 
-Map<String, dynamic> _$$DashboardProductsSummaryImplToJson(
-  _$DashboardProductsSummaryImpl instance,
+Map<String, dynamic> _$DashboardProductsSummaryToJson(
+  _DashboardProductsSummary instance,
 ) => <String, dynamic>{
   'total': instance.total,
   'monthly_change_pct': instance.monthlyChangePct,
 };
 
-_$DashboardGradesSummaryImpl _$$DashboardGradesSummaryImplFromJson(
+_DashboardGradesSummary _$DashboardGradesSummaryFromJson(
   Map<String, dynamic> json,
-) => _$DashboardGradesSummaryImpl(total: (json['total'] as num).toInt());
+) => _DashboardGradesSummary(total: (json['total'] as num).toInt());
 
-Map<String, dynamic> _$$DashboardGradesSummaryImplToJson(
-  _$DashboardGradesSummaryImpl instance,
+Map<String, dynamic> _$DashboardGradesSummaryToJson(
+  _DashboardGradesSummary instance,
 ) => <String, dynamic>{'total': instance.total};
 
-_$DashboardPriceUpdateImpl _$$DashboardPriceUpdateImplFromJson(
+_DashboardPriceUpdate _$DashboardPriceUpdateFromJson(
   Map<String, dynamic> json,
-) => _$DashboardPriceUpdateImpl(
+) => _DashboardPriceUpdate(
   date: json['date'] as String,
   productId: json['product_id'] as String,
   product: json['product'] as String,
@@ -61,8 +61,8 @@ _$DashboardPriceUpdateImpl _$$DashboardPriceUpdateImplFromJson(
   changePercent: _doubleOrZero(json['change_percent']),
 );
 
-Map<String, dynamic> _$$DashboardPriceUpdateImplToJson(
-  _$DashboardPriceUpdateImpl instance,
+Map<String, dynamic> _$DashboardPriceUpdateToJson(
+  _DashboardPriceUpdate instance,
 ) => <String, dynamic>{
   'date': instance.date,
   'product_id': instance.productId,
@@ -76,30 +76,30 @@ Map<String, dynamic> _$$DashboardPriceUpdateImplToJson(
   'change_percent': instance.changePercent,
 };
 
-_$DashboardResponseImpl _$$DashboardResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$DashboardResponseImpl(
-  date: json['date'] as String,
-  users: DashboardUsersSummary.fromJson(json['users'] as Map<String, dynamic>),
-  products: DashboardProductsSummary.fromJson(
-    json['products'] as Map<String, dynamic>,
-  ),
-  grades: DashboardGradesSummary.fromJson(
-    json['grades'] as Map<String, dynamic>,
-  ),
-  totalItems: (json['total_items'] as num).toInt(),
-  priceUpdates: (json['price_updates'] as List<dynamic>)
-      .map((e) => DashboardPriceUpdate.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
+_DashboardResponse _$DashboardResponseFromJson(Map<String, dynamic> json) =>
+    _DashboardResponse(
+      date: json['date'] as String,
+      users: DashboardUsersSummary.fromJson(
+        json['users'] as Map<String, dynamic>,
+      ),
+      products: DashboardProductsSummary.fromJson(
+        json['products'] as Map<String, dynamic>,
+      ),
+      grades: DashboardGradesSummary.fromJson(
+        json['grades'] as Map<String, dynamic>,
+      ),
+      totalItems: (json['total_items'] as num).toInt(),
+      priceUpdates: (json['price_updates'] as List<dynamic>)
+          .map((e) => DashboardPriceUpdate.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
-Map<String, dynamic> _$$DashboardResponseImplToJson(
-  _$DashboardResponseImpl instance,
-) => <String, dynamic>{
-  'date': instance.date,
-  'users': instance.users,
-  'products': instance.products,
-  'grades': instance.grades,
-  'total_items': instance.totalItems,
-  'price_updates': instance.priceUpdates,
-};
+Map<String, dynamic> _$DashboardResponseToJson(_DashboardResponse instance) =>
+    <String, dynamic>{
+      'date': instance.date,
+      'users': instance.users,
+      'products': instance.products,
+      'grades': instance.grades,
+      'total_items': instance.totalItems,
+      'price_updates': instance.priceUpdates,
+    };

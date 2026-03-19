@@ -4,7 +4,7 @@ part 'dashboard_model.freezed.dart';
 part 'dashboard_model.g.dart';
 
 @freezed
-class DashboardUsersSummary with _$DashboardUsersSummary {
+abstract class DashboardUsersSummary with _$DashboardUsersSummary {
   const factory DashboardUsersSummary({
     @JsonKey(name: 'total') required int total,
     @JsonKey(name: 'weekly_new') required int weeklyNew,
@@ -17,7 +17,7 @@ class DashboardUsersSummary with _$DashboardUsersSummary {
 }
 
 @freezed
-class DashboardProductsSummary with _$DashboardProductsSummary {
+abstract class DashboardProductsSummary with _$DashboardProductsSummary {
   const factory DashboardProductsSummary({
     @JsonKey(name: 'total') required int total,
     @JsonKey(name: 'monthly_change_pct') required double monthlyChangePct,
@@ -28,7 +28,7 @@ class DashboardProductsSummary with _$DashboardProductsSummary {
 }
 
 @freezed
-class DashboardGradesSummary with _$DashboardGradesSummary {
+abstract class DashboardGradesSummary with _$DashboardGradesSummary {
   const factory DashboardGradesSummary({
     @JsonKey(name: 'total') required int total,
   }) = _DashboardGradesSummary;
@@ -44,7 +44,7 @@ double _doubleOrZero(Object? v) {
 }
 
 @freezed
-class DashboardPriceUpdate with _$DashboardPriceUpdate {
+abstract class DashboardPriceUpdate with _$DashboardPriceUpdate {
   const factory DashboardPriceUpdate({
     @JsonKey(name: 'date') required String date,
     @JsonKey(name: 'product_id') required String productId,
@@ -66,14 +66,15 @@ class DashboardPriceUpdate with _$DashboardPriceUpdate {
 }
 
 @freezed
-class DashboardResponse with _$DashboardResponse {
+abstract class DashboardResponse with _$DashboardResponse {
   const factory DashboardResponse({
     @JsonKey(name: 'date') required String date,
     @JsonKey(name: 'users') required DashboardUsersSummary users,
     @JsonKey(name: 'products') required DashboardProductsSummary products,
     @JsonKey(name: 'grades') required DashboardGradesSummary grades,
     @JsonKey(name: 'total_items') required int totalItems,
-    @JsonKey(name: 'price_updates') required List<DashboardPriceUpdate> priceUpdates,
+    @JsonKey(name: 'price_updates')
+    required List<DashboardPriceUpdate> priceUpdates,
   }) = _DashboardResponse;
 
   factory DashboardResponse.fromJson(Map<String, dynamic> json) =>

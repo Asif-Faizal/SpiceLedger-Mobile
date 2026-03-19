@@ -21,8 +21,6 @@ class AppTheme {
       onSecondary: AppColors.white,
       error: AppColors.danger,
       onError: AppColors.white,
-      background: AppColors.white,
-      onBackground: AppColors.nearBlack,
       surface: AppColors.white,
       onSurface: AppColors.nearBlack,
       surfaceTint: Colors.transparent,

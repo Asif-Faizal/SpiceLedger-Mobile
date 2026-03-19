@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,2651 +9,1160 @@ part of 'admin_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$AdminEvent {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadStats,
-    required TResult Function(String productId, String name, String description)
-    createGrade,
-    required TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )
-    setPrice,
-    required TResult Function(String name, String description) createProduct,
-    required TResult Function() loadCatalog,
-    required TResult Function(String? date) loadDashboard,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadStats,
-    TResult? Function(String productId, String name, String description)?
-    createGrade,
-    TResult? Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult? Function(String name, String description)? createProduct,
-    TResult? Function()? loadCatalog,
-    TResult? Function(String? date)? loadDashboard,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadStats,
-    TResult Function(String productId, String name, String description)?
-    createGrade,
-    TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult Function(String name, String description)? createProduct,
-    TResult Function()? loadCatalog,
-    TResult Function(String? date)? loadDashboard,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LoadStats value) loadStats,
-    required TResult Function(_CreateGrade value) createGrade,
-    required TResult Function(_SetPrice value) setPrice,
-    required TResult Function(_CreateProduct value) createProduct,
-    required TResult Function(_LoadCatalog value) loadCatalog,
-    required TResult Function(_LoadDashboard value) loadDashboard,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadStats value)? loadStats,
-    TResult? Function(_CreateGrade value)? createGrade,
-    TResult? Function(_SetPrice value)? setPrice,
-    TResult? Function(_CreateProduct value)? createProduct,
-    TResult? Function(_LoadCatalog value)? loadCatalog,
-    TResult? Function(_LoadDashboard value)? loadDashboard,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadStats value)? loadStats,
-    TResult Function(_CreateGrade value)? createGrade,
-    TResult Function(_SetPrice value)? setPrice,
-    TResult Function(_CreateProduct value)? createProduct,
-    TResult Function(_LoadCatalog value)? loadCatalog,
-    TResult Function(_LoadDashboard value)? loadDashboard,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AdminEvent()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AdminEventCopyWith<$Res> {
-  factory $AdminEventCopyWith(
-    AdminEvent value,
-    $Res Function(AdminEvent) then,
-  ) = _$AdminEventCopyWithImpl<$Res, AdminEvent>;
+class $AdminEventCopyWith<$Res>  {
+$AdminEventCopyWith(AdminEvent _, $Res Function(AdminEvent) __);
 }
 
-/// @nodoc
-class _$AdminEventCopyWithImpl<$Res, $Val extends AdminEvent>
-    implements $AdminEventCopyWith<$Res> {
-  _$AdminEventCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+/// Adds pattern-matching-related methods to [AdminEvent].
+extension AdminEventPatterns on AdminEvent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _LoadStats value)?  loadStats,TResult Function( _CreateGrade value)?  createGrade,TResult Function( _SetPrice value)?  setPrice,TResult Function( _CreateProduct value)?  createProduct,TResult Function( _LoadCatalog value)?  loadCatalog,TResult Function( _LoadDashboard value)?  loadDashboard,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _LoadStats() when loadStats != null:
+return loadStats(_that);case _CreateGrade() when createGrade != null:
+return createGrade(_that);case _SetPrice() when setPrice != null:
+return setPrice(_that);case _CreateProduct() when createProduct != null:
+return createProduct(_that);case _LoadCatalog() when loadCatalog != null:
+return loadCatalog(_that);case _LoadDashboard() when loadDashboard != null:
+return loadDashboard(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _LoadStats value)  loadStats,required TResult Function( _CreateGrade value)  createGrade,required TResult Function( _SetPrice value)  setPrice,required TResult Function( _CreateProduct value)  createProduct,required TResult Function( _LoadCatalog value)  loadCatalog,required TResult Function( _LoadDashboard value)  loadDashboard,}){
+final _that = this;
+switch (_that) {
+case _LoadStats():
+return loadStats(_that);case _CreateGrade():
+return createGrade(_that);case _SetPrice():
+return setPrice(_that);case _CreateProduct():
+return createProduct(_that);case _LoadCatalog():
+return loadCatalog(_that);case _LoadDashboard():
+return loadDashboard(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _LoadStats value)?  loadStats,TResult? Function( _CreateGrade value)?  createGrade,TResult? Function( _SetPrice value)?  setPrice,TResult? Function( _CreateProduct value)?  createProduct,TResult? Function( _LoadCatalog value)?  loadCatalog,TResult? Function( _LoadDashboard value)?  loadDashboard,}){
+final _that = this;
+switch (_that) {
+case _LoadStats() when loadStats != null:
+return loadStats(_that);case _CreateGrade() when createGrade != null:
+return createGrade(_that);case _SetPrice() when setPrice != null:
+return setPrice(_that);case _CreateProduct() when createProduct != null:
+return createProduct(_that);case _LoadCatalog() when loadCatalog != null:
+return loadCatalog(_that);case _LoadDashboard() when loadDashboard != null:
+return loadDashboard(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadStats,TResult Function( String productId,  String name,  String description)?  createGrade,TResult Function( String date,  String productId,  String gradeId,  double price)?  setPrice,TResult Function( String name,  String description)?  createProduct,TResult Function()?  loadCatalog,TResult Function( String? date)?  loadDashboard,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _LoadStats() when loadStats != null:
+return loadStats();case _CreateGrade() when createGrade != null:
+return createGrade(_that.productId,_that.name,_that.description);case _SetPrice() when setPrice != null:
+return setPrice(_that.date,_that.productId,_that.gradeId,_that.price);case _CreateProduct() when createProduct != null:
+return createProduct(_that.name,_that.description);case _LoadCatalog() when loadCatalog != null:
+return loadCatalog();case _LoadDashboard() when loadDashboard != null:
+return loadDashboard(_that.date);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadStats,required TResult Function( String productId,  String name,  String description)  createGrade,required TResult Function( String date,  String productId,  String gradeId,  double price)  setPrice,required TResult Function( String name,  String description)  createProduct,required TResult Function()  loadCatalog,required TResult Function( String? date)  loadDashboard,}) {final _that = this;
+switch (_that) {
+case _LoadStats():
+return loadStats();case _CreateGrade():
+return createGrade(_that.productId,_that.name,_that.description);case _SetPrice():
+return setPrice(_that.date,_that.productId,_that.gradeId,_that.price);case _CreateProduct():
+return createProduct(_that.name,_that.description);case _LoadCatalog():
+return loadCatalog();case _LoadDashboard():
+return loadDashboard(_that.date);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadStats,TResult? Function( String productId,  String name,  String description)?  createGrade,TResult? Function( String date,  String productId,  String gradeId,  double price)?  setPrice,TResult? Function( String name,  String description)?  createProduct,TResult? Function()?  loadCatalog,TResult? Function( String? date)?  loadDashboard,}) {final _that = this;
+switch (_that) {
+case _LoadStats() when loadStats != null:
+return loadStats();case _CreateGrade() when createGrade != null:
+return createGrade(_that.productId,_that.name,_that.description);case _SetPrice() when setPrice != null:
+return setPrice(_that.date,_that.productId,_that.gradeId,_that.price);case _CreateProduct() when createProduct != null:
+return createProduct(_that.name,_that.description);case _LoadCatalog() when loadCatalog != null:
+return loadCatalog();case _LoadDashboard() when loadDashboard != null:
+return loadDashboard(_that.date);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-abstract class _$$LoadStatsImplCopyWith<$Res> {
-  factory _$$LoadStatsImplCopyWith(
-    _$LoadStatsImpl value,
-    $Res Function(_$LoadStatsImpl) then,
-  ) = __$$LoadStatsImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoadStatsImplCopyWithImpl<$Res>
-    extends _$AdminEventCopyWithImpl<$Res, _$LoadStatsImpl>
-    implements _$$LoadStatsImplCopyWith<$Res> {
-  __$$LoadStatsImplCopyWithImpl(
-    _$LoadStatsImpl _value,
-    $Res Function(_$LoadStatsImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$LoadStatsImpl implements _LoadStats {
-  const _$LoadStatsImpl();
-
-  @override
-  String toString() {
-    return 'AdminEvent.loadStats()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadStatsImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadStats,
-    required TResult Function(String productId, String name, String description)
-    createGrade,
-    required TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )
-    setPrice,
-    required TResult Function(String name, String description) createProduct,
-    required TResult Function() loadCatalog,
-    required TResult Function(String? date) loadDashboard,
-  }) {
-    return loadStats();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadStats,
-    TResult? Function(String productId, String name, String description)?
-    createGrade,
-    TResult? Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult? Function(String name, String description)? createProduct,
-    TResult? Function()? loadCatalog,
-    TResult? Function(String? date)? loadDashboard,
-  }) {
-    return loadStats?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadStats,
-    TResult Function(String productId, String name, String description)?
-    createGrade,
-    TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult Function(String name, String description)? createProduct,
-    TResult Function()? loadCatalog,
-    TResult Function(String? date)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (loadStats != null) {
-      return loadStats();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LoadStats value) loadStats,
-    required TResult Function(_CreateGrade value) createGrade,
-    required TResult Function(_SetPrice value) setPrice,
-    required TResult Function(_CreateProduct value) createProduct,
-    required TResult Function(_LoadCatalog value) loadCatalog,
-    required TResult Function(_LoadDashboard value) loadDashboard,
-  }) {
-    return loadStats(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadStats value)? loadStats,
-    TResult? Function(_CreateGrade value)? createGrade,
-    TResult? Function(_SetPrice value)? setPrice,
-    TResult? Function(_CreateProduct value)? createProduct,
-    TResult? Function(_LoadCatalog value)? loadCatalog,
-    TResult? Function(_LoadDashboard value)? loadDashboard,
-  }) {
-    return loadStats?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadStats value)? loadStats,
-    TResult Function(_CreateGrade value)? createGrade,
-    TResult Function(_SetPrice value)? setPrice,
-    TResult Function(_CreateProduct value)? createProduct,
-    TResult Function(_LoadCatalog value)? loadCatalog,
-    TResult Function(_LoadDashboard value)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (loadStats != null) {
-      return loadStats(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _LoadStats implements AdminEvent {
-  const factory _LoadStats() = _$LoadStatsImpl;
-}
-
-/// @nodoc
-abstract class _$$CreateGradeImplCopyWith<$Res> {
-  factory _$$CreateGradeImplCopyWith(
-    _$CreateGradeImpl value,
-    $Res Function(_$CreateGradeImpl) then,
-  ) = __$$CreateGradeImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String productId, String name, String description});
-}
-
-/// @nodoc
-class __$$CreateGradeImplCopyWithImpl<$Res>
-    extends _$AdminEventCopyWithImpl<$Res, _$CreateGradeImpl>
-    implements _$$CreateGradeImplCopyWith<$Res> {
-  __$$CreateGradeImplCopyWithImpl(
-    _$CreateGradeImpl _value,
-    $Res Function(_$CreateGradeImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? productId = null,
-    Object? name = null,
-    Object? description = null,
-  }) {
-    return _then(
-      _$CreateGradeImpl(
-        null == productId
-            ? _value.productId
-            : productId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        null == name
-            ? _value.name
-            : name // ignore: cast_nullable_to_non_nullable
-                  as String,
-        null == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$CreateGradeImpl implements _CreateGrade {
-  const _$CreateGradeImpl(this.productId, this.name, this.description);
 
-  @override
-  final String productId;
-  @override
-  final String name;
-  @override
-  final String description;
+class _LoadStats implements AdminEvent {
+  const _LoadStats();
+  
 
-  @override
-  String toString() {
-    return 'AdminEvent.createGrade(productId: $productId, name: $name, description: $description)';
-  }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CreateGradeImpl &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType, productId, name, description);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CreateGradeImplCopyWith<_$CreateGradeImpl> get copyWith =>
-      __$$CreateGradeImplCopyWithImpl<_$CreateGradeImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadStats,
-    required TResult Function(String productId, String name, String description)
-    createGrade,
-    required TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )
-    setPrice,
-    required TResult Function(String name, String description) createProduct,
-    required TResult Function() loadCatalog,
-    required TResult Function(String? date) loadDashboard,
-  }) {
-    return createGrade(productId, name, description);
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadStats,
-    TResult? Function(String productId, String name, String description)?
-    createGrade,
-    TResult? Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult? Function(String name, String description)? createProduct,
-    TResult? Function()? loadCatalog,
-    TResult? Function(String? date)? loadDashboard,
-  }) {
-    return createGrade?.call(productId, name, description);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadStats,
-    TResult Function(String productId, String name, String description)?
-    createGrade,
-    TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult Function(String name, String description)? createProduct,
-    TResult Function()? loadCatalog,
-    TResult Function(String? date)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (createGrade != null) {
-      return createGrade(productId, name, description);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LoadStats value) loadStats,
-    required TResult Function(_CreateGrade value) createGrade,
-    required TResult Function(_SetPrice value) setPrice,
-    required TResult Function(_CreateProduct value) createProduct,
-    required TResult Function(_LoadCatalog value) loadCatalog,
-    required TResult Function(_LoadDashboard value) loadDashboard,
-  }) {
-    return createGrade(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadStats value)? loadStats,
-    TResult? Function(_CreateGrade value)? createGrade,
-    TResult? Function(_SetPrice value)? setPrice,
-    TResult? Function(_CreateProduct value)? createProduct,
-    TResult? Function(_LoadCatalog value)? loadCatalog,
-    TResult? Function(_LoadDashboard value)? loadDashboard,
-  }) {
-    return createGrade?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadStats value)? loadStats,
-    TResult Function(_CreateGrade value)? createGrade,
-    TResult Function(_SetPrice value)? setPrice,
-    TResult Function(_CreateProduct value)? createProduct,
-    TResult Function(_LoadCatalog value)? loadCatalog,
-    TResult Function(_LoadDashboard value)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (createGrade != null) {
-      return createGrade(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadStats);
 }
 
-abstract class _CreateGrade implements AdminEvent {
-  const factory _CreateGrade(
-    final String productId,
-    final String name,
-    final String description,
-  ) = _$CreateGradeImpl;
 
-  String get productId;
-  String get name;
-  String get description;
+@override
+int get hashCode => runtimeType.hashCode;
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CreateGradeImplCopyWith<_$CreateGradeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'AdminEvent.loadStats()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _CreateGrade implements AdminEvent {
+  const _CreateGrade(this.productId, this.name, this.description);
+  
+
+ final  String productId;
+ final  String name;
+ final  String description;
+
+/// Create a copy of AdminEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CreateGradeCopyWith<_CreateGrade> get copyWith => __$CreateGradeCopyWithImpl<_CreateGrade>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateGrade&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,productId,name,description);
+
+@override
+String toString() {
+  return 'AdminEvent.createGrade(productId: $productId, name: $name, description: $description)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SetPriceImplCopyWith<$Res> {
-  factory _$$SetPriceImplCopyWith(
-    _$SetPriceImpl value,
-    $Res Function(_$SetPriceImpl) then,
-  ) = __$$SetPriceImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String date, String productId, String gradeId, double price});
+abstract mixin class _$CreateGradeCopyWith<$Res> implements $AdminEventCopyWith<$Res> {
+  factory _$CreateGradeCopyWith(_CreateGrade value, $Res Function(_CreateGrade) _then) = __$CreateGradeCopyWithImpl;
+@useResult
+$Res call({
+ String productId, String name, String description
+});
+
+
+
+
+}
+/// @nodoc
+class __$CreateGradeCopyWithImpl<$Res>
+    implements _$CreateGradeCopyWith<$Res> {
+  __$CreateGradeCopyWithImpl(this._self, this._then);
+
+  final _CreateGrade _self;
+  final $Res Function(_CreateGrade) _then;
+
+/// Create a copy of AdminEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? productId = null,Object? name = null,Object? description = null,}) {
+  return _then(_CreateGrade(
+null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as String,null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$SetPriceImplCopyWithImpl<$Res>
-    extends _$AdminEventCopyWithImpl<$Res, _$SetPriceImpl>
-    implements _$$SetPriceImplCopyWith<$Res> {
-  __$$SetPriceImplCopyWithImpl(
-    _$SetPriceImpl _value,
-    $Res Function(_$SetPriceImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? date = null,
-    Object? productId = null,
-    Object? gradeId = null,
-    Object? price = null,
-  }) {
-    return _then(
-      _$SetPriceImpl(
-        null == date
-            ? _value.date
-            : date // ignore: cast_nullable_to_non_nullable
-                  as String,
-        null == productId
-            ? _value.productId
-            : productId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        null == gradeId
-            ? _value.gradeId
-            : gradeId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        null == price
-            ? _value.price
-            : price // ignore: cast_nullable_to_non_nullable
-                  as double,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$SetPriceImpl implements _SetPrice {
-  const _$SetPriceImpl(this.date, this.productId, this.gradeId, this.price);
 
-  @override
-  final String date;
-  @override
-  final String productId;
-  @override
-  final String gradeId;
-  @override
-  final double price;
+class _SetPrice implements AdminEvent {
+  const _SetPrice(this.date, this.productId, this.gradeId, this.price);
+  
 
-  @override
-  String toString() {
-    return 'AdminEvent.setPrice(date: $date, productId: $productId, gradeId: $gradeId, price: $price)';
-  }
+ final  String date;
+ final  String productId;
+ final  String gradeId;
+ final  double price;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SetPriceImpl &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.gradeId, gradeId) || other.gradeId == gradeId) &&
-            (identical(other.price, price) || other.price == price));
-  }
+/// Create a copy of AdminEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SetPriceCopyWith<_SetPrice> get copyWith => __$SetPriceCopyWithImpl<_SetPrice>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, date, productId, gradeId, price);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SetPriceImplCopyWith<_$SetPriceImpl> get copyWith =>
-      __$$SetPriceImplCopyWithImpl<_$SetPriceImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadStats,
-    required TResult Function(String productId, String name, String description)
-    createGrade,
-    required TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )
-    setPrice,
-    required TResult Function(String name, String description) createProduct,
-    required TResult Function() loadCatalog,
-    required TResult Function(String? date) loadDashboard,
-  }) {
-    return setPrice(date, productId, gradeId, price);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadStats,
-    TResult? Function(String productId, String name, String description)?
-    createGrade,
-    TResult? Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult? Function(String name, String description)? createProduct,
-    TResult? Function()? loadCatalog,
-    TResult? Function(String? date)? loadDashboard,
-  }) {
-    return setPrice?.call(date, productId, gradeId, price);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadStats,
-    TResult Function(String productId, String name, String description)?
-    createGrade,
-    TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult Function(String name, String description)? createProduct,
-    TResult Function()? loadCatalog,
-    TResult Function(String? date)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (setPrice != null) {
-      return setPrice(date, productId, gradeId, price);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LoadStats value) loadStats,
-    required TResult Function(_CreateGrade value) createGrade,
-    required TResult Function(_SetPrice value) setPrice,
-    required TResult Function(_CreateProduct value) createProduct,
-    required TResult Function(_LoadCatalog value) loadCatalog,
-    required TResult Function(_LoadDashboard value) loadDashboard,
-  }) {
-    return setPrice(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadStats value)? loadStats,
-    TResult? Function(_CreateGrade value)? createGrade,
-    TResult? Function(_SetPrice value)? setPrice,
-    TResult? Function(_CreateProduct value)? createProduct,
-    TResult? Function(_LoadCatalog value)? loadCatalog,
-    TResult? Function(_LoadDashboard value)? loadDashboard,
-  }) {
-    return setPrice?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadStats value)? loadStats,
-    TResult Function(_CreateGrade value)? createGrade,
-    TResult Function(_SetPrice value)? setPrice,
-    TResult Function(_CreateProduct value)? createProduct,
-    TResult Function(_LoadCatalog value)? loadCatalog,
-    TResult Function(_LoadDashboard value)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (setPrice != null) {
-      return setPrice(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SetPrice&&(identical(other.date, date) || other.date == date)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.gradeId, gradeId) || other.gradeId == gradeId)&&(identical(other.price, price) || other.price == price));
 }
 
-abstract class _SetPrice implements AdminEvent {
-  const factory _SetPrice(
-    final String date,
-    final String productId,
-    final String gradeId,
-    final double price,
-  ) = _$SetPriceImpl;
 
-  String get date;
-  String get productId;
-  String get gradeId;
-  double get price;
+@override
+int get hashCode => Object.hash(runtimeType,date,productId,gradeId,price);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SetPriceImplCopyWith<_$SetPriceImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'AdminEvent.setPrice(date: $date, productId: $productId, gradeId: $gradeId, price: $price)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$CreateProductImplCopyWith<$Res> {
-  factory _$$CreateProductImplCopyWith(
-    _$CreateProductImpl value,
-    $Res Function(_$CreateProductImpl) then,
-  ) = __$$CreateProductImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String name, String description});
+abstract mixin class _$SetPriceCopyWith<$Res> implements $AdminEventCopyWith<$Res> {
+  factory _$SetPriceCopyWith(_SetPrice value, $Res Function(_SetPrice) _then) = __$SetPriceCopyWithImpl;
+@useResult
+$Res call({
+ String date, String productId, String gradeId, double price
+});
+
+
+
+
+}
+/// @nodoc
+class __$SetPriceCopyWithImpl<$Res>
+    implements _$SetPriceCopyWith<$Res> {
+  __$SetPriceCopyWithImpl(this._self, this._then);
+
+  final _SetPrice _self;
+  final $Res Function(_SetPrice) _then;
+
+/// Create a copy of AdminEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? date = null,Object? productId = null,Object? gradeId = null,Object? price = null,}) {
+  return _then(_SetPrice(
+null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String,null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as String,null == gradeId ? _self.gradeId : gradeId // ignore: cast_nullable_to_non_nullable
+as String,null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
 
-/// @nodoc
-class __$$CreateProductImplCopyWithImpl<$Res>
-    extends _$AdminEventCopyWithImpl<$Res, _$CreateProductImpl>
-    implements _$$CreateProductImplCopyWith<$Res> {
-  __$$CreateProductImplCopyWithImpl(
-    _$CreateProductImpl _value,
-    $Res Function(_$CreateProductImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? name = null, Object? description = null}) {
-    return _then(
-      _$CreateProductImpl(
-        null == name
-            ? _value.name
-            : name // ignore: cast_nullable_to_non_nullable
-                  as String,
-        null == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$CreateProductImpl implements _CreateProduct {
-  const _$CreateProductImpl(this.name, this.description);
 
-  @override
-  final String name;
-  @override
-  final String description;
+class _CreateProduct implements AdminEvent {
+  const _CreateProduct(this.name, this.description);
+  
 
-  @override
-  String toString() {
-    return 'AdminEvent.createProduct(name: $name, description: $description)';
-  }
+ final  String name;
+ final  String description;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CreateProductImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description));
-  }
+/// Create a copy of AdminEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CreateProductCopyWith<_CreateProduct> get copyWith => __$CreateProductCopyWithImpl<_CreateProduct>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, name, description);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CreateProductImplCopyWith<_$CreateProductImpl> get copyWith =>
-      __$$CreateProductImplCopyWithImpl<_$CreateProductImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadStats,
-    required TResult Function(String productId, String name, String description)
-    createGrade,
-    required TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )
-    setPrice,
-    required TResult Function(String name, String description) createProduct,
-    required TResult Function() loadCatalog,
-    required TResult Function(String? date) loadDashboard,
-  }) {
-    return createProduct(name, description);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadStats,
-    TResult? Function(String productId, String name, String description)?
-    createGrade,
-    TResult? Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult? Function(String name, String description)? createProduct,
-    TResult? Function()? loadCatalog,
-    TResult? Function(String? date)? loadDashboard,
-  }) {
-    return createProduct?.call(name, description);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadStats,
-    TResult Function(String productId, String name, String description)?
-    createGrade,
-    TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult Function(String name, String description)? createProduct,
-    TResult Function()? loadCatalog,
-    TResult Function(String? date)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (createProduct != null) {
-      return createProduct(name, description);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LoadStats value) loadStats,
-    required TResult Function(_CreateGrade value) createGrade,
-    required TResult Function(_SetPrice value) setPrice,
-    required TResult Function(_CreateProduct value) createProduct,
-    required TResult Function(_LoadCatalog value) loadCatalog,
-    required TResult Function(_LoadDashboard value) loadDashboard,
-  }) {
-    return createProduct(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadStats value)? loadStats,
-    TResult? Function(_CreateGrade value)? createGrade,
-    TResult? Function(_SetPrice value)? setPrice,
-    TResult? Function(_CreateProduct value)? createProduct,
-    TResult? Function(_LoadCatalog value)? loadCatalog,
-    TResult? Function(_LoadDashboard value)? loadDashboard,
-  }) {
-    return createProduct?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadStats value)? loadStats,
-    TResult Function(_CreateGrade value)? createGrade,
-    TResult Function(_SetPrice value)? setPrice,
-    TResult Function(_CreateProduct value)? createProduct,
-    TResult Function(_LoadCatalog value)? loadCatalog,
-    TResult Function(_LoadDashboard value)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (createProduct != null) {
-      return createProduct(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateProduct&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description));
 }
 
-abstract class _CreateProduct implements AdminEvent {
-  const factory _CreateProduct(final String name, final String description) =
-      _$CreateProductImpl;
 
-  String get name;
-  String get description;
+@override
+int get hashCode => Object.hash(runtimeType,name,description);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CreateProductImplCopyWith<_$CreateProductImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'AdminEvent.createProduct(name: $name, description: $description)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$LoadCatalogImplCopyWith<$Res> {
-  factory _$$LoadCatalogImplCopyWith(
-    _$LoadCatalogImpl value,
-    $Res Function(_$LoadCatalogImpl) then,
-  ) = __$$LoadCatalogImplCopyWithImpl<$Res>;
+abstract mixin class _$CreateProductCopyWith<$Res> implements $AdminEventCopyWith<$Res> {
+  factory _$CreateProductCopyWith(_CreateProduct value, $Res Function(_CreateProduct) _then) = __$CreateProductCopyWithImpl;
+@useResult
+$Res call({
+ String name, String description
+});
+
+
+
+
+}
+/// @nodoc
+class __$CreateProductCopyWithImpl<$Res>
+    implements _$CreateProductCopyWith<$Res> {
+  __$CreateProductCopyWithImpl(this._self, this._then);
+
+  final _CreateProduct _self;
+  final $Res Function(_CreateProduct) _then;
+
+/// Create a copy of AdminEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? name = null,Object? description = null,}) {
+  return _then(_CreateProduct(
+null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$LoadCatalogImplCopyWithImpl<$Res>
-    extends _$AdminEventCopyWithImpl<$Res, _$LoadCatalogImpl>
-    implements _$$LoadCatalogImplCopyWith<$Res> {
-  __$$LoadCatalogImplCopyWithImpl(
-    _$LoadCatalogImpl _value,
-    $Res Function(_$LoadCatalogImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
-class _$LoadCatalogImpl implements _LoadCatalog {
-  const _$LoadCatalogImpl();
 
-  @override
-  String toString() {
-    return 'AdminEvent.loadCatalog()';
-  }
+class _LoadCatalog implements AdminEvent {
+  const _LoadCatalog();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadCatalogImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadStats,
-    required TResult Function(String productId, String name, String description)
-    createGrade,
-    required TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )
-    setPrice,
-    required TResult Function(String name, String description) createProduct,
-    required TResult Function() loadCatalog,
-    required TResult Function(String? date) loadDashboard,
-  }) {
-    return loadCatalog();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadStats,
-    TResult? Function(String productId, String name, String description)?
-    createGrade,
-    TResult? Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult? Function(String name, String description)? createProduct,
-    TResult? Function()? loadCatalog,
-    TResult? Function(String? date)? loadDashboard,
-  }) {
-    return loadCatalog?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadStats,
-    TResult Function(String productId, String name, String description)?
-    createGrade,
-    TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult Function(String name, String description)? createProduct,
-    TResult Function()? loadCatalog,
-    TResult Function(String? date)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (loadCatalog != null) {
-      return loadCatalog();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LoadStats value) loadStats,
-    required TResult Function(_CreateGrade value) createGrade,
-    required TResult Function(_SetPrice value) setPrice,
-    required TResult Function(_CreateProduct value) createProduct,
-    required TResult Function(_LoadCatalog value) loadCatalog,
-    required TResult Function(_LoadDashboard value) loadDashboard,
-  }) {
-    return loadCatalog(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadStats value)? loadStats,
-    TResult? Function(_CreateGrade value)? createGrade,
-    TResult? Function(_SetPrice value)? setPrice,
-    TResult? Function(_CreateProduct value)? createProduct,
-    TResult? Function(_LoadCatalog value)? loadCatalog,
-    TResult? Function(_LoadDashboard value)? loadDashboard,
-  }) {
-    return loadCatalog?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadStats value)? loadStats,
-    TResult Function(_CreateGrade value)? createGrade,
-    TResult Function(_SetPrice value)? setPrice,
-    TResult Function(_CreateProduct value)? createProduct,
-    TResult Function(_LoadCatalog value)? loadCatalog,
-    TResult Function(_LoadDashboard value)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (loadCatalog != null) {
-      return loadCatalog(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadCatalog);
 }
 
-abstract class _LoadCatalog implements AdminEvent {
-  const factory _LoadCatalog() = _$LoadCatalogImpl;
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AdminEvent.loadCatalog()';
 }
 
-/// @nodoc
-abstract class _$$LoadDashboardImplCopyWith<$Res> {
-  factory _$$LoadDashboardImplCopyWith(
-    _$LoadDashboardImpl value,
-    $Res Function(_$LoadDashboardImpl) then,
-  ) = __$$LoadDashboardImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String? date});
+
 }
 
-/// @nodoc
-class __$$LoadDashboardImplCopyWithImpl<$Res>
-    extends _$AdminEventCopyWithImpl<$Res, _$LoadDashboardImpl>
-    implements _$$LoadDashboardImplCopyWith<$Res> {
-  __$$LoadDashboardImplCopyWithImpl(
-    _$LoadDashboardImpl _value,
-    $Res Function(_$LoadDashboardImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? date = freezed}) {
-    return _then(
-      _$LoadDashboardImpl(
-        date: freezed == date
-            ? _value.date
-            : date // ignore: cast_nullable_to_non_nullable
-                  as String?,
-      ),
-    );
-  }
-}
+
 
 /// @nodoc
 
-class _$LoadDashboardImpl implements _LoadDashboard {
-  const _$LoadDashboardImpl({this.date});
 
-  @override
-  final String? date;
+class _LoadDashboard implements AdminEvent {
+  const _LoadDashboard({this.date});
+  
 
-  @override
-  String toString() {
-    return 'AdminEvent.loadDashboard(date: $date)';
-  }
+ final  String? date;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadDashboardImpl &&
-            (identical(other.date, date) || other.date == date));
-  }
+/// Create a copy of AdminEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoadDashboardCopyWith<_LoadDashboard> get copyWith => __$LoadDashboardCopyWithImpl<_LoadDashboard>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, date);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadDashboardImplCopyWith<_$LoadDashboardImpl> get copyWith =>
-      __$$LoadDashboardImplCopyWithImpl<_$LoadDashboardImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadStats,
-    required TResult Function(String productId, String name, String description)
-    createGrade,
-    required TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )
-    setPrice,
-    required TResult Function(String name, String description) createProduct,
-    required TResult Function() loadCatalog,
-    required TResult Function(String? date) loadDashboard,
-  }) {
-    return loadDashboard(date);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadStats,
-    TResult? Function(String productId, String name, String description)?
-    createGrade,
-    TResult? Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult? Function(String name, String description)? createProduct,
-    TResult? Function()? loadCatalog,
-    TResult? Function(String? date)? loadDashboard,
-  }) {
-    return loadDashboard?.call(date);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadStats,
-    TResult Function(String productId, String name, String description)?
-    createGrade,
-    TResult Function(
-      String date,
-      String productId,
-      String gradeId,
-      double price,
-    )?
-    setPrice,
-    TResult Function(String name, String description)? createProduct,
-    TResult Function()? loadCatalog,
-    TResult Function(String? date)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (loadDashboard != null) {
-      return loadDashboard(date);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LoadStats value) loadStats,
-    required TResult Function(_CreateGrade value) createGrade,
-    required TResult Function(_SetPrice value) setPrice,
-    required TResult Function(_CreateProduct value) createProduct,
-    required TResult Function(_LoadCatalog value) loadCatalog,
-    required TResult Function(_LoadDashboard value) loadDashboard,
-  }) {
-    return loadDashboard(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoadStats value)? loadStats,
-    TResult? Function(_CreateGrade value)? createGrade,
-    TResult? Function(_SetPrice value)? setPrice,
-    TResult? Function(_CreateProduct value)? createProduct,
-    TResult? Function(_LoadCatalog value)? loadCatalog,
-    TResult? Function(_LoadDashboard value)? loadDashboard,
-  }) {
-    return loadDashboard?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoadStats value)? loadStats,
-    TResult Function(_CreateGrade value)? createGrade,
-    TResult Function(_SetPrice value)? setPrice,
-    TResult Function(_CreateProduct value)? createProduct,
-    TResult Function(_LoadCatalog value)? loadCatalog,
-    TResult Function(_LoadDashboard value)? loadDashboard,
-    required TResult orElse(),
-  }) {
-    if (loadDashboard != null) {
-      return loadDashboard(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadDashboard&&(identical(other.date, date) || other.date == date));
 }
 
-abstract class _LoadDashboard implements AdminEvent {
-  const factory _LoadDashboard({final String? date}) = _$LoadDashboardImpl;
 
-  String? get date;
+@override
+int get hashCode => Object.hash(runtimeType,date);
 
-  /// Create a copy of AdminEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LoadDashboardImplCopyWith<_$LoadDashboardImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'AdminEvent.loadDashboard(date: $date)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$LoadDashboardCopyWith<$Res> implements $AdminEventCopyWith<$Res> {
+  factory _$LoadDashboardCopyWith(_LoadDashboard value, $Res Function(_LoadDashboard) _then) = __$LoadDashboardCopyWithImpl;
+@useResult
+$Res call({
+ String? date
+});
+
+
+
+
+}
+/// @nodoc
+class __$LoadDashboardCopyWithImpl<$Res>
+    implements _$LoadDashboardCopyWith<$Res> {
+  __$LoadDashboardCopyWithImpl(this._self, this._then);
+
+  final _LoadDashboard _self;
+  final $Res Function(_LoadDashboard) _then;
+
+/// Create a copy of AdminEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? date = freezed,}) {
+  return _then(_LoadDashboard(
+date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
 }
 
 /// @nodoc
 mixin _$AdminState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserStats stats) loaded,
-    required TResult Function(String message) success,
-    required TResult Function(String message) failure,
-    required TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )
-    catalog,
-    required TResult Function(DashboardResponse dashboard) dashboard,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserStats stats)? loaded,
-    TResult? Function(String message)? success,
-    TResult? Function(String message)? failure,
-    TResult? Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult? Function(DashboardResponse dashboard)? dashboard,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserStats stats)? loaded,
-    TResult Function(String message)? success,
-    TResult Function(String message)? failure,
-    TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult Function(DashboardResponse dashboard)? dashboard,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Failure value) failure,
-    required TResult Function(_Catalog value) catalog,
-    required TResult Function(_Dashboard value) dashboard,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Failure value)? failure,
-    TResult? Function(_Catalog value)? catalog,
-    TResult? Function(_Dashboard value)? dashboard,
-  }) => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Failure value)? failure,
-    TResult Function(_Catalog value)? catalog,
-    TResult Function(_Dashboard value)? dashboard,
-    required TResult orElse(),
-  }) => throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AdminState()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AdminStateCopyWith<$Res> {
-  factory $AdminStateCopyWith(
-    AdminState value,
-    $Res Function(AdminState) then,
-  ) = _$AdminStateCopyWithImpl<$Res, AdminState>;
+class $AdminStateCopyWith<$Res>  {
+$AdminStateCopyWith(AdminState _, $Res Function(AdminState) __);
 }
 
-/// @nodoc
-class _$AdminStateCopyWithImpl<$Res, $Val extends AdminState>
-    implements $AdminStateCopyWith<$Res> {
-  _$AdminStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+/// Adds pattern-matching-related methods to [AdminState].
+extension AdminStatePatterns on AdminState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Loaded value)?  loaded,TResult Function( _Success value)?  success,TResult Function( _Failure value)?  failure,TResult Function( _Catalog value)?  catalog,TResult Function( _Dashboard value)?  dashboard,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial(_that);case _Loading() when loading != null:
+return loading(_that);case _Loaded() when loaded != null:
+return loaded(_that);case _Success() when success != null:
+return success(_that);case _Failure() when failure != null:
+return failure(_that);case _Catalog() when catalog != null:
+return catalog(_that);case _Dashboard() when dashboard != null:
+return dashboard(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Loaded value)  loaded,required TResult Function( _Success value)  success,required TResult Function( _Failure value)  failure,required TResult Function( _Catalog value)  catalog,required TResult Function( _Dashboard value)  dashboard,}){
+final _that = this;
+switch (_that) {
+case _Initial():
+return initial(_that);case _Loading():
+return loading(_that);case _Loaded():
+return loaded(_that);case _Success():
+return success(_that);case _Failure():
+return failure(_that);case _Catalog():
+return catalog(_that);case _Dashboard():
+return dashboard(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Loaded value)?  loaded,TResult? Function( _Success value)?  success,TResult? Function( _Failure value)?  failure,TResult? Function( _Catalog value)?  catalog,TResult? Function( _Dashboard value)?  dashboard,}){
+final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial(_that);case _Loading() when loading != null:
+return loading(_that);case _Loaded() when loaded != null:
+return loaded(_that);case _Success() when success != null:
+return success(_that);case _Failure() when failure != null:
+return failure(_that);case _Catalog() when catalog != null:
+return catalog(_that);case _Dashboard() when dashboard != null:
+return dashboard(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( UserStats stats)?  loaded,TResult Function( String message)?  success,TResult Function( String message)?  failure,TResult Function( List<Product> products,  List<Grade> grades,  DailyPricesResponse prices)?  catalog,TResult Function( DashboardResponse dashboard)?  dashboard,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial();case _Loading() when loading != null:
+return loading();case _Loaded() when loaded != null:
+return loaded(_that.stats);case _Success() when success != null:
+return success(_that.message);case _Failure() when failure != null:
+return failure(_that.message);case _Catalog() when catalog != null:
+return catalog(_that.products,_that.grades,_that.prices);case _Dashboard() when dashboard != null:
+return dashboard(_that.dashboard);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( UserStats stats)  loaded,required TResult Function( String message)  success,required TResult Function( String message)  failure,required TResult Function( List<Product> products,  List<Grade> grades,  DailyPricesResponse prices)  catalog,required TResult Function( DashboardResponse dashboard)  dashboard,}) {final _that = this;
+switch (_that) {
+case _Initial():
+return initial();case _Loading():
+return loading();case _Loaded():
+return loaded(_that.stats);case _Success():
+return success(_that.message);case _Failure():
+return failure(_that.message);case _Catalog():
+return catalog(_that.products,_that.grades,_that.prices);case _Dashboard():
+return dashboard(_that.dashboard);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( UserStats stats)?  loaded,TResult? Function( String message)?  success,TResult? Function( String message)?  failure,TResult? Function( List<Product> products,  List<Grade> grades,  DailyPricesResponse prices)?  catalog,TResult? Function( DashboardResponse dashboard)?  dashboard,}) {final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial();case _Loading() when loading != null:
+return loading();case _Loaded() when loaded != null:
+return loaded(_that.stats);case _Success() when success != null:
+return success(_that.message);case _Failure() when failure != null:
+return failure(_that.message);case _Catalog() when catalog != null:
+return catalog(_that.products,_that.grades,_that.prices);case _Dashboard() when dashboard != null:
+return dashboard(_that.dashboard);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-    _$InitialImpl value,
-    $Res Function(_$InitialImpl) then,
-  ) = __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$AdminStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-    _$InitialImpl _value,
-    $Res Function(_$InitialImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'AdminState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserStats stats) loaded,
-    required TResult Function(String message) success,
-    required TResult Function(String message) failure,
-    required TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )
-    catalog,
-    required TResult Function(DashboardResponse dashboard) dashboard,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserStats stats)? loaded,
-    TResult? Function(String message)? success,
-    TResult? Function(String message)? failure,
-    TResult? Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult? Function(DashboardResponse dashboard)? dashboard,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserStats stats)? loaded,
-    TResult Function(String message)? success,
-    TResult Function(String message)? failure,
-    TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult Function(DashboardResponse dashboard)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Failure value) failure,
-    required TResult Function(_Catalog value) catalog,
-    required TResult Function(_Dashboard value) dashboard,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Failure value)? failure,
-    TResult? Function(_Catalog value)? catalog,
-    TResult? Function(_Dashboard value)? dashboard,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Failure value)? failure,
-    TResult Function(_Catalog value)? catalog,
-    TResult Function(_Dashboard value)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements AdminState {
-  const factory _Initial() = _$InitialImpl;
-}
-
-/// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-    _$LoadingImpl value,
-    $Res Function(_$LoadingImpl) then,
-  ) = __$$LoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$AdminStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-    _$LoadingImpl _value,
-    $Res Function(_$LoadingImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
 
-  @override
-  String toString() {
-    return 'AdminState.loading()';
-  }
+class _Initial implements AdminState {
+  const _Initial();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserStats stats) loaded,
-    required TResult Function(String message) success,
-    required TResult Function(String message) failure,
-    required TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )
-    catalog,
-    required TResult Function(DashboardResponse dashboard) dashboard,
-  }) {
-    return loading();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserStats stats)? loaded,
-    TResult? Function(String message)? success,
-    TResult? Function(String message)? failure,
-    TResult? Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult? Function(DashboardResponse dashboard)? dashboard,
-  }) {
-    return loading?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserStats stats)? loaded,
-    TResult Function(String message)? success,
-    TResult Function(String message)? failure,
-    TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult Function(DashboardResponse dashboard)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Failure value) failure,
-    required TResult Function(_Catalog value) catalog,
-    required TResult Function(_Dashboard value) dashboard,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Failure value)? failure,
-    TResult? Function(_Catalog value)? catalog,
-    TResult? Function(_Dashboard value)? dashboard,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Failure value)? failure,
-    TResult Function(_Catalog value)? catalog,
-    TResult Function(_Dashboard value)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
 }
 
-abstract class _Loading implements AdminState {
-  const factory _Loading() = _$LoadingImpl;
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AdminState.initial()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _Loading implements AdminState {
+  const _Loading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AdminState.loading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _Loaded implements AdminState {
+  const _Loaded(this.stats);
+  
+
+ final  UserStats stats;
+
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&(identical(other.stats, stats) || other.stats == stats));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,stats);
+
+@override
+String toString() {
+  return 'AdminState.loaded(stats: $stats)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$LoadedImplCopyWith<$Res> {
-  factory _$$LoadedImplCopyWith(
-    _$LoadedImpl value,
-    $Res Function(_$LoadedImpl) then,
-  ) = __$$LoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({UserStats stats});
+abstract mixin class _$LoadedCopyWith<$Res> implements $AdminStateCopyWith<$Res> {
+  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
+@useResult
+$Res call({
+ UserStats stats
+});
+
+
+
+
+}
+/// @nodoc
+class __$LoadedCopyWithImpl<$Res>
+    implements _$LoadedCopyWith<$Res> {
+  __$LoadedCopyWithImpl(this._self, this._then);
+
+  final _Loaded _self;
+  final $Res Function(_Loaded) _then;
+
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? stats = null,}) {
+  return _then(_Loaded(
+null == stats ? _self.stats : stats // ignore: cast_nullable_to_non_nullable
+as UserStats,
+  ));
 }
 
-/// @nodoc
-class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$AdminStateCopyWithImpl<$Res, _$LoadedImpl>
-    implements _$$LoadedImplCopyWith<$Res> {
-  __$$LoadedImplCopyWithImpl(
-    _$LoadedImpl _value,
-    $Res Function(_$LoadedImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? stats = null}) {
-    return _then(
-      _$LoadedImpl(
-        null == stats
-            ? _value.stats
-            : stats // ignore: cast_nullable_to_non_nullable
-                  as UserStats,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(this.stats);
 
-  @override
-  final UserStats stats;
+class _Success implements AdminState {
+  const _Success(this.message);
+  
 
-  @override
-  String toString() {
-    return 'AdminState.loaded(stats: $stats)';
-  }
+ final  String message;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedImpl &&
-            (identical(other.stats, stats) || other.stats == stats));
-  }
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, stats);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserStats stats) loaded,
-    required TResult Function(String message) success,
-    required TResult Function(String message) failure,
-    required TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )
-    catalog,
-    required TResult Function(DashboardResponse dashboard) dashboard,
-  }) {
-    return loaded(stats);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserStats stats)? loaded,
-    TResult? Function(String message)? success,
-    TResult? Function(String message)? failure,
-    TResult? Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult? Function(DashboardResponse dashboard)? dashboard,
-  }) {
-    return loaded?.call(stats);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserStats stats)? loaded,
-    TResult Function(String message)? success,
-    TResult Function(String message)? failure,
-    TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult Function(DashboardResponse dashboard)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(stats);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Failure value) failure,
-    required TResult Function(_Catalog value) catalog,
-    required TResult Function(_Dashboard value) dashboard,
-  }) {
-    return loaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Failure value)? failure,
-    TResult? Function(_Catalog value)? catalog,
-    TResult? Function(_Dashboard value)? dashboard,
-  }) {
-    return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Failure value)? failure,
-    TResult Function(_Catalog value)? catalog,
-    TResult Function(_Dashboard value)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.message, message) || other.message == message));
 }
 
-abstract class _Loaded implements AdminState {
-  const factory _Loaded(final UserStats stats) = _$LoadedImpl;
 
-  UserStats get stats;
+@override
+int get hashCode => Object.hash(runtimeType,message);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'AdminState.success(message: $message)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-    _$SuccessImpl value,
-    $Res Function(_$SuccessImpl) then,
-  ) = __$$SuccessImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
+abstract mixin class _$SuccessCopyWith<$Res> implements $AdminStateCopyWith<$Res> {
+  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class __$SuccessCopyWithImpl<$Res>
+    implements _$SuccessCopyWith<$Res> {
+  __$SuccessCopyWithImpl(this._self, this._then);
+
+  final _Success _self;
+  final $Res Function(_Success) _then;
+
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(_Success(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$AdminStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-    _$SuccessImpl _value,
-    $Res Function(_$SuccessImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = null}) {
-    return _then(
-      _$SuccessImpl(
-        null == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.message);
 
-  @override
-  final String message;
+class _Failure implements AdminState {
+  const _Failure(this.message);
+  
 
-  @override
-  String toString() {
-    return 'AdminState.success(message: $message)';
-  }
+ final  String message;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$FailureCopyWith<_Failure> get copyWith => __$FailureCopyWithImpl<_Failure>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserStats stats) loaded,
-    required TResult Function(String message) success,
-    required TResult Function(String message) failure,
-    required TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )
-    catalog,
-    required TResult Function(DashboardResponse dashboard) dashboard,
-  }) {
-    return success(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserStats stats)? loaded,
-    TResult? Function(String message)? success,
-    TResult? Function(String message)? failure,
-    TResult? Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult? Function(DashboardResponse dashboard)? dashboard,
-  }) {
-    return success?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserStats stats)? loaded,
-    TResult Function(String message)? success,
-    TResult Function(String message)? failure,
-    TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult Function(DashboardResponse dashboard)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (success != null) {
-      return success(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Failure value) failure,
-    required TResult Function(_Catalog value) catalog,
-    required TResult Function(_Dashboard value) dashboard,
-  }) {
-    return success(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Failure value)? failure,
-    TResult? Function(_Catalog value)? catalog,
-    TResult? Function(_Dashboard value)? dashboard,
-  }) {
-    return success?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Failure value)? failure,
-    TResult Function(_Catalog value)? catalog,
-    TResult Function(_Dashboard value)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (success != null) {
-      return success(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Failure&&(identical(other.message, message) || other.message == message));
 }
 
-abstract class _Success implements AdminState {
-  const factory _Success(final String message) = _$SuccessImpl;
 
-  String get message;
+@override
+int get hashCode => Object.hash(runtimeType,message);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'AdminState.failure(message: $message)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$FailureImplCopyWith<$Res> {
-  factory _$$FailureImplCopyWith(
-    _$FailureImpl value,
-    $Res Function(_$FailureImpl) then,
-  ) = __$$FailureImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
+abstract mixin class _$FailureCopyWith<$Res> implements $AdminStateCopyWith<$Res> {
+  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) = __$FailureCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class __$FailureCopyWithImpl<$Res>
+    implements _$FailureCopyWith<$Res> {
+  __$FailureCopyWithImpl(this._self, this._then);
+
+  final _Failure _self;
+  final $Res Function(_Failure) _then;
+
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(_Failure(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-class __$$FailureImplCopyWithImpl<$Res>
-    extends _$AdminStateCopyWithImpl<$Res, _$FailureImpl>
-    implements _$$FailureImplCopyWith<$Res> {
-  __$$FailureImplCopyWithImpl(
-    _$FailureImpl _value,
-    $Res Function(_$FailureImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = null}) {
-    return _then(
-      _$FailureImpl(
-        null == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
-class _$FailureImpl implements _Failure {
-  const _$FailureImpl(this.message);
 
-  @override
-  final String message;
+class _Catalog implements AdminState {
+  const _Catalog(final  List<Product> products, final  List<Grade> grades, this.prices): _products = products,_grades = grades;
+  
 
-  @override
-  String toString() {
-    return 'AdminState.failure(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FailureImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
-      __$$FailureImplCopyWithImpl<_$FailureImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserStats stats) loaded,
-    required TResult Function(String message) success,
-    required TResult Function(String message) failure,
-    required TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )
-    catalog,
-    required TResult Function(DashboardResponse dashboard) dashboard,
-  }) {
-    return failure(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserStats stats)? loaded,
-    TResult? Function(String message)? success,
-    TResult? Function(String message)? failure,
-    TResult? Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult? Function(DashboardResponse dashboard)? dashboard,
-  }) {
-    return failure?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserStats stats)? loaded,
-    TResult Function(String message)? success,
-    TResult Function(String message)? failure,
-    TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult Function(DashboardResponse dashboard)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Failure value) failure,
-    required TResult Function(_Catalog value) catalog,
-    required TResult Function(_Dashboard value) dashboard,
-  }) {
-    return failure(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Failure value)? failure,
-    TResult? Function(_Catalog value)? catalog,
-    TResult? Function(_Dashboard value)? dashboard,
-  }) {
-    return failure?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Failure value)? failure,
-    TResult Function(_Catalog value)? catalog,
-    TResult Function(_Dashboard value)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(this);
-    }
-    return orElse();
-  }
+ final  List<Product> _products;
+ List<Product> get products {
+  if (_products is EqualUnmodifiableListView) return _products;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_products);
 }
 
-abstract class _Failure implements AdminState {
-  const factory _Failure(final String message) = _$FailureImpl;
+ final  List<Grade> _grades;
+ List<Grade> get grades {
+  if (_grades is EqualUnmodifiableListView) return _grades;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_grades);
+}
 
-  String get message;
+ final  DailyPricesResponse prices;
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CatalogCopyWith<_Catalog> get copyWith => __$CatalogCopyWithImpl<_Catalog>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Catalog&&const DeepCollectionEquality().equals(other._products, _products)&&const DeepCollectionEquality().equals(other._grades, _grades)&&(identical(other.prices, prices) || other.prices == prices));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_products),const DeepCollectionEquality().hash(_grades),prices);
+
+@override
+String toString() {
+  return 'AdminState.catalog(products: $products, grades: $grades, prices: $prices)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$CatalogImplCopyWith<$Res> {
-  factory _$$CatalogImplCopyWith(
-    _$CatalogImpl value,
-    $Res Function(_$CatalogImpl) then,
-  ) = __$$CatalogImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({
-    List<Product> products,
-    List<Grade> grades,
-    DailyPricesResponse prices,
+abstract mixin class _$CatalogCopyWith<$Res> implements $AdminStateCopyWith<$Res> {
+  factory _$CatalogCopyWith(_Catalog value, $Res Function(_Catalog) _then) = __$CatalogCopyWithImpl;
+@useResult
+$Res call({
+ List<Product> products, List<Grade> grades, DailyPricesResponse prices
+});
+
+
+$DailyPricesResponseCopyWith<$Res> get prices;
+
+}
+/// @nodoc
+class __$CatalogCopyWithImpl<$Res>
+    implements _$CatalogCopyWith<$Res> {
+  __$CatalogCopyWithImpl(this._self, this._then);
+
+  final _Catalog _self;
+  final $Res Function(_Catalog) _then;
+
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? products = null,Object? grades = null,Object? prices = null,}) {
+  return _then(_Catalog(
+null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
+as List<Product>,null == grades ? _self._grades : grades // ignore: cast_nullable_to_non_nullable
+as List<Grade>,null == prices ? _self.prices : prices // ignore: cast_nullable_to_non_nullable
+as DailyPricesResponse,
+  ));
+}
+
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DailyPricesResponseCopyWith<$Res> get prices {
+  
+  return $DailyPricesResponseCopyWith<$Res>(_self.prices, (value) {
+    return _then(_self.copyWith(prices: value));
   });
-
-  $DailyPricesResponseCopyWith<$Res> get prices;
 }
-
-/// @nodoc
-class __$$CatalogImplCopyWithImpl<$Res>
-    extends _$AdminStateCopyWithImpl<$Res, _$CatalogImpl>
-    implements _$$CatalogImplCopyWith<$Res> {
-  __$$CatalogImplCopyWithImpl(
-    _$CatalogImpl _value,
-    $Res Function(_$CatalogImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? products = null,
-    Object? grades = null,
-    Object? prices = null,
-  }) {
-    return _then(
-      _$CatalogImpl(
-        null == products
-            ? _value._products
-            : products // ignore: cast_nullable_to_non_nullable
-                  as List<Product>,
-        null == grades
-            ? _value._grades
-            : grades // ignore: cast_nullable_to_non_nullable
-                  as List<Grade>,
-        null == prices
-            ? _value.prices
-            : prices // ignore: cast_nullable_to_non_nullable
-                  as DailyPricesResponse,
-      ),
-    );
-  }
-
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DailyPricesResponseCopyWith<$Res> get prices {
-    return $DailyPricesResponseCopyWith<$Res>(_value.prices, (value) {
-      return _then(_value.copyWith(prices: value));
-    });
-  }
 }
 
 /// @nodoc
 
-class _$CatalogImpl implements _Catalog {
-  const _$CatalogImpl(
-    final List<Product> products,
-    final List<Grade> grades,
-    this.prices,
-  ) : _products = products,
-      _grades = grades;
 
-  final List<Product> _products;
-  @override
-  List<Product> get products {
-    if (_products is EqualUnmodifiableListView) return _products;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_products);
-  }
+class _Dashboard implements AdminState {
+  const _Dashboard(this.dashboard);
+  
 
-  final List<Grade> _grades;
-  @override
-  List<Grade> get grades {
-    if (_grades is EqualUnmodifiableListView) return _grades;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_grades);
-  }
+ final  DashboardResponse dashboard;
 
-  @override
-  final DailyPricesResponse prices;
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DashboardCopyWith<_Dashboard> get copyWith => __$DashboardCopyWithImpl<_Dashboard>(this, _$identity);
 
-  @override
-  String toString() {
-    return 'AdminState.catalog(products: $products, grades: $grades, prices: $prices)';
-  }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CatalogImpl &&
-            const DeepCollectionEquality().equals(other._products, _products) &&
-            const DeepCollectionEquality().equals(other._grades, _grades) &&
-            (identical(other.prices, prices) || other.prices == prices));
-  }
 
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    const DeepCollectionEquality().hash(_products),
-    const DeepCollectionEquality().hash(_grades),
-    prices,
-  );
-
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CatalogImplCopyWith<_$CatalogImpl> get copyWith =>
-      __$$CatalogImplCopyWithImpl<_$CatalogImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserStats stats) loaded,
-    required TResult Function(String message) success,
-    required TResult Function(String message) failure,
-    required TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )
-    catalog,
-    required TResult Function(DashboardResponse dashboard) dashboard,
-  }) {
-    return catalog(products, grades, prices);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserStats stats)? loaded,
-    TResult? Function(String message)? success,
-    TResult? Function(String message)? failure,
-    TResult? Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult? Function(DashboardResponse dashboard)? dashboard,
-  }) {
-    return catalog?.call(products, grades, prices);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserStats stats)? loaded,
-    TResult Function(String message)? success,
-    TResult Function(String message)? failure,
-    TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult Function(DashboardResponse dashboard)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (catalog != null) {
-      return catalog(products, grades, prices);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Failure value) failure,
-    required TResult Function(_Catalog value) catalog,
-    required TResult Function(_Dashboard value) dashboard,
-  }) {
-    return catalog(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Failure value)? failure,
-    TResult? Function(_Catalog value)? catalog,
-    TResult? Function(_Dashboard value)? dashboard,
-  }) {
-    return catalog?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Failure value)? failure,
-    TResult Function(_Catalog value)? catalog,
-    TResult Function(_Dashboard value)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (catalog != null) {
-      return catalog(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Dashboard&&(identical(other.dashboard, dashboard) || other.dashboard == dashboard));
 }
 
-abstract class _Catalog implements AdminState {
-  const factory _Catalog(
-    final List<Product> products,
-    final List<Grade> grades,
-    final DailyPricesResponse prices,
-  ) = _$CatalogImpl;
 
-  List<Product> get products;
-  List<Grade> get grades;
-  DailyPricesResponse get prices;
+@override
+int get hashCode => Object.hash(runtimeType,dashboard);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CatalogImplCopyWith<_$CatalogImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'AdminState.dashboard(dashboard: $dashboard)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$DashboardImplCopyWith<$Res> {
-  factory _$$DashboardImplCopyWith(
-    _$DashboardImpl value,
-    $Res Function(_$DashboardImpl) then,
-  ) = __$$DashboardImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({DashboardResponse dashboard});
+abstract mixin class _$DashboardCopyWith<$Res> implements $AdminStateCopyWith<$Res> {
+  factory _$DashboardCopyWith(_Dashboard value, $Res Function(_Dashboard) _then) = __$DashboardCopyWithImpl;
+@useResult
+$Res call({
+ DashboardResponse dashboard
+});
 
-  $DashboardResponseCopyWith<$Res> get dashboard;
+
+$DashboardResponseCopyWith<$Res> get dashboard;
+
 }
-
 /// @nodoc
-class __$$DashboardImplCopyWithImpl<$Res>
-    extends _$AdminStateCopyWithImpl<$Res, _$DashboardImpl>
-    implements _$$DashboardImplCopyWith<$Res> {
-  __$$DashboardImplCopyWithImpl(
-    _$DashboardImpl _value,
-    $Res Function(_$DashboardImpl) _then,
-  ) : super(_value, _then);
+class __$DashboardCopyWithImpl<$Res>
+    implements _$DashboardCopyWith<$Res> {
+  __$DashboardCopyWithImpl(this._self, this._then);
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? dashboard = null}) {
-    return _then(
-      _$DashboardImpl(
-        null == dashboard
-            ? _value.dashboard
-            : dashboard // ignore: cast_nullable_to_non_nullable
-                  as DashboardResponse,
-      ),
-    );
-  }
+  final _Dashboard _self;
+  final $Res Function(_Dashboard) _then;
 
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DashboardResponseCopyWith<$Res> get dashboard {
-    return $DashboardResponseCopyWith<$Res>(_value.dashboard, (value) {
-      return _then(_value.copyWith(dashboard: value));
-    });
-  }
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? dashboard = null,}) {
+  return _then(_Dashboard(
+null == dashboard ? _self.dashboard : dashboard // ignore: cast_nullable_to_non_nullable
+as DashboardResponse,
+  ));
 }
 
-/// @nodoc
-
-class _$DashboardImpl implements _Dashboard {
-  const _$DashboardImpl(this.dashboard);
-
-  @override
-  final DashboardResponse dashboard;
-
-  @override
-  String toString() {
-    return 'AdminState.dashboard(dashboard: $dashboard)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DashboardImpl &&
-            (identical(other.dashboard, dashboard) ||
-                other.dashboard == dashboard));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, dashboard);
-
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DashboardImplCopyWith<_$DashboardImpl> get copyWith =>
-      __$$DashboardImplCopyWithImpl<_$DashboardImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserStats stats) loaded,
-    required TResult Function(String message) success,
-    required TResult Function(String message) failure,
-    required TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )
-    catalog,
-    required TResult Function(DashboardResponse dashboard) dashboard,
-  }) {
-    return dashboard(this.dashboard);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserStats stats)? loaded,
-    TResult? Function(String message)? success,
-    TResult? Function(String message)? failure,
-    TResult? Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult? Function(DashboardResponse dashboard)? dashboard,
-  }) {
-    return dashboard?.call(this.dashboard);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserStats stats)? loaded,
-    TResult Function(String message)? success,
-    TResult Function(String message)? failure,
-    TResult Function(
-      List<Product> products,
-      List<Grade> grades,
-      DailyPricesResponse prices,
-    )?
-    catalog,
-    TResult Function(DashboardResponse dashboard)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (dashboard != null) {
-      return dashboard(this.dashboard);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Failure value) failure,
-    required TResult Function(_Catalog value) catalog,
-    required TResult Function(_Dashboard value) dashboard,
-  }) {
-    return dashboard(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Failure value)? failure,
-    TResult? Function(_Catalog value)? catalog,
-    TResult? Function(_Dashboard value)? dashboard,
-  }) {
-    return dashboard?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Failure value)? failure,
-    TResult Function(_Catalog value)? catalog,
-    TResult Function(_Dashboard value)? dashboard,
-    required TResult orElse(),
-  }) {
-    if (dashboard != null) {
-      return dashboard(this);
-    }
-    return orElse();
-  }
+/// Create a copy of AdminState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DashboardResponseCopyWith<$Res> get dashboard {
+  
+  return $DashboardResponseCopyWith<$Res>(_self.dashboard, (value) {
+    return _then(_self.copyWith(dashboard: value));
+  });
+}
 }
 
-abstract class _Dashboard implements AdminState {
-  const factory _Dashboard(final DashboardResponse dashboard) = _$DashboardImpl;
-
-  DashboardResponse get dashboard;
-
-  /// Create a copy of AdminState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DashboardImplCopyWith<_$DashboardImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

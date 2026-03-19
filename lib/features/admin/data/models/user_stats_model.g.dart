@@ -6,9 +6,8 @@ part of 'user_stats_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserStatsModelImpl _$$UserStatsModelImplFromJson(Map<String, dynamic> json) =>
-    _$UserStatsModelImpl(totalUsers: (json['total_users'] as num).toInt());
+_UserStatsModel _$UserStatsModelFromJson(Map<String, dynamic> json) =>
+    _UserStatsModel(totalUsers: (json['total_users'] as num).toInt());
 
-Map<String, dynamic> _$$UserStatsModelImplToJson(
-  _$UserStatsModelImpl instance,
-) => <String, dynamic>{'total_users': instance.totalUsers};
+Map<String, dynamic> _$UserStatsModelToJson(_UserStatsModel instance) =>
+    <String, dynamic>{'total_users': instance.totalUsers};

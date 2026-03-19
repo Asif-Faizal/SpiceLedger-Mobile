@@ -5,7 +5,7 @@ part 'user_stats_model.freezed.dart';
 part 'user_stats_model.g.dart';
 
 @freezed
-class UserStatsModel with _$UserStatsModel {
+abstract class UserStatsModel with _$UserStatsModel {
   const factory UserStatsModel({
     @JsonKey(name: 'total_users') required int totalUsers,
   }) = _UserStatsModel;

@@ -264,8 +264,9 @@ class AdminView extends StatelessWidget {
             TextButton(
               onPressed: () {
                 final price = double.tryParse(priceController.text) ?? 0.0;
-                if (selectedProductId == null || selectedGradeId == null)
+                if (selectedProductId == null || selectedGradeId == null) {
                   return;
+                }
                 context.read<AdminBloc>().add(
                   AdminEvent.setPrice(
                     dateController.text,
@@ -528,8 +529,7 @@ class _DashboardLoading extends StatelessWidget {
 
 class _ShimmerBox extends StatefulWidget {
   final double height;
-  final double? width;
-  const _ShimmerBox({required this.height, this.width});
+  const _ShimmerBox({required this.height});
   @override
   State<_ShimmerBox> createState() => _ShimmerBoxState();
 }
@@ -560,7 +560,6 @@ class _ShimmerBoxState extends State<_ShimmerBox>
         final t = _controller.value;
         return Container(
           height: widget.height,
-          width: widget.width,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.zero,
             color: Colors.transparent,

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,412 +9,549 @@ part of 'daily_price_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
-DailyPriceItem _$DailyPriceItemFromJson(Map<String, dynamic> json) {
-  return _DailyPriceItem.fromJson(json);
-}
 
 /// @nodoc
 mixin _$DailyPriceItem {
-  @JsonKey(name: 'product_id')
-  String get productId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'grade_id')
-  String get gradeId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)
-  double get pricePerKg => throw _privateConstructorUsedError;
+
+@JsonKey(name: 'product_id') String get productId;@JsonKey(name: 'grade_id') String get gradeId;@JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero) double get pricePerKg;
+/// Create a copy of DailyPriceItem
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DailyPriceItemCopyWith<DailyPriceItem> get copyWith => _$DailyPriceItemCopyWithImpl<DailyPriceItem>(this as DailyPriceItem, _$identity);
 
   /// Serializes this DailyPriceItem to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of DailyPriceItem
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $DailyPriceItemCopyWith<DailyPriceItem> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyPriceItem&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.gradeId, gradeId) || other.gradeId == gradeId)&&(identical(other.pricePerKg, pricePerKg) || other.pricePerKg == pricePerKg));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,productId,gradeId,pricePerKg);
+
+@override
+String toString() {
+  return 'DailyPriceItem(productId: $productId, gradeId: $gradeId, pricePerKg: $pricePerKg)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $DailyPriceItemCopyWith<$Res> {
-  factory $DailyPriceItemCopyWith(
-    DailyPriceItem value,
-    $Res Function(DailyPriceItem) then,
-  ) = _$DailyPriceItemCopyWithImpl<$Res, DailyPriceItem>;
-  @useResult
-  $Res call({
-    @JsonKey(name: 'product_id') String productId,
-    @JsonKey(name: 'grade_id') String gradeId,
-    @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero) double pricePerKg,
-  });
-}
+abstract mixin class $DailyPriceItemCopyWith<$Res>  {
+  factory $DailyPriceItemCopyWith(DailyPriceItem value, $Res Function(DailyPriceItem) _then) = _$DailyPriceItemCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'product_id') String productId,@JsonKey(name: 'grade_id') String gradeId,@JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero) double pricePerKg
+});
 
+
+
+
+}
 /// @nodoc
-class _$DailyPriceItemCopyWithImpl<$Res, $Val extends DailyPriceItem>
+class _$DailyPriceItemCopyWithImpl<$Res>
     implements $DailyPriceItemCopyWith<$Res> {
-  _$DailyPriceItemCopyWithImpl(this._value, this._then);
+  _$DailyPriceItemCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final DailyPriceItem _self;
+  final $Res Function(DailyPriceItem) _then;
 
-  /// Create a copy of DailyPriceItem
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? productId = null,
-    Object? gradeId = null,
-    Object? pricePerKg = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            productId: null == productId
-                ? _value.productId
-                : productId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            gradeId: null == gradeId
-                ? _value.gradeId
-                : gradeId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            pricePerKg: null == pricePerKg
-                ? _value.pricePerKg
-                : pricePerKg // ignore: cast_nullable_to_non_nullable
-                      as double,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of DailyPriceItem
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? productId = null,Object? gradeId = null,Object? pricePerKg = null,}) {
+  return _then(_self.copyWith(
+productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as String,gradeId: null == gradeId ? _self.gradeId : gradeId // ignore: cast_nullable_to_non_nullable
+as String,pricePerKg: null == pricePerKg ? _self.pricePerKg : pricePerKg // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
 
-/// @nodoc
-abstract class _$$DailyPriceItemImplCopyWith<$Res>
-    implements $DailyPriceItemCopyWith<$Res> {
-  factory _$$DailyPriceItemImplCopyWith(
-    _$DailyPriceItemImpl value,
-    $Res Function(_$DailyPriceItemImpl) then,
-  ) = __$$DailyPriceItemImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    @JsonKey(name: 'product_id') String productId,
-    @JsonKey(name: 'grade_id') String gradeId,
-    @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero) double pricePerKg,
-  });
 }
 
-/// @nodoc
-class __$$DailyPriceItemImplCopyWithImpl<$Res>
-    extends _$DailyPriceItemCopyWithImpl<$Res, _$DailyPriceItemImpl>
-    implements _$$DailyPriceItemImplCopyWith<$Res> {
-  __$$DailyPriceItemImplCopyWithImpl(
-    _$DailyPriceItemImpl _value,
-    $Res Function(_$DailyPriceItemImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of DailyPriceItem
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? productId = null,
-    Object? gradeId = null,
-    Object? pricePerKg = null,
-  }) {
-    return _then(
-      _$DailyPriceItemImpl(
-        productId: null == productId
-            ? _value.productId
-            : productId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        gradeId: null == gradeId
-            ? _value.gradeId
-            : gradeId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        pricePerKg: null == pricePerKg
-            ? _value.pricePerKg
-            : pricePerKg // ignore: cast_nullable_to_non_nullable
-                  as double,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [DailyPriceItem].
+extension DailyPriceItemPatterns on DailyPriceItem {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DailyPriceItem value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DailyPriceItem() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DailyPriceItem value)  $default,){
+final _that = this;
+switch (_that) {
+case _DailyPriceItem():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DailyPriceItem value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DailyPriceItem() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'product_id')  String productId, @JsonKey(name: 'grade_id')  String gradeId, @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)  double pricePerKg)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DailyPriceItem() when $default != null:
+return $default(_that.productId,_that.gradeId,_that.pricePerKg);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'product_id')  String productId, @JsonKey(name: 'grade_id')  String gradeId, @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)  double pricePerKg)  $default,) {final _that = this;
+switch (_that) {
+case _DailyPriceItem():
+return $default(_that.productId,_that.gradeId,_that.pricePerKg);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'product_id')  String productId, @JsonKey(name: 'grade_id')  String gradeId, @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)  double pricePerKg)?  $default,) {final _that = this;
+switch (_that) {
+case _DailyPriceItem() when $default != null:
+return $default(_that.productId,_that.gradeId,_that.pricePerKg);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DailyPriceItemImpl implements _DailyPriceItem {
-  const _$DailyPriceItemImpl({
-    @JsonKey(name: 'product_id') required this.productId,
-    @JsonKey(name: 'grade_id') required this.gradeId,
-    @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)
-    required this.pricePerKg,
-  });
 
-  factory _$DailyPriceItemImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DailyPriceItemImplFromJson(json);
+class _DailyPriceItem implements DailyPriceItem {
+  const _DailyPriceItem({@JsonKey(name: 'product_id') required this.productId, @JsonKey(name: 'grade_id') required this.gradeId, @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero) required this.pricePerKg});
+  factory _DailyPriceItem.fromJson(Map<String, dynamic> json) => _$DailyPriceItemFromJson(json);
 
-  @override
-  @JsonKey(name: 'product_id')
-  final String productId;
-  @override
-  @JsonKey(name: 'grade_id')
-  final String gradeId;
-  @override
-  @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)
-  final double pricePerKg;
+@override@JsonKey(name: 'product_id') final  String productId;
+@override@JsonKey(name: 'grade_id') final  String gradeId;
+@override@JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero) final  double pricePerKg;
 
-  @override
-  String toString() {
-    return 'DailyPriceItem(productId: $productId, gradeId: $gradeId, pricePerKg: $pricePerKg)';
-  }
+/// Create a copy of DailyPriceItem
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DailyPriceItemCopyWith<_DailyPriceItem> get copyWith => __$DailyPriceItemCopyWithImpl<_DailyPriceItem>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DailyPriceItemImpl &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.gradeId, gradeId) || other.gradeId == gradeId) &&
-            (identical(other.pricePerKg, pricePerKg) ||
-                other.pricePerKg == pricePerKg));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, productId, gradeId, pricePerKg);
-
-  /// Create a copy of DailyPriceItem
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DailyPriceItemImplCopyWith<_$DailyPriceItemImpl> get copyWith =>
-      __$$DailyPriceItemImplCopyWithImpl<_$DailyPriceItemImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DailyPriceItemImplToJson(this);
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$DailyPriceItemToJson(this, );
 }
 
-abstract class _DailyPriceItem implements DailyPriceItem {
-  const factory _DailyPriceItem({
-    @JsonKey(name: 'product_id') required final String productId,
-    @JsonKey(name: 'grade_id') required final String gradeId,
-    @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)
-    required final double pricePerKg,
-  }) = _$DailyPriceItemImpl;
-
-  factory _DailyPriceItem.fromJson(Map<String, dynamic> json) =
-      _$DailyPriceItemImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'product_id')
-  String get productId;
-  @override
-  @JsonKey(name: 'grade_id')
-  String get gradeId;
-  @override
-  @JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero)
-  double get pricePerKg;
-
-  /// Create a copy of DailyPriceItem
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DailyPriceItemImplCopyWith<_$DailyPriceItemImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyPriceItem&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.gradeId, gradeId) || other.gradeId == gradeId)&&(identical(other.pricePerKg, pricePerKg) || other.pricePerKg == pricePerKg));
 }
 
-DailyPricesResponse _$DailyPricesResponseFromJson(Map<String, dynamic> json) {
-  return _DailyPricesResponse.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,productId,gradeId,pricePerKg);
+
+@override
+String toString() {
+  return 'DailyPriceItem(productId: $productId, gradeId: $gradeId, pricePerKg: $pricePerKg)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DailyPriceItemCopyWith<$Res> implements $DailyPriceItemCopyWith<$Res> {
+  factory _$DailyPriceItemCopyWith(_DailyPriceItem value, $Res Function(_DailyPriceItem) _then) = __$DailyPriceItemCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'product_id') String productId,@JsonKey(name: 'grade_id') String gradeId,@JsonKey(name: 'price_per_kg', fromJson: _doubleOrZero) double pricePerKg
+});
+
+
+
+
+}
+/// @nodoc
+class __$DailyPriceItemCopyWithImpl<$Res>
+    implements _$DailyPriceItemCopyWith<$Res> {
+  __$DailyPriceItemCopyWithImpl(this._self, this._then);
+
+  final _DailyPriceItem _self;
+  final $Res Function(_DailyPriceItem) _then;
+
+/// Create a copy of DailyPriceItem
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? productId = null,Object? gradeId = null,Object? pricePerKg = null,}) {
+  return _then(_DailyPriceItem(
+productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as String,gradeId: null == gradeId ? _self.gradeId : gradeId // ignore: cast_nullable_to_non_nullable
+as String,pricePerKg: null == pricePerKg ? _self.pricePerKg : pricePerKg // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$DailyPricesResponse {
-  String get date => throw _privateConstructorUsedError;
-  List<DailyPriceItem>? get prices => throw _privateConstructorUsedError;
+
+ String get date; List<DailyPriceItem>? get prices;
+/// Create a copy of DailyPricesResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DailyPricesResponseCopyWith<DailyPricesResponse> get copyWith => _$DailyPricesResponseCopyWithImpl<DailyPricesResponse>(this as DailyPricesResponse, _$identity);
 
   /// Serializes this DailyPricesResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of DailyPricesResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $DailyPricesResponseCopyWith<DailyPricesResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyPricesResponse&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other.prices, prices));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,date,const DeepCollectionEquality().hash(prices));
+
+@override
+String toString() {
+  return 'DailyPricesResponse(date: $date, prices: $prices)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $DailyPricesResponseCopyWith<$Res> {
-  factory $DailyPricesResponseCopyWith(
-    DailyPricesResponse value,
-    $Res Function(DailyPricesResponse) then,
-  ) = _$DailyPricesResponseCopyWithImpl<$Res, DailyPricesResponse>;
-  @useResult
-  $Res call({String date, List<DailyPriceItem>? prices});
-}
+abstract mixin class $DailyPricesResponseCopyWith<$Res>  {
+  factory $DailyPricesResponseCopyWith(DailyPricesResponse value, $Res Function(DailyPricesResponse) _then) = _$DailyPricesResponseCopyWithImpl;
+@useResult
+$Res call({
+ String date, List<DailyPriceItem>? prices
+});
 
+
+
+
+}
 /// @nodoc
-class _$DailyPricesResponseCopyWithImpl<$Res, $Val extends DailyPricesResponse>
+class _$DailyPricesResponseCopyWithImpl<$Res>
     implements $DailyPricesResponseCopyWith<$Res> {
-  _$DailyPricesResponseCopyWithImpl(this._value, this._then);
+  _$DailyPricesResponseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final DailyPricesResponse _self;
+  final $Res Function(DailyPricesResponse) _then;
 
-  /// Create a copy of DailyPricesResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? date = null, Object? prices = freezed}) {
-    return _then(
-      _value.copyWith(
-            date: null == date
-                ? _value.date
-                : date // ignore: cast_nullable_to_non_nullable
-                      as String,
-            prices: freezed == prices
-                ? _value.prices
-                : prices // ignore: cast_nullable_to_non_nullable
-                      as List<DailyPriceItem>?,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of DailyPricesResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? date = null,Object? prices = freezed,}) {
+  return _then(_self.copyWith(
+date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String,prices: freezed == prices ? _self.prices : prices // ignore: cast_nullable_to_non_nullable
+as List<DailyPriceItem>?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$DailyPricesResponseImplCopyWith<$Res>
-    implements $DailyPricesResponseCopyWith<$Res> {
-  factory _$$DailyPricesResponseImplCopyWith(
-    _$DailyPricesResponseImpl value,
-    $Res Function(_$DailyPricesResponseImpl) then,
-  ) = __$$DailyPricesResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String date, List<DailyPriceItem>? prices});
 }
 
-/// @nodoc
-class __$$DailyPricesResponseImplCopyWithImpl<$Res>
-    extends _$DailyPricesResponseCopyWithImpl<$Res, _$DailyPricesResponseImpl>
-    implements _$$DailyPricesResponseImplCopyWith<$Res> {
-  __$$DailyPricesResponseImplCopyWithImpl(
-    _$DailyPricesResponseImpl _value,
-    $Res Function(_$DailyPricesResponseImpl) _then,
-  ) : super(_value, _then);
 
-  /// Create a copy of DailyPricesResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? date = null, Object? prices = freezed}) {
-    return _then(
-      _$DailyPricesResponseImpl(
-        date: null == date
-            ? _value.date
-            : date // ignore: cast_nullable_to_non_nullable
-                  as String,
-        prices: freezed == prices
-            ? _value._prices
-            : prices // ignore: cast_nullable_to_non_nullable
-                  as List<DailyPriceItem>?,
-      ),
-    );
-  }
+/// Adds pattern-matching-related methods to [DailyPricesResponse].
+extension DailyPricesResponsePatterns on DailyPricesResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DailyPricesResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DailyPricesResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DailyPricesResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _DailyPricesResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DailyPricesResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DailyPricesResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String date,  List<DailyPriceItem>? prices)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DailyPricesResponse() when $default != null:
+return $default(_that.date,_that.prices);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String date,  List<DailyPriceItem>? prices)  $default,) {final _that = this;
+switch (_that) {
+case _DailyPricesResponse():
+return $default(_that.date,_that.prices);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String date,  List<DailyPriceItem>? prices)?  $default,) {final _that = this;
+switch (_that) {
+case _DailyPricesResponse() when $default != null:
+return $default(_that.date,_that.prices);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DailyPricesResponseImpl implements _DailyPricesResponse {
-  const _$DailyPricesResponseImpl({
-    required this.date,
-    final List<DailyPriceItem>? prices,
-  }) : _prices = prices;
 
-  factory _$DailyPricesResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DailyPricesResponseImplFromJson(json);
+class _DailyPricesResponse implements DailyPricesResponse {
+  const _DailyPricesResponse({required this.date, final  List<DailyPriceItem>? prices}): _prices = prices;
+  factory _DailyPricesResponse.fromJson(Map<String, dynamic> json) => _$DailyPricesResponseFromJson(json);
 
-  @override
-  final String date;
-  final List<DailyPriceItem>? _prices;
-  @override
-  List<DailyPriceItem>? get prices {
-    final value = _prices;
-    if (value == null) return null;
-    if (_prices is EqualUnmodifiableListView) return _prices;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  String toString() {
-    return 'DailyPricesResponse(date: $date, prices: $prices)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DailyPricesResponseImpl &&
-            (identical(other.date, date) || other.date == date) &&
-            const DeepCollectionEquality().equals(other._prices, _prices));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    date,
-    const DeepCollectionEquality().hash(_prices),
-  );
-
-  /// Create a copy of DailyPricesResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DailyPricesResponseImplCopyWith<_$DailyPricesResponseImpl> get copyWith =>
-      __$$DailyPricesResponseImplCopyWithImpl<_$DailyPricesResponseImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DailyPricesResponseImplToJson(this);
-  }
+@override final  String date;
+ final  List<DailyPriceItem>? _prices;
+@override List<DailyPriceItem>? get prices {
+  final value = _prices;
+  if (value == null) return null;
+  if (_prices is EqualUnmodifiableListView) return _prices;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _DailyPricesResponse implements DailyPricesResponse {
-  const factory _DailyPricesResponse({
-    required final String date,
-    final List<DailyPriceItem>? prices,
-  }) = _$DailyPricesResponseImpl;
 
-  factory _DailyPricesResponse.fromJson(Map<String, dynamic> json) =
-      _$DailyPricesResponseImpl.fromJson;
+/// Create a copy of DailyPricesResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DailyPricesResponseCopyWith<_DailyPricesResponse> get copyWith => __$DailyPricesResponseCopyWithImpl<_DailyPricesResponse>(this, _$identity);
 
-  @override
-  String get date;
-  @override
-  List<DailyPriceItem>? get prices;
-
-  /// Create a copy of DailyPricesResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DailyPricesResponseImplCopyWith<_$DailyPricesResponseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$DailyPricesResponseToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyPricesResponse&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other._prices, _prices));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,date,const DeepCollectionEquality().hash(_prices));
+
+@override
+String toString() {
+  return 'DailyPricesResponse(date: $date, prices: $prices)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DailyPricesResponseCopyWith<$Res> implements $DailyPricesResponseCopyWith<$Res> {
+  factory _$DailyPricesResponseCopyWith(_DailyPricesResponse value, $Res Function(_DailyPricesResponse) _then) = __$DailyPricesResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ String date, List<DailyPriceItem>? prices
+});
+
+
+
+
+}
+/// @nodoc
+class __$DailyPricesResponseCopyWithImpl<$Res>
+    implements _$DailyPricesResponseCopyWith<$Res> {
+  __$DailyPricesResponseCopyWithImpl(this._self, this._then);
+
+  final _DailyPricesResponse _self;
+  final $Res Function(_DailyPricesResponse) _then;
+
+/// Create a copy of DailyPricesResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? date = null,Object? prices = freezed,}) {
+  return _then(_DailyPricesResponse(
+date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String,prices: freezed == prices ? _self._prices : prices // ignore: cast_nullable_to_non_nullable
+as List<DailyPriceItem>?,
+  ));
+}
+
+
+}
+
+// dart format on

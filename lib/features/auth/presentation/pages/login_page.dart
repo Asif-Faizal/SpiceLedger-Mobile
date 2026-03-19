@@ -11,12 +11,13 @@ import 'register_page.dart';
 import '../../../../core/theme/components/snackbars.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final String? initialEmail;
+  const LoginPage({super.key, this.initialEmail});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LoginFormCubit(),
+      create: (_) => LoginFormCubit()..setEmail(initialEmail ?? ''),
       child: const _LoginView(),
     );
   }

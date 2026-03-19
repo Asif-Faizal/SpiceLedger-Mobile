@@ -5,7 +5,7 @@ part 'grade_model.freezed.dart';
 part 'grade_model.g.dart';
 
 @freezed
-class GradeModel with _$GradeModel {
+abstract class GradeModel with _$GradeModel {
   const factory GradeModel({
     required String id,
     required String name,
