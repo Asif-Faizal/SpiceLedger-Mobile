@@ -6,8 +6,8 @@ import '../../domain/entities/email_check_entity.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_data_source.dart';
-import '../models/email_check_model.dart';
-import '../models/user_model.dart';
+import '../models/email_check/email_check_model.dart';
+import '../models/user/user_model.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
@@ -22,11 +22,10 @@ class AuthRepositoryImpl implements AuthRepository {
     String password,
   ) async {
     try {
-      final userModel = await remoteDataSource.login(email, password);
-      await storage.write('auth_token', userModel.token);
-      await storage.write('refresh_token', userModel.refreshToken);
-      await storage.write('is_admin', userModel.isAdmin.toString());
-      return Right(userModel.toEntity());
+      final loginResponse = await remoteDataSource.login(email, password);
+      await storage.write('access_token', loginResponse.accessToken);
+      await storage.write('refresh_token', loginResponse.refreshToken);
+      return Right(loginResponse.account.toEntity());
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
@@ -35,14 +34,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, void>> register(
+  Future<Either<Failure, UserEntity>> register(
     String name,
     String email,
     String password,
   ) async {
     try {
-      await remoteDataSource.register(name, email, password);
-      return const Right(null);
+      final userModel = await remoteDataSource.register(name, email, password);
+      return Right(userModel.toEntity());
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {

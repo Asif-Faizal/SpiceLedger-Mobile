@@ -4,12 +4,12 @@ import '../../../../core/config/env_config.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/error_handler.dart';
 import '../../../../core/network/models/api_response.dart';
-import '../models/email_check_model.dart';
-import '../models/user_model.dart';
+import '../models/user/user_model.dart';
+import '../models/email_check/email_check_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserModel> login(String email, String password);
-  Future<void> register(String name, String email, String password);
+  Future<LoginResponseModel> login(String email, String password);
+  Future<UserModel> register(String name, String email, String password);
   Future<EmailCheckModel> checkEmail(String email);
 }
 
@@ -20,7 +20,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this.client);
 
   @override
-  Future<UserModel> login(String email, String password) async {
+  Future<LoginResponseModel> login(String email, String password) async {
     try {
       final response = await client.post(
         '/rest/accounts/login',
@@ -28,9 +28,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         options: Options(headers: ApiConfig.basicAuthHeaders),
       );
 
-      final apiResponse = ApiResponse<UserModel>.fromJson(
+      final apiResponse = ApiResponse<LoginResponseModel>.fromJson(
         response.data as Map<String, dynamic>,
-        (json) => UserModel.fromJson(json),
+        (json) => LoginResponseModel.fromJson(json),
       );
 
       if (apiResponse.success && apiResponse.data != null) {
@@ -44,19 +44,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> register(String name, String email, String password) async {
+  Future<UserModel> register(String name, String email, String password) async {
     try {
       final response = await client.post(
-        '/api/auth/register',
+        '/rest/accounts',
         data: {'name': name, 'email': email, 'password': password},
+        options: Options(headers: ApiConfig.basicAuthHeaders),
       );
 
-      final apiResponse = ApiResponse.fromJson(
+      final apiResponse = ApiResponse<UserModel>.fromJson(
         response.data as Map<String, dynamic>,
-        (json) => json,
+        (json) => UserModel.fromJson(json),
       );
 
-      if (!apiResponse.success) {
+      if (apiResponse.success && apiResponse.data != null) {
+        return apiResponse.data!;
+      } else {
         throw ServerFailure(apiResponse.message);
       }
     } catch (e) {
