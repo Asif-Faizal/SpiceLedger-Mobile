@@ -37,7 +37,14 @@ class RegisterFormState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [name, email, password, confirm, obscurePassword, obscureConfirm];
+  List<Object?> get props => [
+    name,
+    email,
+    password,
+    confirm,
+    obscurePassword,
+    obscureConfirm,
+  ];
 }
 
 class RegisterFormCubit extends Cubit<RegisterFormState> {
@@ -47,7 +54,9 @@ class RegisterFormCubit extends Cubit<RegisterFormState> {
   void setEmail(String value) => emit(state.copyWith(email: value));
   void setPassword(String value) => emit(state.copyWith(password: value));
   void setConfirm(String value) => emit(state.copyWith(confirm: value));
-  void toggleObscurePassword() => emit(state.copyWith(obscurePassword: !state.obscurePassword));
-  void toggleObscureConfirm() => emit(state.copyWith(obscureConfirm: !state.obscureConfirm));
+  void toggleObscurePassword() =>
+      emit(state.copyWith(obscurePassword: !state.obscurePassword));
+  void toggleObscureConfirm() =>
+      emit(state.copyWith(obscureConfirm: !state.obscureConfirm));
   void clear() => emit(const RegisterFormState());
 }

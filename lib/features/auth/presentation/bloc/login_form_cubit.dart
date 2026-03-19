@@ -33,6 +33,7 @@ class LoginFormCubit extends Cubit<LoginFormState> {
 
   void setEmail(String value) => emit(state.copyWith(email: value));
   void setPassword(String value) => emit(state.copyWith(password: value));
-  void toggleObscure() => emit(state.copyWith(obscurePassword: !state.obscurePassword));
+  void toggleObscure() =>
+      emit(state.copyWith(obscurePassword: !state.obscurePassword));
   void clear() => emit(const LoginFormState());
 }

@@ -32,9 +32,13 @@ class _StaticLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const dotCoords = [
-      math.Point(1, 0), math.Point(2, 0),
-      math.Point(0, 1), math.Point(1, 1), math.Point(2, 1),
-      math.Point(0, 2), math.Point(1, 2),
+      math.Point(1, 0),
+      math.Point(2, 0),
+      math.Point(0, 1),
+      math.Point(1, 1),
+      math.Point(2, 1),
+      math.Point(0, 2),
+      math.Point(1, 2),
     ];
 
     return CustomPaint(
@@ -79,7 +83,8 @@ class _AnimatedLogo extends StatefulWidget {
   State<_AnimatedLogo> createState() => _AnimatedLogoState();
 }
 
-class _AnimatedLogoState extends State<_AnimatedLogo> with SingleTickerProviderStateMixin {
+class _AnimatedLogoState extends State<_AnimatedLogo>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -100,9 +105,13 @@ class _AnimatedLogoState extends State<_AnimatedLogo> with SingleTickerProviderS
   @override
   Widget build(BuildContext context) {
     const dotCoords = [
-      math.Point(1, 0), math.Point(2, 0),
-      math.Point(0, 1), math.Point(1, 1), math.Point(2, 1),
-      math.Point(0, 2), math.Point(1, 2),
+      math.Point(1, 0),
+      math.Point(2, 0),
+      math.Point(0, 1),
+      math.Point(1, 1),
+      math.Point(2, 1),
+      math.Point(0, 2),
+      math.Point(1, 2),
     ];
 
     return AnimatedBuilder(
@@ -147,7 +156,7 @@ class _AnimatedLogoPainter extends CustomPainter {
     for (var coord in coords) {
       final targetX = coord.x * cellWidth + cellWidth / 2;
       final targetY = coord.y * cellHeight + cellHeight / 2;
-      
+
       // Scale from center of dot
       canvas.drawCircle(
         Offset(targetX, targetY),
@@ -158,5 +167,6 @@ class _AnimatedLogoPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_AnimatedLogoPainter oldDelegate) => oldDelegate.progress != progress;
+  bool shouldRepaint(_AnimatedLogoPainter oldDelegate) =>
+      oldDelegate.progress != progress;
 }

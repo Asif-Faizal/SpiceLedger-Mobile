@@ -5,6 +5,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/di/injection.dart';
 import '../../../auth/presentation/pages/check_email_page.dart';
 import '../bloc/splash_cubit.dart';
+import 'onboarding_page.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -18,9 +19,14 @@ class SplashScreen extends StatelessWidget {
           if (state is SplashAuthenticated) {
             // TODO: Navigate to Home Screen
           } else if (state is SplashUnauthenticated) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (_) => const CheckEmailPage()),
+            );
+          } else if (state is SplashOnboarding) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const OnboardingPage()),
             );
           }
         },

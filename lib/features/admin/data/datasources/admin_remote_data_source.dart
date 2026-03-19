@@ -63,10 +63,7 @@ class AdminRemoteDataSourceImpl implements AdminRemoteDataSource {
     try {
       await client.post(
         '/api/products',
-        data: {
-          'name': name,
-          'description': description,
-        },
+        data: {'name': name, 'description': description},
       );
     } on DioException catch (e) {
       throw ServerFailure(e.message ?? 'Failed to create product');

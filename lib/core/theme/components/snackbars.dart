@@ -3,16 +3,43 @@ import '../app_theme.dart';
 
 enum CarbonSnackbarType { success, error, info }
 
-void showSuccessSnackbar(BuildContext context, String message, {Duration? duration}) {
-  _showCarbonSnackbar(context, message, CarbonSnackbarType.success, duration: duration);
+void showSuccessSnackbar(
+  BuildContext context,
+  String message, {
+  Duration? duration,
+}) {
+  _showCarbonSnackbar(
+    context,
+    message,
+    CarbonSnackbarType.success,
+    duration: duration,
+  );
 }
 
-void showErrorSnackbar(BuildContext context, String message, {Duration? duration}) {
-  _showCarbonSnackbar(context, message, CarbonSnackbarType.error, duration: duration);
+void showErrorSnackbar(
+  BuildContext context,
+  String message, {
+  Duration? duration,
+}) {
+  _showCarbonSnackbar(
+    context,
+    message,
+    CarbonSnackbarType.error,
+    duration: duration,
+  );
 }
 
-void showInfoSnackbar(BuildContext context, String message, {Duration? duration}) {
-  _showCarbonSnackbar(context, message, CarbonSnackbarType.info, duration: duration);
+void showInfoSnackbar(
+  BuildContext context,
+  String message, {
+  Duration? duration,
+}) {
+  _showCarbonSnackbar(
+    context,
+    message,
+    CarbonSnackbarType.info,
+    duration: duration,
+  );
 }
 
 void _showCarbonSnackbar(
@@ -45,10 +72,7 @@ void _showCarbonSnackbar(
             border: Border(left: BorderSide(color: accent, width: 3)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: Text(
-            message,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+          child: Text(message, style: Theme.of(context).textTheme.bodyMedium),
         ),
       ),
       IconButton(

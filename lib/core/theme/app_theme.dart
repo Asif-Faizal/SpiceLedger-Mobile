@@ -55,10 +55,7 @@ class AppTheme {
         thickness: 1,
         space: 0,
       ),
-      iconTheme: const IconThemeData(
-        color: AppColors.neutralGray,
-        size: 20,
-      ),
+      iconTheme: const IconThemeData(color: AppColors.neutralGray, size: 20),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
@@ -116,13 +113,11 @@ class AppTheme {
           padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 14, vertical: 24),
           ),
-          backgroundColor:
-              const WidgetStatePropertyAll<Color>(AppColors.blueAccent),
-          foregroundColor:
-              const WidgetStatePropertyAll<Color>(AppColors.white),
-          textStyle: WidgetStatePropertyAll<TextStyle>(
-            baseText.labelLarge!,
+          backgroundColor: const WidgetStatePropertyAll<Color>(
+            AppColors.blueAccent,
           ),
+          foregroundColor: const WidgetStatePropertyAll<Color>(AppColors.white),
+          textStyle: WidgetStatePropertyAll<TextStyle>(baseText.labelLarge!),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
@@ -134,13 +129,11 @@ class AppTheme {
           padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 14, vertical: 24),
           ),
-          backgroundColor:
-              const WidgetStatePropertyAll<Color>(AppColors.blueAccent),
-          foregroundColor:
-              const WidgetStatePropertyAll<Color>(AppColors.white),
-          textStyle: WidgetStatePropertyAll<TextStyle>(
-            baseText.labelLarge!,
+          backgroundColor: const WidgetStatePropertyAll<Color>(
+            AppColors.blueAccent,
           ),
+          foregroundColor: const WidgetStatePropertyAll<Color>(AppColors.white),
+          textStyle: WidgetStatePropertyAll<TextStyle>(baseText.labelLarge!),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -155,11 +148,10 @@ class AppTheme {
           padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 14, vertical: 24),
           ),
-          foregroundColor:
-              const WidgetStatePropertyAll<Color>(AppColors.nearBlack),
-          textStyle: WidgetStatePropertyAll<TextStyle>(
-            baseText.labelLarge!,
+          foregroundColor: const WidgetStatePropertyAll<Color>(
+            AppColors.nearBlack,
           ),
+          textStyle: WidgetStatePropertyAll<TextStyle>(baseText.labelLarge!),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
@@ -170,11 +162,10 @@ class AppTheme {
           shape: const WidgetStatePropertyAll(
             RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           ),
-          foregroundColor:
-              const WidgetStatePropertyAll<Color>(AppColors.nearBlack),
-          textStyle: WidgetStatePropertyAll<TextStyle>(
-            baseText.labelLarge!,
+          foregroundColor: const WidgetStatePropertyAll<Color>(
+            AppColors.nearBlack,
           ),
+          textStyle: WidgetStatePropertyAll<TextStyle>(baseText.labelLarge!),
         ),
       ),
       dataTableTheme: const DataTableThemeData(
@@ -204,9 +195,7 @@ class AppTheme {
       checkboxTheme: const CheckboxThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       ),
-      radioTheme: const RadioThemeData(
-        visualDensity: VisualDensity.compact,
-      ),
+      radioTheme: const RadioThemeData(visualDensity: VisualDensity.compact),
       switchTheme: const SwitchThemeData(
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),

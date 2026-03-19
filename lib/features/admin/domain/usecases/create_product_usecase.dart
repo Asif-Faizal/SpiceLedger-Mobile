@@ -9,10 +9,7 @@ class CreateProductUseCase {
 
   CreateProductUseCase(this.repository);
 
-  Future<Either<Failure, void>> call(
-    String name,
-    String description,
-  ) async {
+  Future<Either<Failure, void>> call(String name, String description) async {
     return await repository.createProduct(name, description);
   }
 }

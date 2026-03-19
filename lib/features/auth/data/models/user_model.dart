@@ -17,9 +17,6 @@ abstract class UserModel with _$UserModel {
 }
 
 extension UserModelX on UserModel {
-  UserEntity toEntity() => UserEntity(
-        token: token,
-        refreshToken: refreshToken,
-        isAdmin: isAdmin,
-      );
+  UserEntity toEntity() =>
+      UserEntity(token: token, refreshToken: refreshToken, isAdmin: isAdmin);
 }

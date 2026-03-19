@@ -61,6 +61,8 @@ import '../../features/inventory/domain/usecases/get_grades_usecase.dart'
     as _i143;
 import '../../features/inventory/presentation/bloc/inventory_bloc.dart'
     as _i690;
+import '../../features/onboarding/presentation/bloc/onboarding_cubit.dart'
+    as _i153;
 import '../../features/onboarding/presentation/bloc/splash_cubit.dart' as _i128;
 import '../network/network_module.dart' as _i200;
 import '../network/token_interceptor.dart' as _i34;
@@ -81,14 +83,20 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.lazySingleton<_i619.EncryptedStorage>(() => _i619.EncryptedStorage());
+    gh.factory<_i128.SplashCubit>(
+      () => _i128.SplashCubit(
+        gh<_i619.EncryptedStorage>(),
+        gh<_i738.Box<dynamic>>(),
+      ),
+    );
     gh.factory<_i34.TokenInterceptor>(
       () => _i34.TokenInterceptor(gh<_i619.EncryptedStorage>()),
     );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.dio(gh<_i34.TokenInterceptor>()),
     );
-    gh.factory<_i128.SplashCubit>(
-      () => _i128.SplashCubit(gh<_i619.EncryptedStorage>()),
+    gh.factory<_i153.OnboardingCubit>(
+      () => _i153.OnboardingCubit(gh<_i738.Box<dynamic>>()),
     );
     gh.lazySingleton<_i517.AdminRemoteDataSource>(
       () => _i517.AdminRemoteDataSourceImpl(gh<_i361.Dio>()),

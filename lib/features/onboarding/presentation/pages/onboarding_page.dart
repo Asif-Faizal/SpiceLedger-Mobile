@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spice_ledger/features/auth/presentation/pages/check_email_page.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
 import '../../presentation/bloc/onboarding_cubit.dart';
-import '../../../auth/presentation/pages/login_page.dart';
-import '../../../auth/presentation/pages/register_page.dart';
+import '../../../../core/di/injection.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => OnboardingCubit(),
+      create: (_) => getIt<OnboardingCubit>(),
       child: BlocBuilder<OnboardingCubit, int>(
         builder: (context, index) {
           final cubit = context.read<OnboardingCubit>();
@@ -20,12 +20,25 @@ class OnboardingPage extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     child: Row(
                       children: [
                         Expanded(child: _ProgressBar(current: index, total: 3)),
                         TextButton(
-                          onPressed: () => cubit.navigateTo(2),
+                          onPressed: () async {
+                            await cubit.completeOnboarding();
+                            if (context.mounted) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const CheckEmailPage(),
+                                ),
+                              );
+                            }
+                          },
                           child: const Text('Skip'),
                         ),
                       ],
@@ -34,7 +47,8 @@ class OnboardingPage extends StatelessWidget {
                   Expanded(
                     child: PageView.builder(
                       controller: cubit.controller,
-                      onPageChanged: (i) => context.read<OnboardingCubit>().setIndex(i),
+                      onPageChanged: (i) =>
+                          context.read<OnboardingCubit>().setIndex(i),
                       itemCount: 3,
                       itemBuilder: (context, i) {
                         final current = context.watch<OnboardingCubit>().state;
@@ -184,11 +198,16 @@ class _PageTrackInventory extends StatelessWidget {
           children: [
             const _HeroIcon(icon: Icons.inventory_2_outlined),
             const SizedBox(height: 24),
-            Text('Track Your Spice Inventory', style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              'Track Your Spice Inventory',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(height: 8),
             Text(
               'Monitor stock levels, calculate valuation in real-time, and maintain precise control over your supply chain data.',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.neutralGray),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(color: AppColors.neutralGray),
             ),
           ],
         ),
@@ -227,11 +246,16 @@ class _PageProfitLoss extends StatelessWidget {
           children: [
             const _HeroIcon(icon: Icons.insert_chart_outlined_rounded),
             const SizedBox(height: 24),
-            Text('Understand Profit & Loss', style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              'Understand Profit & Loss',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(height: 8),
             Text(
               'Track your spice inventory against real-time global market prices. Gain instant clarity on your margins, cost of goods sold, and net profitability per trade.',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.neutralGray),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(color: AppColors.neutralGray),
             ),
             const SizedBox(height: 16),
             const _Bullet('Real-time Margin Analysis'),
@@ -274,36 +298,45 @@ class _PageBuySellAnalyze extends StatelessWidget {
           children: [
             const _HeroIcon(icon: Icons.stacked_line_chart),
             const SizedBox(height: 24),
-            Text('Buy, Sell & Analyze', style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              'Buy, Sell & Analyze',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const SizedBox(height: 8),
-            Text('Precision Spice Inventory Management', style: Theme.of(context).textTheme.titleSmall),
+            Text(
+              'Precision Spice Inventory Management',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
             const SizedBox(height: 8),
             Text(
               'Gain total control over your inventory data. Monitor market fluctuations, manage stock levels, and execute trades with enterprise‑grade analytics.',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.neutralGray),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(color: AppColors.neutralGray),
             ),
           ],
         ),
         bottom: Column(
           children: [
             PrimaryButton(
-              label: 'Create Account',
+              label: 'Get Started',
               trailingIcon: Icons.add,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const RegisterPage()));
-              },
-            ),
-            const SizedBox(height: 10),
-            SecondaryButton(
-              label: 'Login',
-              trailingIcon: Icons.arrow_forward,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const LoginPage()));
+              onPressed: () async {
+                await context.read<OnboardingCubit>().completeOnboarding();
+                if (context.mounted) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CheckEmailPage()),
+                  );
+                }
               },
             ),
             const SizedBox(height: 24),
             Center(
-              child: Text('v2.4.0 • Authorized Use Only', style: Theme.of(context).textTheme.bodySmall),
+              child: Text(
+                'v2.4.0 • Authorized Use Only',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ),
           ],
         ),

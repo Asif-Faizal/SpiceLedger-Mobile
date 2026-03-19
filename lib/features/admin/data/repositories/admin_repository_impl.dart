@@ -79,7 +79,9 @@ class AdminRepositoryImpl implements AdminRepository {
   }
 
   @override
-  Future<Either<Failure, DailyPricesResponse>> getDailyPrices(String date) async {
+  Future<Either<Failure, DailyPricesResponse>> getDailyPrices(
+    String date,
+  ) async {
     try {
       final resp = await remoteDataSource.getDailyPrices(date);
       return Right(resp);
@@ -89,7 +91,9 @@ class AdminRepositoryImpl implements AdminRepository {
   }
 
   @override
-  Future<Either<Failure, DashboardResponse>> getDashboard({String? date}) async {
+  Future<Either<Failure, DashboardResponse>> getDashboard({
+    String? date,
+  }) async {
     try {
       final resp = await remoteDataSource.getDashboard(date: date);
       return Right(resp);

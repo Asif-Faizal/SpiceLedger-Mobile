@@ -28,7 +28,10 @@ class PrimaryButton extends StatelessWidget {
       ],
     );
     return expanded
-        ? SizedBox(width: double.infinity, child: ElevatedButton(onPressed: onPressed, child: child))
+        ? SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(onPressed: onPressed, child: child),
+          )
         : ElevatedButton(onPressed: onPressed, child: child);
   }
 }
@@ -88,7 +91,10 @@ class TextLinkButton extends StatelessWidget {
     final child = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color)),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: color),
+        ),
         if (trailingIcon != null) ...[
           const SizedBox(width: 8),
           Icon(trailingIcon, size: 18, color: color),

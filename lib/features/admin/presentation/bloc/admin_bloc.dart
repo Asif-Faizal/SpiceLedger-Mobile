@@ -92,10 +92,7 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     Emitter<AdminState> emit,
   ) async {
     emit(const AdminState.loading());
-    final result = await createProductUseCase(
-      event.name,
-      event.description,
-    );
+    final result = await createProductUseCase(event.name, event.description);
     result.fold(
       (failure) => emit(AdminState.failure(failure.message)),
       (_) => emit(const AdminState.success('Product Created')),
@@ -112,25 +109,20 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
     final gradesResult = await getGradesUseCase();
     final pricesResult = await getDailyPricesUseCase(today);
 
-    final grades = await gradesResult.fold(
-      (failure) async {
-        return <Grade>[];
-      },
-      (data) async => data,
-    );
+    final grades = await gradesResult.fold((failure) async {
+      return <Grade>[];
+    }, (data) async => data);
 
-    final products = await productsResult.fold(
-      (failure) async {
-        return <Product>[];
-      },
-      (data) async => data,
-    );
+    final products = await productsResult.fold((failure) async {
+      return <Product>[];
+    }, (data) async => data);
 
     final prices = await pricesResult.fold(
       (failure) async {
         return DailyPricesResponse(date: today, prices: const []);
       },
-      (data) async => DailyPricesResponse(date: data.date, prices: data.prices ?? const []),
+      (data) async =>
+          DailyPricesResponse(date: data.date, prices: data.prices ?? const []),
     );
 
     emit(AdminState.catalog(products, grades, prices));

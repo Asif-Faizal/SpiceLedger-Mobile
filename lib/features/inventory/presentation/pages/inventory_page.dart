@@ -26,7 +26,10 @@ class InventoryView extends StatelessWidget {
 
   void _showAddLotDialog(BuildContext context, List<Grade> grades) {
     if (grades.isEmpty) {
-      showInfoSnackbar(context, 'No grades available. Ask Admin to create grades.');
+      showInfoSnackbar(
+        context,
+        'No grades available. Ask Admin to create grades.',
+      );
       return;
     }
     final dateController = TextEditingController(
