@@ -93,13 +93,18 @@ class _RegisterViewState extends State<_RegisterView> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                TextField(
-                  onChanged: (v) =>
-                      context.read<RegisterFormCubit>().setName(v),
-                  decoration: const InputDecoration(
-                    labelText: 'Full Name',
-                    hintText: 'John Doe',
-                  ),
+                BlocBuilder<RegisterFormCubit, RegisterFormState>(
+                  builder: (context, state) {
+                    return TextField(
+                      onChanged: (v) =>
+                          context.read<RegisterFormCubit>().setName(v),
+                      decoration: InputDecoration(
+                        labelText: 'Full Name',
+                        hintText: 'John Doe',
+                        errorText: state.showErrors ? state.nameError : null,
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 12),
                 TextField(
@@ -122,6 +127,7 @@ class _RegisterViewState extends State<_RegisterView> {
                       decoration: InputDecoration(
                         labelText: 'Password',
                         hintText: 'Create a password',
+                        errorText: form.showErrors ? form.passwordError : null,
                         suffixIcon: IconButton(
                           icon: Icon(
                             form.obscurePassword
@@ -164,6 +170,7 @@ class _RegisterViewState extends State<_RegisterView> {
                       decoration: InputDecoration(
                         labelText: 'Confirm Password',
                         hintText: 'Re-enter password',
+                        errorText: form.showErrors ? form.confirmError : null,
                         suffixIcon: IconButton(
                           icon: Icon(
                             form.obscureConfirm
@@ -192,15 +199,17 @@ class _RegisterViewState extends State<_RegisterView> {
                       onPressed: isLoading
                           ? null
                           : () {
-                              final form =
-                                  context.read<RegisterFormCubit>().state;
-                              context.read<RegisterBloc>().add(
-                                    RegisterEvent.registerSubmitted(
-                                      form.name,
-                                      form.email,
-                                      form.password,
-                                    ),
-                                  );
+                              final cubit = context.read<RegisterFormCubit>();
+                              cubit.setShowErrors(true);
+                              if (cubit.state.isValid) {
+                                context.read<RegisterBloc>().add(
+                                      RegisterEvent.registerSubmitted(
+                                        cubit.state.name,
+                                        cubit.state.email,
+                                        cubit.state.password,
+                                      ),
+                                    );
+                              }
                             },
                     );
                   },

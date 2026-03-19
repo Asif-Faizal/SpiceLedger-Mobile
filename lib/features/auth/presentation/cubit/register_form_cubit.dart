@@ -8,6 +8,7 @@ class RegisterFormState extends Equatable {
   final String confirm;
   final bool obscurePassword;
   final bool obscureConfirm;
+  final bool showErrors;
 
   const RegisterFormState({
     this.name = '',
@@ -16,7 +17,17 @@ class RegisterFormState extends Equatable {
     this.confirm = '',
     this.obscurePassword = true,
     this.obscureConfirm = true,
+    this.showErrors = false,
   });
+
+  bool get isPasswordValid => password.length >= 8 && RegExp(r'[!@#\$&*~]').hasMatch(password);
+  bool get isConfirmValid => confirm == password && confirm.isNotEmpty;
+  bool get isNameValid => name.trim().isNotEmpty;
+  bool get isValid => isNameValid && isPasswordValid && isConfirmValid;
+
+  String? get nameError => isNameValid ? null : 'Name is required';
+  String? get passwordError => isPasswordValid ? null : 'Password must be 8+ chars with 1 symbol';
+  String? get confirmError => isConfirmValid ? null : 'Passwords do not match';
 
   RegisterFormState copyWith({
     String? name,
@@ -25,6 +36,7 @@ class RegisterFormState extends Equatable {
     String? confirm,
     bool? obscurePassword,
     bool? obscureConfirm,
+    bool? showErrors,
   }) {
     return RegisterFormState(
       name: name ?? this.name,
@@ -33,6 +45,7 @@ class RegisterFormState extends Equatable {
       confirm: confirm ?? this.confirm,
       obscurePassword: obscurePassword ?? this.obscurePassword,
       obscureConfirm: obscureConfirm ?? this.obscureConfirm,
+      showErrors: showErrors ?? this.showErrors,
     );
   }
 
@@ -44,6 +57,7 @@ class RegisterFormState extends Equatable {
     confirm,
     obscurePassword,
     obscureConfirm,
+    showErrors,
   ];
 }
 
@@ -58,5 +72,6 @@ class RegisterFormCubit extends Cubit<RegisterFormState> {
       emit(state.copyWith(obscurePassword: !state.obscurePassword));
   void toggleObscureConfirm() =>
       emit(state.copyWith(obscureConfirm: !state.obscureConfirm));
+  void setShowErrors(bool value) => emit(state.copyWith(showErrors: value));
   void clear() => emit(const RegisterFormState());
 }
