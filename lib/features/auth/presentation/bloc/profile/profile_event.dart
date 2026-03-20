@@ -4,6 +4,6 @@ part 'profile_event.freezed.dart';
 
 @freezed
 abstract class ProfileEvent with _$ProfileEvent {
-  const factory ProfileEvent.profileFetched(String userId) = _ProfileFetched;
+  const factory ProfileEvent.profileFetched() = _ProfileFetched;
   const factory ProfileEvent.logoutRequested() = _LogoutRequested;
 }

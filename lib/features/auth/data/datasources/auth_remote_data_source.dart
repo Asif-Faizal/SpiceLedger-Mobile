@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/config/env_config.dart';
@@ -16,7 +14,7 @@ abstract class AuthRemoteDataSource {
   Future<LoginResponseModel> login(String email, String password);
   Future<UserModel> register(String name, String email, String password);
   Future<EmailCheckModel> checkEmail(String email);
-  Future<UserModel> getProfile(String userId);
+  Future<UserModel> getProfile();
   Future<void> logout();
 }
 
@@ -110,13 +108,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<UserModel> getProfile(String userId) async {
+  Future<UserModel> getProfile() async {
     try {
-      log('AuthRemoteDataSource: Requesting profile for $userId');
-      final response = await client.get('/rest/accounts/$userId');
-      log(
-        'AuthRemoteDataSource: Received response for $userId: ${response.statusCode}',
-      );
+      final response = await client.get('/rest/accounts/info');
 
       final apiResponse = ApiResponse<UserModel>.fromJson(
         response.data as Map<String, dynamic>,

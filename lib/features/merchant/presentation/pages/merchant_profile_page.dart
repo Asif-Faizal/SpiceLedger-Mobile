@@ -7,8 +7,8 @@ import '../../../auth/presentation/bloc/profile/profile_event.dart';
 import '../../../auth/presentation/bloc/profile/profile_state.dart';
 import '../../../onboarding/presentation/pages/splash_screen.dart';
 
-class AdminProfilePage extends StatelessWidget {
-  const AdminProfilePage({super.key});
+class MerchantProfilePage extends StatelessWidget {
+  const MerchantProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Admin Profile')),
+      appBar: AppBar(title: const Text('Merchant Profile')),
       body: BlocListener<ProfileBloc, ProfileState>(
         listener: (context, state) {
           state.maybeWhen(

@@ -11,12 +11,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final LogoutUseCase logoutUseCase;
 
   ProfileBloc(this.getProfileUseCase, this.logoutUseCase)
-      : super(const ProfileState.initial()) {
+    : super(const ProfileState.initial()) {
     on<ProfileEvent>((event, emit) async {
       await event.when(
-        profileFetched: (userId) async {
+        profileFetched: () async {
           emit(const ProfileState.loading());
-          final result = await getProfileUseCase(userId);
+          final result = await getProfileUseCase();
           result.fold(
             (failure) => emit(ProfileState.failure(failure.message)),
             (user) => emit(ProfileState.success(user)),

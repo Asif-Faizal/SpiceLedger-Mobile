@@ -122,10 +122,10 @@ return logoutRequested(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String userId)?  profileFetched,TResult Function()?  logoutRequested,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  profileFetched,TResult Function()?  logoutRequested,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched(_that.userId);case _LogoutRequested() when logoutRequested != null:
+return profileFetched();case _LogoutRequested() when logoutRequested != null:
 return logoutRequested();case _:
   return orElse();
 
@@ -144,10 +144,10 @@ return logoutRequested();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String userId)  profileFetched,required TResult Function()  logoutRequested,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  profileFetched,required TResult Function()  logoutRequested,}) {final _that = this;
 switch (_that) {
 case _ProfileFetched():
-return profileFetched(_that.userId);case _LogoutRequested():
+return profileFetched();case _LogoutRequested():
 return logoutRequested();case _:
   throw StateError('Unexpected subclass');
 
@@ -165,10 +165,10 @@ return logoutRequested();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String userId)?  profileFetched,TResult? Function()?  logoutRequested,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  profileFetched,TResult? Function()?  logoutRequested,}) {final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched(_that.userId);case _LogoutRequested() when logoutRequested != null:
+return profileFetched();case _LogoutRequested() when logoutRequested != null:
 return logoutRequested();case _:
   return null;
 
@@ -181,67 +181,33 @@ return logoutRequested();case _:
 
 
 class _ProfileFetched implements ProfileEvent {
-  const _ProfileFetched(this.userId);
+  const _ProfileFetched();
   
 
- final  String userId;
 
-/// Create a copy of ProfileEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$ProfileFetchedCopyWith<_ProfileFetched> get copyWith => __$ProfileFetchedCopyWithImpl<_ProfileFetched>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileFetched&&(identical(other.userId, userId) || other.userId == userId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileFetched);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,userId);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ProfileEvent.profileFetched(userId: $userId)';
+  return 'ProfileEvent.profileFetched()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class _$ProfileFetchedCopyWith<$Res> implements $ProfileEventCopyWith<$Res> {
-  factory _$ProfileFetchedCopyWith(_ProfileFetched value, $Res Function(_ProfileFetched) _then) = __$ProfileFetchedCopyWithImpl;
-@useResult
-$Res call({
- String userId
-});
 
 
-
-
-}
-/// @nodoc
-class __$ProfileFetchedCopyWithImpl<$Res>
-    implements _$ProfileFetchedCopyWith<$Res> {
-  __$ProfileFetchedCopyWithImpl(this._self, this._then);
-
-  final _ProfileFetched _self;
-  final $Res Function(_ProfileFetched) _then;
-
-/// Create a copy of ProfileEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? userId = null,}) {
-  return _then(_ProfileFetched(
-null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
-
-}
 
 /// @nodoc
 

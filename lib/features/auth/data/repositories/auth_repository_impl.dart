@@ -65,9 +65,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> getProfile(String userId) async {
+  Future<Either<Failure, UserEntity>> getProfile() async {
     try {
-      final model = await remoteDataSource.getProfile(userId);
+      final model = await remoteDataSource.getProfile();
       return Right(model.toEntity());
     } on Failure catch (e) {
       return Left(e);
