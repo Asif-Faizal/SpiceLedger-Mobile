@@ -14,61 +14,30 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileEvent {
 
- String get userId;
-/// Create a copy of ProfileEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ProfileEventCopyWith<ProfileEvent> get copyWith => _$ProfileEventCopyWithImpl<ProfileEvent>(this as ProfileEvent, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileEvent&&(identical(other.userId, userId) || other.userId == userId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileEvent);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,userId);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ProfileEvent(userId: $userId)';
+  return 'ProfileEvent()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ProfileEventCopyWith<$Res>  {
-  factory $ProfileEventCopyWith(ProfileEvent value, $Res Function(ProfileEvent) _then) = _$ProfileEventCopyWithImpl;
-@useResult
-$Res call({
- String userId
-});
-
-
-
-
-}
-/// @nodoc
-class _$ProfileEventCopyWithImpl<$Res>
-    implements $ProfileEventCopyWith<$Res> {
-  _$ProfileEventCopyWithImpl(this._self, this._then);
-
-  final ProfileEvent _self;
-  final $Res Function(ProfileEvent) _then;
-
-/// Create a copy of ProfileEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? userId = null,}) {
-  return _then(_self.copyWith(
-userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
+class $ProfileEventCopyWith<$Res>  {
+$ProfileEventCopyWith(ProfileEvent _, $Res Function(ProfileEvent) __);
 }
 
 
@@ -86,11 +55,12 @@ extension ProfileEventPatterns on ProfileEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ProfileFetched value)?  profileFetched,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ProfileFetched value)?  profileFetched,TResult Function( _LogoutRequested value)?  logoutRequested,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched(_that);case _:
+return profileFetched(_that);case _LogoutRequested() when logoutRequested != null:
+return logoutRequested(_that);case _:
   return orElse();
 
 }
@@ -108,11 +78,12 @@ return profileFetched(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ProfileFetched value)  profileFetched,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ProfileFetched value)  profileFetched,required TResult Function( _LogoutRequested value)  logoutRequested,}){
 final _that = this;
 switch (_that) {
 case _ProfileFetched():
-return profileFetched(_that);case _:
+return profileFetched(_that);case _LogoutRequested():
+return logoutRequested(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -129,11 +100,12 @@ return profileFetched(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ProfileFetched value)?  profileFetched,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ProfileFetched value)?  profileFetched,TResult? Function( _LogoutRequested value)?  logoutRequested,}){
 final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched(_that);case _:
+return profileFetched(_that);case _LogoutRequested() when logoutRequested != null:
+return logoutRequested(_that);case _:
   return null;
 
 }
@@ -150,10 +122,11 @@ return profileFetched(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String userId)?  profileFetched,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String userId)?  profileFetched,TResult Function()?  logoutRequested,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched(_that.userId);case _:
+return profileFetched(_that.userId);case _LogoutRequested() when logoutRequested != null:
+return logoutRequested();case _:
   return orElse();
 
 }
@@ -171,10 +144,11 @@ return profileFetched(_that.userId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String userId)  profileFetched,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String userId)  profileFetched,required TResult Function()  logoutRequested,}) {final _that = this;
 switch (_that) {
 case _ProfileFetched():
-return profileFetched(_that.userId);case _:
+return profileFetched(_that.userId);case _LogoutRequested():
+return logoutRequested();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -191,10 +165,11 @@ return profileFetched(_that.userId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String userId)?  profileFetched,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String userId)?  profileFetched,TResult? Function()?  logoutRequested,}) {final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched(_that.userId);case _:
+return profileFetched(_that.userId);case _LogoutRequested() when logoutRequested != null:
+return logoutRequested();case _:
   return null;
 
 }
@@ -209,11 +184,11 @@ class _ProfileFetched implements ProfileEvent {
   const _ProfileFetched(this.userId);
   
 
-@override final  String userId;
+ final  String userId;
 
 /// Create a copy of ProfileEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$ProfileFetchedCopyWith<_ProfileFetched> get copyWith => __$ProfileFetchedCopyWithImpl<_ProfileFetched>(this, _$identity);
 
@@ -239,7 +214,7 @@ String toString() {
 /// @nodoc
 abstract mixin class _$ProfileFetchedCopyWith<$Res> implements $ProfileEventCopyWith<$Res> {
   factory _$ProfileFetchedCopyWith(_ProfileFetched value, $Res Function(_ProfileFetched) _then) = __$ProfileFetchedCopyWithImpl;
-@override @useResult
+@useResult
 $Res call({
  String userId
 });
@@ -258,7 +233,7 @@ class __$ProfileFetchedCopyWithImpl<$Res>
 
 /// Create a copy of ProfileEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? userId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? userId = null,}) {
   return _then(_ProfileFetched(
 null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,
@@ -267,5 +242,37 @@ as String,
 
 
 }
+
+/// @nodoc
+
+
+class _LogoutRequested implements ProfileEvent {
+  const _LogoutRequested();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LogoutRequested);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ProfileEvent.logoutRequested()';
+}
+
+
+}
+
+
+
 
 // dart format on

@@ -17,6 +17,7 @@ abstract class AuthRemoteDataSource {
   Future<UserModel> register(String name, String email, String password);
   Future<EmailCheckModel> checkEmail(String email);
   Future<UserModel> getProfile(String userId);
+  Future<void> logout();
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -125,6 +126,27 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (apiResponse.success && apiResponse.data != null) {
         return apiResponse.data!;
       } else {
+        throw ServerFailure(apiResponse.message);
+      }
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+
+  @override
+  Future<void> logout() async {
+    try {
+      final response = await client.post(
+        '/rest/accounts/logout',
+        data: {'device_id': 'dev_987'},
+      );
+
+      final apiResponse = ApiResponse<void>.fromJson(
+        response.data as Map<String, dynamic>,
+        (json) {},
+      );
+
+      if (!apiResponse.success) {
         throw ServerFailure(apiResponse.message);
       }
     } catch (e) {

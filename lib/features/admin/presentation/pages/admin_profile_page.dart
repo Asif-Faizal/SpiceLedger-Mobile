@@ -6,6 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../auth/presentation/bloc/profile/profile_bloc.dart';
 import '../../../auth/presentation/bloc/profile/profile_event.dart';
 import '../../../auth/presentation/bloc/profile/profile_state.dart';
+import '../../../onboarding/presentation/pages/splash_screen.dart';
 
 class AdminProfilePage extends StatelessWidget {
   const AdminProfilePage({super.key});
@@ -32,117 +33,140 @@ class _ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
       appBar: AppBar(title: const Text('Admin Profile')),
-      body: BlocBuilder<ProfileBloc, ProfileState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => const Center(child: CircularProgressIndicator()),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            failure: (message) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Error: $message'),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      getIt<EncryptedStorage>().read('user_id').then((userId) {
-                        if (userId != null &&
-                            userId.isNotEmpty &&
-                            context.mounted) {
-                          context.read<ProfileBloc>().add(
-                            ProfileEvent.profileFetched(userId),
-                          );
-                        }
-                      });
-                    },
-                    child: const Text('Retry'),
-                  ),
-                ],
-              ),
-            ),
-            success: (user) => SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 32),
-                  Center(
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: const BoxDecoration(
-                        color: AppColors.lightGray,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.person,
-                        size: 64,
-                        color: AppColors.neutralGray,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(user.name, style: textTheme.titleLarge),
-                  Text(
-                    user.id,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: AppColors.neutralGray,
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  const Divider(),
-                  _buildProfileItem(
-                    context,
-                    icon: Icons.badge_outlined,
-                    label: 'Role',
-                    value: user.userType.name.toUpperCase(),
-                  ),
-                  _buildProfileItem(
-                    context,
-                    icon: Icons.mail,
-                    label: 'E-Mail',
-                    value: user.email,
-                  ),
-                  const Divider(),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: [
-                        _buildMenuButton(
-                          context,
-                          icon: Icons.security_outlined,
-                          label: 'Security Settings',
-                        ),
-                        const SizedBox(height: 8),
-                        _buildMenuButton(
-                          context,
-                          icon: Icons.notifications_outlined,
-                          label: 'Notification Preferences',
-                        ),
-                        const SizedBox(height: 16),
-                        SizedBox(
-                          width: double.infinity,
-                          child: OutlinedButton(
-                            onPressed: () {},
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: AppColors.danger,
-                              side: const BorderSide(color: AppColors.danger),
-                            ),
-                            child: const Text('LOG OUT'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                ],
-              ),
-            ),
+      body: BlocListener<ProfileBloc, ProfileState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            logoutSuccess: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const SplashScreen()),
+                (route) => false,
+              );
+            },
+            orElse: () {},
           );
         },
+        child: BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              initial: () => const Center(child: CircularProgressIndicator()),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              failure: (message) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Error: $message'),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        getIt<EncryptedStorage>().read('user_id').then((
+                          userId,
+                        ) {
+                          if (userId != null &&
+                              userId.isNotEmpty &&
+                              context.mounted) {
+                            context.read<ProfileBloc>().add(
+                              ProfileEvent.profileFetched(userId),
+                            );
+                          }
+                        });
+                      },
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
+              ),
+              success: (user) => _buildProfileBody(context, user, false),
+              logoutLoading: (user) => _buildProfileBody(context, user, true),
+              orElse: () => const Center(child: CircularProgressIndicator()),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileBody(BuildContext context, dynamic user, bool isLoggingOut) {
+    final textTheme = Theme.of(context).textTheme;
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(height: 32),
+          Center(
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: const BoxDecoration(
+                color: AppColors.lightGray,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.person,
+                size: 64,
+                color: AppColors.neutralGray,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(user.name, style: textTheme.titleLarge),
+          Text(
+            user.id,
+            style: textTheme.bodySmall?.copyWith(color: AppColors.neutralGray),
+          ),
+          const SizedBox(height: 32),
+          const Divider(),
+          _buildProfileItem(
+            context,
+            icon: Icons.badge_outlined,
+            label: 'Role',
+            value: user.userType.toString().split('.').last.toUpperCase(),
+          ),
+          _buildProfileItem(
+            context,
+            icon: Icons.mail,
+            label: 'E-Mail',
+            value: user.email,
+          ),
+          const Divider(),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                _buildMenuButton(
+                  context,
+                  icon: Icons.security_outlined,
+                  label: 'Security Settings',
+                ),
+                const SizedBox(height: 8),
+                _buildMenuButton(
+                  context,
+                  icon: Icons.notifications_outlined,
+                  label: 'Notification Preferences',
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      context.read<ProfileBloc>().add(
+                        const ProfileEvent.logoutRequested(),
+                      );
+                    },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.danger,
+                      side: const BorderSide(color: AppColors.danger),
+                    ),
+                    child: Text(isLoggingOut ? 'Logging Out..' : 'LOG OUT'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 32),
+        ],
       ),
     );
   }

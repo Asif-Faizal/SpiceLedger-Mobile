@@ -75,4 +75,17 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> logout() async {
+    try {
+      await remoteDataSource.logout();
+      await storage.deleteAll();
+      return const Right(null);
+    } on Failure catch (e) {
+      return Left(e);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

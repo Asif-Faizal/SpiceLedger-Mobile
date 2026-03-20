@@ -22,6 +22,7 @@ import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
 import '../../features/auth/domain/usecases/check_email_usecase.dart' as _i879;
 import '../../features/auth/domain/usecases/get_profile_usecase.dart' as _i568;
 import '../../features/auth/domain/usecases/login_usecase.dart' as _i188;
+import '../../features/auth/domain/usecases/logout_usecase.dart' as _i48;
 import '../../features/auth/domain/usecases/register_usecase.dart' as _i941;
 import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i208;
 import '../../features/auth/presentation/bloc/profile/profile_bloc.dart'
@@ -84,11 +85,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i188.LoginUseCase>(
       () => _i188.LoginUseCase(gh<_i787.AuthRepository>()),
     );
+    gh.lazySingleton<_i48.LogoutUseCase>(
+      () => _i48.LogoutUseCase(gh<_i787.AuthRepository>()),
+    );
     gh.lazySingleton<_i941.RegisterUseCase>(
       () => _i941.RegisterUseCase(gh<_i787.AuthRepository>()),
-    );
-    gh.factory<_i228.ProfileBloc>(
-      () => _i228.ProfileBloc(gh<_i568.GetProfileUseCase>()),
     );
     gh.factory<_i208.LoginBloc>(
       () => _i208.LoginBloc(gh<_i188.LoginUseCase>()),
@@ -98,6 +99,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i210.RegisterBloc>(
       () => _i210.RegisterBloc(gh<_i941.RegisterUseCase>()),
+    );
+    gh.factory<_i228.ProfileBloc>(
+      () => _i228.ProfileBloc(
+        gh<_i568.GetProfileUseCase>(),
+        gh<_i48.LogoutUseCase>(),
+      ),
     );
     return this;
   }
