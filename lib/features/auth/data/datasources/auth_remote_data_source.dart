@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/config/env_config.dart';
@@ -14,6 +16,7 @@ abstract class AuthRemoteDataSource {
   Future<LoginResponseModel> login(String email, String password);
   Future<UserModel> register(String name, String email, String password);
   Future<EmailCheckModel> checkEmail(String email);
+  Future<UserModel> getProfile(String userId);
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -93,6 +96,30 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final apiResponse = ApiResponse<EmailCheckModel>.fromJson(
         response.data,
         (json) => EmailCheckModel.fromJson(json),
+      );
+
+      if (apiResponse.success && apiResponse.data != null) {
+        return apiResponse.data!;
+      } else {
+        throw ServerFailure(apiResponse.message);
+      }
+    } catch (e) {
+      throw ErrorHandler.handle(e);
+    }
+  }
+
+  @override
+  Future<UserModel> getProfile(String userId) async {
+    try {
+      log('AuthRemoteDataSource: Requesting profile for $userId');
+      final response = await client.get('/rest/accounts/$userId');
+      log(
+        'AuthRemoteDataSource: Received response for $userId: ${response.statusCode}',
+      );
+
+      final apiResponse = ApiResponse<UserModel>.fromJson(
+        response.data as Map<String, dynamic>,
+        (json) => UserModel.fromJson(json),
       );
 
       if (apiResponse.success && apiResponse.data != null) {

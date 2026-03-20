@@ -4,6 +4,8 @@ import 'package:spice_ledger/features/onboarding/presentation/pages/splash_scree
 import 'core/di/injection.dart';
 import 'core/theme/app_theme.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -17,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'Spice Ledger',
       theme: AppTheme.light,
       home: const SplashScreen(),

@@ -63,4 +63,16 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> getProfile(String userId) async {
+    try {
+      final model = await remoteDataSource.getProfile(userId);
+      return Right(model.toEntity());
+    } on Failure catch (e) {
+      return Left(e);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

@@ -12,4 +12,5 @@ abstract class AuthRepository {
     String password,
   );
   Future<Either<Failure, EmailCheckEntity>> checkEmail(String email);
+  Future<Either<Failure, UserEntity>> getProfile(String userId);
 }
