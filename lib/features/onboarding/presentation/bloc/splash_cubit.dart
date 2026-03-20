@@ -1,6 +1,7 @@
 import 'package:hive_ce/hive.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:spice_ledger/features/auth/domain/entities/user_entity.dart';
 import '../../../../core/storage/secure_storage.dart';
 
 sealed class SplashState {
@@ -15,8 +16,12 @@ final class SplashAnimating extends SplashState {
   const SplashAnimating();
 }
 
-final class SplashAuthenticated extends SplashState {
-  const SplashAuthenticated();
+final class SplashAdminAuthenticated extends SplashState {
+  const SplashAdminAuthenticated();
+}
+
+final class SplashMerchantAuthenticated extends SplashState {
+  const SplashMerchantAuthenticated();
 }
 
 final class SplashUnauthenticated extends SplashState {
@@ -49,9 +54,20 @@ class SplashCubit extends Cubit<SplashState> {
       return;
     }
 
-    final token = await _storage.read('auth_token');
-    if (token != null) {
-      emit(const SplashAuthenticated());
+    final token = await _storage.read('access_token');
+    final userTypeStr = await _storage.read('user_type');
+
+    if (token != null && userTypeStr != null) {
+      final userType = UserType.values.firstWhere(
+        (e) => e.name == userTypeStr,
+        orElse: () => UserType.merchant,
+      );
+
+      if (userType == UserType.admin) {
+        emit(const SplashAdminAuthenticated());
+      } else {
+        emit(const SplashMerchantAuthenticated());
+      }
     } else {
       emit(const SplashUnauthenticated());
     }

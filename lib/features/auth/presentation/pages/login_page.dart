@@ -5,7 +5,7 @@ import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
 import '../../../admin/presentation/pages/admin_dashboard_page.dart';
-import '../../../inventory/presentation/pages/inventory_page.dart';
+import '../../../merchant/presentation/pages/merchant_dashboard_page.dart';
 import '../bloc/login/login_bloc.dart';
 import '../cubit/login_form_cubit.dart';
 import '../../domain/entities/user_entity.dart';
@@ -23,9 +23,7 @@ class LoginPage extends StatelessWidget {
         BlocProvider(
           create: (_) => LoginFormCubit()..setEmail(initialEmail ?? ''),
         ),
-        BlocProvider(
-          create: (_) => getIt<LoginBloc>(),
-        ),
+        BlocProvider(create: (_) => getIt<LoginBloc>()),
       ],
       child: _LoginView(initialEmail: initialEmail),
     );
@@ -71,7 +69,9 @@ class _LoginViewState extends State<_LoginView> {
               } else {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (_) => const InventoryPage()),
+                  MaterialPageRoute(
+                    builder: (_) => const MerchantDashboardPage(),
+                  ),
                 );
               }
             },
@@ -152,11 +152,11 @@ class _LoginViewState extends State<_LoginView> {
                           : () {
                               final form = context.read<LoginFormCubit>().state;
                               context.read<LoginBloc>().add(
-                                    LoginEvent.loginSubmitted(
-                                      form.email,
-                                      form.password,
-                                    ),
-                                  );
+                                LoginEvent.loginSubmitted(
+                                  form.email,
+                                  form.password,
+                                ),
+                              );
                             },
                     );
                   },

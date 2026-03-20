@@ -25,6 +25,9 @@ class AuthRepositoryImpl implements AuthRepository {
       final loginResponse = await remoteDataSource.login(email, password);
       await storage.write('access_token', loginResponse.accessToken);
       await storage.write('refresh_token', loginResponse.refreshToken);
+      await storage.write('user_id', loginResponse.account.id);
+      await storage.write('user_type', loginResponse.account.userType.name);
+      await storage.write('name', loginResponse.account.name);
       return Right(loginResponse.account.toEntity());
     } on Failure catch (e) {
       return Left(e);

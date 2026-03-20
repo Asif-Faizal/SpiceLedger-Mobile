@@ -14,27 +14,6 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:hive_ce/hive.dart' as _i738;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../../features/admin/data/datasources/admin_remote_data_source.dart'
-    as _i517;
-import '../../features/admin/data/repositories/admin_repository_impl.dart'
-    as _i335;
-import '../../features/admin/domain/repositories/admin_repository.dart'
-    as _i583;
-import '../../features/admin/domain/usecases/create_grade_usecase.dart'
-    as _i442;
-import '../../features/admin/domain/usecases/create_product_usecase.dart'
-    as _i74;
-import '../../features/admin/domain/usecases/get_daily_prices_usecase.dart'
-    as _i6;
-import '../../features/admin/domain/usecases/get_dashboard_usecase.dart'
-    as _i311;
-import '../../features/admin/domain/usecases/get_products_usecase.dart'
-    as _i289;
-import '../../features/admin/domain/usecases/get_user_stats_usecase.dart'
-    as _i348;
-import '../../features/admin/domain/usecases/set_daily_price_usecase.dart'
-    as _i495;
-import '../../features/admin/presentation/bloc/admin_bloc.dart' as _i55;
 import '../../features/auth/data/datasources/auth_remote_data_source.dart'
     as _i107;
 import '../../features/auth/data/repositories/auth_repository_impl.dart'
@@ -47,22 +26,6 @@ import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i208;
 import '../../features/auth/presentation/bloc/register/register_bloc.dart'
     as _i210;
 import '../../features/auth/presentation/cubit/check_email_cubit.dart' as _i699;
-import '../../features/inventory/data/datasources/inventory_remote_data_source.dart'
-    as _i248;
-import '../../features/inventory/data/repositories/inventory_repository_impl.dart'
-    as _i572;
-import '../../features/inventory/domain/repositories/inventory_repository.dart'
-    as _i422;
-import '../../features/inventory/domain/usecases/add_purchase_lot_usecase.dart'
-    as _i483;
-import '../../features/inventory/domain/usecases/add_sale_usecase.dart'
-    as _i123;
-import '../../features/inventory/domain/usecases/get_current_inventory_usecase.dart'
-    as _i869;
-import '../../features/inventory/domain/usecases/get_grades_usecase.dart'
-    as _i143;
-import '../../features/inventory/presentation/bloc/inventory_bloc.dart'
-    as _i690;
 import '../../features/onboarding/presentation/bloc/onboarding_cubit.dart'
     as _i153;
 import '../../features/onboarding/presentation/bloc/splash_cubit.dart' as _i128;
@@ -100,43 +63,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i153.OnboardingCubit>(
       () => _i153.OnboardingCubit(gh<_i738.Box<dynamic>>()),
     );
-    gh.lazySingleton<_i517.AdminRemoteDataSource>(
-      () => _i517.AdminRemoteDataSourceImpl(gh<_i361.Dio>()),
-    );
-    gh.lazySingleton<_i248.InventoryRemoteDataSource>(
-      () => _i248.InventoryRemoteDataSourceImpl(gh<_i361.Dio>()),
-    );
     gh.lazySingleton<_i107.AuthRemoteDataSource>(
       () => _i107.AuthRemoteDataSourceImpl(gh<_i361.Dio>()),
-    );
-    gh.lazySingleton<_i422.InventoryRepository>(
-      () =>
-          _i572.InventoryRepositoryImpl(gh<_i248.InventoryRemoteDataSource>()),
     );
     gh.lazySingleton<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(
         gh<_i107.AuthRemoteDataSource>(),
         gh<_i619.EncryptedStorage>(),
-      ),
-    );
-    gh.lazySingleton<_i483.AddPurchaseLotUseCase>(
-      () => _i483.AddPurchaseLotUseCase(gh<_i422.InventoryRepository>()),
-    );
-    gh.lazySingleton<_i123.AddSaleUseCase>(
-      () => _i123.AddSaleUseCase(gh<_i422.InventoryRepository>()),
-    );
-    gh.lazySingleton<_i869.GetCurrentInventoryUseCase>(
-      () => _i869.GetCurrentInventoryUseCase(gh<_i422.InventoryRepository>()),
-    );
-    gh.lazySingleton<_i143.GetGradesUseCase>(
-      () => _i143.GetGradesUseCase(gh<_i422.InventoryRepository>()),
-    );
-    gh.factory<_i690.InventoryBloc>(
-      () => _i690.InventoryBloc(
-        gh<_i143.GetGradesUseCase>(),
-        gh<_i483.AddPurchaseLotUseCase>(),
-        gh<_i123.AddSaleUseCase>(),
-        gh<_i869.GetCurrentInventoryUseCase>(),
       ),
     );
     gh.lazySingleton<_i879.CheckEmailUseCase>(
@@ -148,30 +81,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i941.RegisterUseCase>(
       () => _i941.RegisterUseCase(gh<_i787.AuthRepository>()),
     );
-    gh.lazySingleton<_i583.AdminRepository>(
-      () => _i335.AdminRepositoryImpl(gh<_i517.AdminRemoteDataSource>()),
-    );
-    gh.factory<_i311.GetDashboardUseCase>(
-      () => _i311.GetDashboardUseCase(gh<_i583.AdminRepository>()),
-    );
-    gh.lazySingleton<_i442.CreateGradeUseCase>(
-      () => _i442.CreateGradeUseCase(gh<_i583.AdminRepository>()),
-    );
-    gh.lazySingleton<_i74.CreateProductUseCase>(
-      () => _i74.CreateProductUseCase(gh<_i583.AdminRepository>()),
-    );
-    gh.lazySingleton<_i6.GetDailyPricesUseCase>(
-      () => _i6.GetDailyPricesUseCase(gh<_i583.AdminRepository>()),
-    );
-    gh.lazySingleton<_i289.GetProductsUseCase>(
-      () => _i289.GetProductsUseCase(gh<_i583.AdminRepository>()),
-    );
-    gh.lazySingleton<_i348.GetUserStatsUseCase>(
-      () => _i348.GetUserStatsUseCase(gh<_i583.AdminRepository>()),
-    );
-    gh.lazySingleton<_i495.SetDailyPriceUseCase>(
-      () => _i495.SetDailyPriceUseCase(gh<_i583.AdminRepository>()),
-    );
     gh.factory<_i208.LoginBloc>(
       () => _i208.LoginBloc(gh<_i188.LoginUseCase>()),
     );
@@ -180,18 +89,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i210.RegisterBloc>(
       () => _i210.RegisterBloc(gh<_i941.RegisterUseCase>()),
-    );
-    gh.factory<_i55.AdminBloc>(
-      () => _i55.AdminBloc(
-        gh<_i348.GetUserStatsUseCase>(),
-        gh<_i442.CreateGradeUseCase>(),
-        gh<_i495.SetDailyPriceUseCase>(),
-        gh<_i289.GetProductsUseCase>(),
-        gh<_i6.GetDailyPricesUseCase>(),
-        gh<_i143.GetGradesUseCase>(),
-        gh<_i74.CreateProductUseCase>(),
-        gh<_i311.GetDashboardUseCase>(),
-      ),
     );
     return this;
   }

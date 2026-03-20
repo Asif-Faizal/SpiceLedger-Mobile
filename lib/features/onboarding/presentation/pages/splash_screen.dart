@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/di/injection.dart';
+import '../../../admin/presentation/pages/admin_dashboard_page.dart';
 import '../../../auth/presentation/pages/check_email_page.dart';
+import '../../../merchant/presentation/pages/merchant_dashboard_page.dart';
 import '../bloc/splash_cubit.dart';
 import 'onboarding_page.dart';
 
@@ -16,8 +18,16 @@ class SplashScreen extends StatelessWidget {
       create: (context) => getIt<SplashCubit>()..init(),
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
-          if (state is SplashAuthenticated) {
-            // TODO: Navigate to Home Screen
+          if (state is SplashAdminAuthenticated) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const AdminDashboardPage()),
+            );
+          } else if (state is SplashMerchantAuthenticated) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const MerchantDashboardPage()),
+            );
           } else if (state is SplashUnauthenticated) {
             Navigator.pushReplacement(
               context,
