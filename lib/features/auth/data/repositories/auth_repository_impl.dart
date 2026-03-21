@@ -40,10 +40,16 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, UserEntity>> register(
     String name,
     String email,
-    String password,
-  ) async {
+    String? password, {
+    String? id,
+  }) async {
     try {
-      final userModel = await remoteDataSource.register(name, email, password);
+      final userModel = await remoteDataSource.register(
+        name,
+        email,
+        password,
+        id: id,
+      );
       return Right(userModel.toEntity());
     } on Failure catch (e) {
       return Left(e);

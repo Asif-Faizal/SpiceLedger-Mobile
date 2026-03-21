@@ -55,11 +55,12 @@ extension ProfileEventPatterns on ProfileEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ProfileFetched value)?  profileFetched,TResult Function( _LogoutRequested value)?  logoutRequested,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ProfileFetched value)?  profileFetched,TResult Function( _UpdateProfileRequested value)?  updateProfileRequested,TResult Function( _LogoutRequested value)?  logoutRequested,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched(_that);case _LogoutRequested() when logoutRequested != null:
+return profileFetched(_that);case _UpdateProfileRequested() when updateProfileRequested != null:
+return updateProfileRequested(_that);case _LogoutRequested() when logoutRequested != null:
 return logoutRequested(_that);case _:
   return orElse();
 
@@ -78,11 +79,12 @@ return logoutRequested(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ProfileFetched value)  profileFetched,required TResult Function( _LogoutRequested value)  logoutRequested,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ProfileFetched value)  profileFetched,required TResult Function( _UpdateProfileRequested value)  updateProfileRequested,required TResult Function( _LogoutRequested value)  logoutRequested,}){
 final _that = this;
 switch (_that) {
 case _ProfileFetched():
-return profileFetched(_that);case _LogoutRequested():
+return profileFetched(_that);case _UpdateProfileRequested():
+return updateProfileRequested(_that);case _LogoutRequested():
 return logoutRequested(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -100,11 +102,12 @@ return logoutRequested(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ProfileFetched value)?  profileFetched,TResult? Function( _LogoutRequested value)?  logoutRequested,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ProfileFetched value)?  profileFetched,TResult? Function( _UpdateProfileRequested value)?  updateProfileRequested,TResult? Function( _LogoutRequested value)?  logoutRequested,}){
 final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched(_that);case _LogoutRequested() when logoutRequested != null:
+return profileFetched(_that);case _UpdateProfileRequested() when updateProfileRequested != null:
+return updateProfileRequested(_that);case _LogoutRequested() when logoutRequested != null:
 return logoutRequested(_that);case _:
   return null;
 
@@ -122,10 +125,11 @@ return logoutRequested(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  profileFetched,TResult Function()?  logoutRequested,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  profileFetched,TResult Function( String name,  String email)?  updateProfileRequested,TResult Function()?  logoutRequested,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched();case _LogoutRequested() when logoutRequested != null:
+return profileFetched();case _UpdateProfileRequested() when updateProfileRequested != null:
+return updateProfileRequested(_that.name,_that.email);case _LogoutRequested() when logoutRequested != null:
 return logoutRequested();case _:
   return orElse();
 
@@ -144,10 +148,11 @@ return logoutRequested();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  profileFetched,required TResult Function()  logoutRequested,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  profileFetched,required TResult Function( String name,  String email)  updateProfileRequested,required TResult Function()  logoutRequested,}) {final _that = this;
 switch (_that) {
 case _ProfileFetched():
-return profileFetched();case _LogoutRequested():
+return profileFetched();case _UpdateProfileRequested():
+return updateProfileRequested(_that.name,_that.email);case _LogoutRequested():
 return logoutRequested();case _:
   throw StateError('Unexpected subclass');
 
@@ -165,10 +170,11 @@ return logoutRequested();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  profileFetched,TResult? Function()?  logoutRequested,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  profileFetched,TResult? Function( String name,  String email)?  updateProfileRequested,TResult? Function()?  logoutRequested,}) {final _that = this;
 switch (_that) {
 case _ProfileFetched() when profileFetched != null:
-return profileFetched();case _LogoutRequested() when logoutRequested != null:
+return profileFetched();case _UpdateProfileRequested() when updateProfileRequested != null:
+return updateProfileRequested(_that.name,_that.email);case _LogoutRequested() when logoutRequested != null:
 return logoutRequested();case _:
   return null;
 
@@ -208,6 +214,74 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class _UpdateProfileRequested implements ProfileEvent {
+  const _UpdateProfileRequested(this.name, this.email);
+  
+
+ final  String name;
+ final  String email;
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UpdateProfileRequestedCopyWith<_UpdateProfileRequested> get copyWith => __$UpdateProfileRequestedCopyWithImpl<_UpdateProfileRequested>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateProfileRequested&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,name,email);
+
+@override
+String toString() {
+  return 'ProfileEvent.updateProfileRequested(name: $name, email: $email)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UpdateProfileRequestedCopyWith<$Res> implements $ProfileEventCopyWith<$Res> {
+  factory _$UpdateProfileRequestedCopyWith(_UpdateProfileRequested value, $Res Function(_UpdateProfileRequested) _then) = __$UpdateProfileRequestedCopyWithImpl;
+@useResult
+$Res call({
+ String name, String email
+});
+
+
+
+
+}
+/// @nodoc
+class __$UpdateProfileRequestedCopyWithImpl<$Res>
+    implements _$UpdateProfileRequestedCopyWith<$Res> {
+  __$UpdateProfileRequestedCopyWithImpl(this._self, this._then);
+
+  final _UpdateProfileRequested _self;
+  final $Res Function(_UpdateProfileRequested) _then;
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? name = null,Object? email = null,}) {
+  return _then(_UpdateProfileRequested(
+null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

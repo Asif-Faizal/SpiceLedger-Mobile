@@ -9,15 +9,17 @@ part of 'register_request_model.dart';
 _RegisterRequestModel _$RegisterRequestModelFromJson(
   Map<String, dynamic> json,
 ) => _RegisterRequestModel(
+  id: json['id'] as String?,
   name: json['name'] as String,
   email: json['email'] as String,
-  password: json['password'] as String,
+  password: json['password'] as String?,
   userType: $enumDecode(_$UserTypeEnumMap, json['user_type']),
 );
 
 Map<String, dynamic> _$RegisterRequestModelToJson(
   _RegisterRequestModel instance,
 ) => <String, dynamic>{
+  'id': instance.id,
   'name': instance.name,
   'email': instance.email,
   'password': instance.password,

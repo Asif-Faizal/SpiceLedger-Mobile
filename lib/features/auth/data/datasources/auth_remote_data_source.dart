@@ -12,7 +12,12 @@ import '../../domain/entities/user_entity.dart';
 
 abstract class AuthRemoteDataSource {
   Future<LoginResponseModel> login(String email, String password);
-  Future<UserModel> register(String name, String email, String password);
+  Future<UserModel> register(
+    String name,
+    String email,
+    String? password, {
+    String? id,
+  });
   Future<EmailCheckModel> checkEmail(String email);
   Future<UserModel> getProfile();
   Future<void> logout();
@@ -54,18 +59,29 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<UserModel> register(String name, String email, String password) async {
+  Future<UserModel> register(
+    String name,
+    String email,
+    String? password, {
+    String? id,
+  }) async {
     try {
       final request = RegisterRequestModel(
+        id: id,
         name: name,
         email: email,
         password: password,
         userType: UserType.merchant,
       );
+
+      // If id is present, it's a profile update (use Bearer token via interceptor)
+      // If id is null, it's a new registration (use Basic Auth headers)
+      final options = id == null ? Options(headers: ApiConfig.basicAuthHeaders) : null;
+
       final response = await client.post(
         '/rest/accounts',
         data: request.toJson(),
-        options: Options(headers: ApiConfig.basicAuthHeaders),
+        options: options,
       );
 
       final apiResponse = ApiResponse<UserModel>.fromJson(

@@ -7,9 +7,10 @@ part 'register_request_model.g.dart';
 @freezed
 abstract class RegisterRequestModel with _$RegisterRequestModel {
   const factory RegisterRequestModel({
+    String? id,
     required String name,
     required String email,
-    required String password,
+    String? password,
     @JsonKey(name: 'user_type') required UserType userType,
   }) = _RegisterRequestModel;
 

@@ -10,5 +10,6 @@ class ProfileState with _$ProfileState {
   const factory ProfileState.success(UserEntity user) = _Success;
   const factory ProfileState.failure(String message) = _Failure;
   const factory ProfileState.logoutLoading(UserEntity user) = _LogoutLoading;
+  const factory ProfileState.updateLoading(UserEntity user) = _UpdateLoading;
   const factory ProfileState.logoutSuccess() = _LogoutSuccess;
 }
