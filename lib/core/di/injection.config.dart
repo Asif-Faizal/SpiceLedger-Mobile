@@ -14,6 +14,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:hive_ce/hive.dart' as _i738;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/admin/presentation/cubit/admin_navigation_cubit.dart'
+    as _i176;
 import '../../features/auth/data/datasources/auth_remote_data_source.dart'
     as _i107;
 import '../../features/auth/data/repositories/auth_repository_impl.dart'
@@ -42,6 +44,8 @@ import '../../features/merchant/domain/usecases/save_merchant_details_usecase.da
     as _i144;
 import '../../features/merchant/presentation/bloc/merchant_details_bloc.dart'
     as _i1050;
+import '../../features/merchant/presentation/cubit/merchant_navigation_cubit.dart'
+    as _i461;
 import '../../features/onboarding/presentation/bloc/onboarding_cubit.dart'
     as _i153;
 import '../../features/onboarding/presentation/bloc/splash_cubit.dart' as _i128;
@@ -59,6 +63,10 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final storageModule = _$StorageModule();
     final networkModule = _$NetworkModule();
+    gh.factory<_i176.AdminNavigationCubit>(() => _i176.AdminNavigationCubit());
+    gh.factory<_i461.MerchantNavigationCubit>(
+      () => _i461.MerchantNavigationCubit(),
+    );
     await gh.lazySingletonAsync<_i738.Box<dynamic>>(
       () => storageModule.cacheBox,
       preResolve: true,

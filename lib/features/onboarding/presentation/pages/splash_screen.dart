@@ -1,11 +1,11 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spice_ledger/features/merchant/presentation/pages/merchant_bucket_view.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/di/injection.dart';
-import '../../../admin/presentation/pages/admin_dashboard_page.dart';
+import '../../../admin/presentation/pages/admin_bucket_view.dart';
 import '../../../auth/presentation/pages/check_email_page.dart';
-import '../../../merchant/presentation/pages/merchant_dashboard_page.dart';
 import '../bloc/splash_cubit.dart';
 import 'onboarding_page.dart';
 
@@ -21,12 +21,12 @@ class SplashScreen extends StatelessWidget {
           if (state is SplashAdminAuthenticated) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const AdminDashboardPage()),
+              MaterialPageRoute(builder: (_) => const AdminBucketView()),
             );
           } else if (state is SplashMerchantAuthenticated) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const MerchantDashboardPage()),
+              MaterialPageRoute(builder: (_) => const MerchantBucketView()),
             );
           } else if (state is SplashUnauthenticated) {
             Navigator.pushReplacement(

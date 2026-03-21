@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spice_ledger/features/admin/presentation/pages/admin_bucket_view.dart';
+import 'package:spice_ledger/features/merchant/presentation/pages/merchant_bucket_view.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
-import '../../../admin/presentation/pages/admin_dashboard_page.dart';
-import '../../../merchant/presentation/pages/merchant_dashboard_page.dart';
 import '../bloc/login/login_bloc.dart';
 import '../cubit/login_form_cubit.dart';
 import '../../domain/entities/user_entity.dart';
@@ -64,14 +64,12 @@ class _LoginViewState extends State<_LoginView> {
               if (user.userType == UserType.admin) {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (_) => const AdminDashboardPage()),
+                  MaterialPageRoute(builder: (_) => const AdminBucketView()),
                 );
               } else {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => const MerchantDashboardPage(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const MerchantBucketView()),
                 );
               }
             },
