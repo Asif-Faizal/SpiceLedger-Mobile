@@ -11,9 +11,21 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:graphql_flutter/graphql_flutter.dart' as _i128;
 import 'package:hive_ce/hive.dart' as _i738;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/admin/data/datasources/admin_product_remote_data_source.dart'
+    as _i285;
+import '../../features/admin/data/repositories/admin_product_repository_impl.dart'
+    as _i407;
+import '../../features/admin/domain/repositories/admin_product_repository.dart'
+    as _i285;
+import '../../features/admin/domain/usecases/product_usecases.dart' as _i67;
+import '../../features/admin/presentation/bloc/products/admin_products_bloc.dart'
+    as _i897;
+import '../../features/admin/presentation/bloc/products/product_action_bloc.dart'
+    as _i1015;
 import '../../features/admin/presentation/cubit/admin_navigation_cubit.dart'
     as _i176;
 import '../../features/auth/data/datasources/auth_remote_data_source.dart'
@@ -49,6 +61,7 @@ import '../../features/merchant/presentation/cubit/merchant_navigation_cubit.dar
 import '../../features/onboarding/presentation/bloc/onboarding_cubit.dart'
     as _i153;
 import '../../features/onboarding/presentation/bloc/splash_cubit.dart' as _i128;
+import '../network/graphql_module.dart' as _i122;
 import '../network/network_module.dart' as _i200;
 import '../network/token_interceptor.dart' as _i34;
 import '../storage/hive_module.dart' as _i824;
@@ -62,6 +75,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final storageModule = _$StorageModule();
+    final graphQLModule = _$GraphQLModule();
     final networkModule = _$NetworkModule();
     gh.factory<_i176.AdminNavigationCubit>(() => _i176.AdminNavigationCubit());
     gh.factory<_i461.MerchantNavigationCubit>(
@@ -81,11 +95,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i34.TokenInterceptor>(
       () => _i34.TokenInterceptor(gh<_i619.EncryptedStorage>()),
     );
+    gh.lazySingleton<_i128.GraphQLClient>(
+      () => graphQLModule.getGraphQLClient(gh<_i619.EncryptedStorage>()),
+    );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.dio(gh<_i34.TokenInterceptor>()),
     );
     gh.factory<_i153.OnboardingCubit>(
       () => _i153.OnboardingCubit(gh<_i738.Box<dynamic>>()),
+    );
+    gh.factory<_i285.AdminProductRemoteDataSource>(
+      () => _i285.AdminProductRemoteDataSourceImpl(
+        gh<_i128.GraphQLClient>(),
+        gh<_i361.Dio>(),
+      ),
     );
     gh.lazySingleton<_i107.AuthRemoteDataSource>(
       () => _i107.AuthRemoteDataSourceImpl(gh<_i361.Dio>()),
@@ -117,6 +140,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i90.MerchantRepository>(
       () => _i458.MerchantRepositoryImpl(gh<_i542.MerchantRemoteDataSource>()),
     );
+    gh.factory<_i285.AdminProductRepository>(
+      () => _i407.AdminProductRepositoryImpl(
+        gh<_i285.AdminProductRemoteDataSource>(),
+      ),
+    );
     gh.factory<_i228.ProfileBloc>(
       () => _i228.ProfileBloc(
         gh<_i568.GetProfileUseCase>(),
@@ -139,10 +167,32 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i210.RegisterBloc>(
       () => _i210.RegisterBloc(gh<_i941.RegisterUseCase>()),
     );
+    gh.factory<_i67.GetProductsUseCase>(
+      () => _i67.GetProductsUseCase(gh<_i285.AdminProductRepository>()),
+    );
+    gh.factory<_i67.CreateProductUseCase>(
+      () => _i67.CreateProductUseCase(gh<_i285.AdminProductRepository>()),
+    );
+    gh.factory<_i67.CreateGradeUseCase>(
+      () => _i67.CreateGradeUseCase(gh<_i285.AdminProductRepository>()),
+    );
+    gh.factory<_i67.GetProductsRestUseCase>(
+      () => _i67.GetProductsRestUseCase(gh<_i285.AdminProductRepository>()),
+    );
+    gh.factory<_i897.AdminProductsBloc>(
+      () => _i897.AdminProductsBloc(gh<_i67.GetProductsUseCase>()),
+    );
     gh.factory<_i1050.MerchantDetailsBloc>(
       () => _i1050.MerchantDetailsBloc(
         gh<_i814.GetMerchantDetailsUseCase>(),
         gh<_i144.SaveMerchantDetailsUseCase>(),
+      ),
+    );
+    gh.factory<_i1015.ProductActionBloc>(
+      () => _i1015.ProductActionBloc(
+        gh<_i67.CreateProductUseCase>(),
+        gh<_i67.CreateGradeUseCase>(),
+        gh<_i67.GetProductsRestUseCase>(),
       ),
     );
     return this;
@@ -150,5 +200,7 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$StorageModule extends _i824.StorageModule {}
+
+class _$GraphQLModule extends _i122.GraphQLModule {}
 
 class _$NetworkModule extends _i200.NetworkModule {}

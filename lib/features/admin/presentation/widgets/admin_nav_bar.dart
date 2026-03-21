@@ -10,13 +10,13 @@ class AdminNavBar extends StatelessWidget {
   static String getTitle(int index) {
     switch (index) {
       case 0:
-        return 'Admin Dashboard';
+        return 'Dashboard';
       case 1:
-        return 'Admin Products';
+        return 'Products';
       case 2:
         return 'Ads Screen';
       default:
-        return 'Admin Dashboard';
+        return 'Dashboard';
     }
   }
 
