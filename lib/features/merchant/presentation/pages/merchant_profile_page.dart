@@ -106,9 +106,9 @@ class _ProfileView extends StatelessWidget {
                                 builder: (context, state) {
                                   return Padding(
                                     padding: EdgeInsets.only(
-                                      bottom: MediaQuery.of(context)
-                                          .viewInsets
-                                          .bottom,
+                                      bottom: MediaQuery.of(
+                                        context,
+                                      ).viewInsets.bottom,
                                     ),
                                     child: Container(
                                       padding: const EdgeInsets.all(16),
@@ -143,16 +143,21 @@ class _ProfileView extends StatelessWidget {
                                               suffixIcon: TextButton(
                                                 onPressed: () {},
                                                 style: TextButton.styleFrom(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 8,
-                                                  ),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 8,
+                                                      ),
                                                   minimumSize: Size.zero,
                                                   tapTargetSize:
                                                       MaterialTapTargetSize
                                                           .shrinkWrap,
                                                 ),
-                                                child: const Text('Verify'),
+                                                child: const Text(
+                                                  'Verify',
+                                                  style: TextStyle(
+                                                    color: AppColors.blueAccent,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -163,15 +168,12 @@ class _ProfileView extends StatelessWidget {
                                               onPressed: state.maybeWhen(
                                                 updateLoading: (_) => null,
                                                 orElse: () => () {
-                                                  context
-                                                      .read<ProfileBloc>()
-                                                      .add(
-                                                        ProfileEvent
-                                                            .updateProfileRequested(
-                                                          nameController.text,
-                                                          emailController.text,
-                                                        ),
-                                                      );
+                                                  context.read<ProfileBloc>().add(
+                                                    ProfileEvent.updateProfileRequested(
+                                                      nameController.text,
+                                                      emailController.text,
+                                                    ),
+                                                  );
                                                 },
                                               ),
                                               child: Text(

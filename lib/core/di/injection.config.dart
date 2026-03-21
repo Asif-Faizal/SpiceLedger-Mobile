@@ -30,6 +30,18 @@ import '../../features/auth/presentation/bloc/profile/profile_bloc.dart'
 import '../../features/auth/presentation/bloc/register/register_bloc.dart'
     as _i210;
 import '../../features/auth/presentation/cubit/check_email_cubit.dart' as _i699;
+import '../../features/merchant/data/datasources/merchant_remote_data_source.dart'
+    as _i542;
+import '../../features/merchant/data/repositories/merchant_repository_impl.dart'
+    as _i458;
+import '../../features/merchant/domain/repositories/merchant_repository.dart'
+    as _i90;
+import '../../features/merchant/domain/usecases/get_merchant_details_usecase.dart'
+    as _i814;
+import '../../features/merchant/domain/usecases/save_merchant_details_usecase.dart'
+    as _i144;
+import '../../features/merchant/presentation/bloc/merchant_details_bloc.dart'
+    as _i1050;
 import '../../features/onboarding/presentation/bloc/onboarding_cubit.dart'
     as _i153;
 import '../../features/onboarding/presentation/bloc/splash_cubit.dart' as _i128;
@@ -70,6 +82,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i107.AuthRemoteDataSource>(
       () => _i107.AuthRemoteDataSourceImpl(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i542.MerchantRemoteDataSource>(
+      () => _i542.MerchantRemoteDataSourceImpl(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(
         gh<_i107.AuthRemoteDataSource>(),
@@ -91,6 +106,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i941.RegisterUseCase>(
       () => _i941.RegisterUseCase(gh<_i787.AuthRepository>()),
     );
+    gh.lazySingleton<_i90.MerchantRepository>(
+      () => _i458.MerchantRepositoryImpl(gh<_i542.MerchantRemoteDataSource>()),
+    );
     gh.factory<_i228.ProfileBloc>(
       () => _i228.ProfileBloc(
         gh<_i568.GetProfileUseCase>(),
@@ -104,8 +122,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i699.CheckEmailCubit>(
       () => _i699.CheckEmailCubit(gh<_i879.CheckEmailUseCase>()),
     );
+    gh.lazySingleton<_i814.GetMerchantDetailsUseCase>(
+      () => _i814.GetMerchantDetailsUseCase(gh<_i90.MerchantRepository>()),
+    );
+    gh.lazySingleton<_i144.SaveMerchantDetailsUseCase>(
+      () => _i144.SaveMerchantDetailsUseCase(gh<_i90.MerchantRepository>()),
+    );
     gh.factory<_i210.RegisterBloc>(
       () => _i210.RegisterBloc(gh<_i941.RegisterUseCase>()),
+    );
+    gh.factory<_i1050.MerchantDetailsBloc>(
+      () => _i1050.MerchantDetailsBloc(
+        gh<_i814.GetMerchantDetailsUseCase>(),
+        gh<_i144.SaveMerchantDetailsUseCase>(),
+      ),
     );
     return this;
   }
