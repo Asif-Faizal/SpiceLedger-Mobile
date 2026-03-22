@@ -140,7 +140,7 @@ class _AdminProductsView extends StatelessWidget {
                               border: Border.all(color: AppColors.outline),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
+                                  color: Colors.black.withValues(alpha: 0.05),
                                   blurRadius: 4,
                                   offset: const Offset(0, 2),
                                 ),
@@ -179,6 +179,13 @@ class _AdminProductsView extends StatelessWidget {
                                             ),
                                             const SizedBox(height: 4),
                                             Text(
+                                              product.description,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
                                               product.category.toUpperCase(),
                                               style: Theme.of(context)
                                                   .textTheme
@@ -198,8 +205,12 @@ class _AdminProductsView extends StatelessWidget {
                                           vertical: 4,
                                         ),
                                         color: product.status == 'active'
-                                            ? AppColors.success.withOpacity(0.1)
-                                            : AppColors.danger.withOpacity(0.1),
+                                            ? AppColors.success.withValues(
+                                                alpha: 0.1,
+                                              )
+                                            : AppColors.danger.withValues(
+                                                alpha: 0.1,
+                                              ),
                                         child: Text(
                                           product.status.toUpperCase(),
                                           style: TextStyle(

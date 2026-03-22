@@ -63,7 +63,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
 
   @override
   Future<ProductModel> createProduct(Map<String, dynamic> input) async {
-    final Map<String, dynamic> cleanInput = Map.from(input)..remove('status');
+    final Map<String, dynamic> cleanInput = Map.from(input);
     const String mutation = r'''
       mutation CreateProduct($input: CreateProductInput!) {
         createProduct(input: $input) {
@@ -95,7 +95,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
 
   @override
   Future<GradeModel> createGrade(Map<String, dynamic> input) async {
-    final Map<String, dynamic> cleanInput = Map.from(input)..remove('status');
+    final Map<String, dynamic> cleanInput = Map.from(input);
     const String mutation = r'''
       mutation CreateGrade($input: CreateGradeInput!) {
         createGrade(input: $input) {

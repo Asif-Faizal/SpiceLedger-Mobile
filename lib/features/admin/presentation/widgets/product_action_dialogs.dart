@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spice_ledger/core/theme/components/snackbars.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/components/buttons.dart';
 import '../../domain/entities/product_entity.dart';
@@ -59,15 +60,11 @@ class ProductFormDialog extends StatelessWidget {
       listener: (context, state) {
         state.maybeWhen(
           success: (msg) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(msg)));
+            showSuccessSnackbar(context, msg);
             Navigator.of(context).pop(true);
           },
           error: (msg) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(msg), backgroundColor: AppColors.danger),
-            );
+            showErrorSnackbar(context, msg);
           },
           orElse: () {},
         );
@@ -112,6 +109,32 @@ class ProductFormDialog extends StatelessWidget {
                         labelText: 'Description',
                       ),
                     ),
+                    if (product != null) ...[
+                      const SizedBox(height: 16),
+                      DropdownButtonFormField<String>(
+                        initialValue: formState.status,
+                        decoration: const InputDecoration(labelText: 'Status'),
+                        items: [
+                          DropdownMenuItem(
+                            value: 'active',
+                            child: Text(
+                              'Active',
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'inactive',
+                            child: Text(
+                              'Inactive',
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                        ],
+                        onChanged: (val) {
+                          if (val != null) cubit.statusChanged(val);
+                        },
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -176,9 +199,7 @@ class GradeFormDialog extends StatelessWidget {
 
   void _submit(BuildContext context, GradeFormState formState) {
     if (formState.selectedProductId == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Please select a product')));
+      showInfoSnackbar(context, 'Please select a product');
       return;
     }
 
@@ -199,15 +220,11 @@ class GradeFormDialog extends StatelessWidget {
       listener: (context, state) {
         state.maybeWhen(
           success: (msg) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(msg)));
+            showSuccessSnackbar(context, msg);
             Navigator.of(context).pop(true);
           },
           error: (msg) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(msg), backgroundColor: AppColors.danger),
-            );
+            showErrorSnackbar(context, msg);
           },
           orElse: () {},
         );
@@ -242,10 +259,12 @@ class GradeFormDialog extends StatelessWidget {
                                 label: 'Product',
                                 hint: 'Select a product',
                                 items: products
-                                    .map((p) => SearchableDropdownItem<String>(
-                                          value: p.id,
-                                          label: p.name,
-                                        ))
+                                    .map(
+                                      (p) => SearchableDropdownItem<String>(
+                                        value: p.id,
+                                        label: p.name,
+                                      ),
+                                    )
                                     .toList(),
                                 onChanged: (val) {
                                   if (val != null) cubit.productChanged(val);
@@ -254,7 +273,9 @@ class GradeFormDialog extends StatelessWidget {
                             },
                             orElse: () => Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: const ShimmerWidget.rectangular(height: 56),
+                              child: const ShimmerWidget.rectangular(
+                                height: 56,
+                              ),
                             ),
                           );
                         },
@@ -274,6 +295,32 @@ class GradeFormDialog extends StatelessWidget {
                         labelText: 'Description',
                       ),
                     ),
+                    if (fixedProductId != null) ...[
+                      const SizedBox(height: 16),
+                      DropdownButtonFormField<String>(
+                        initialValue: formState.status,
+                        decoration: const InputDecoration(labelText: 'Status'),
+                        items: [
+                          DropdownMenuItem(
+                            value: 'active',
+                            child: Text(
+                              'Active',
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'inactive',
+                            child: Text(
+                              'Inactive',
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ),
+                        ],
+                        onChanged: (val) {
+                          if (val != null) cubit.statusChanged(val);
+                        },
+                      ),
+                    ],
                   ],
                 ),
               ),
