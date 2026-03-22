@@ -7,6 +7,7 @@ abstract class AdminProductRemoteDataSource {
   Future<List<ProductModel>> getProducts(String? date, String? search);
   Future<ProductModel> createProduct(Map<String, dynamic> input);
   Future<GradeModel> createGrade(Map<String, dynamic> input);
+  Future<void> createDailyPrice(Map<String, dynamic> input);
   Future<List<ProductModel>> getProductsRest();
 }
 
@@ -123,6 +124,33 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
     if (data == null) throw Exception("Failed to create grade");
 
     return GradeModel.fromJson(Map<String, dynamic>.from(data));
+  }
+
+  @override
+  Future<void> createDailyPrice(Map<String, dynamic> input) async {
+    const String mutation = r'''
+      mutation CreateDailyPrice($input: CreateDailyPriceInput!) {
+        createDailyPrice(input: $input) {
+          id
+          productId
+          gradeId
+          price
+          date
+          time
+        }
+      }
+    ''';
+
+    final options = MutationOptions(
+      document: gql(mutation),
+      variables: {'input': input},
+    );
+
+    final result = await _graphQLClient.mutate(options);
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
   }
 
   @override

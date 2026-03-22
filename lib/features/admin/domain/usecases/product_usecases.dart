@@ -36,6 +36,16 @@ class CreateGradeUseCase {
 }
 
 @injectable
+class CreateDailyPriceUseCase {
+  final AdminProductRepository repository;
+  CreateDailyPriceUseCase(this.repository);
+
+  Future<Either<Failure, void>> call(Map<String, dynamic> input) async {
+    return await repository.createDailyPrice(input);
+  }
+}
+
+@injectable
 class GetProductsRestUseCase {
   final AdminProductRepository repository;
   GetProductsRestUseCase(this.repository);

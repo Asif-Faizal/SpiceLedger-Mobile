@@ -46,6 +46,17 @@ class AdminProductRepositoryImpl implements AdminProductRepository {
   }
 
   @override
+  Future<Either<Failure, void>> createDailyPrice(
+      Map<String, dynamic> input) async {
+    try {
+      await remoteDataSource.createDailyPrice(input);
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<ProductEntity>>> getProductsRest() async {
     try {
       final models = await remoteDataSource.getProductsRest();

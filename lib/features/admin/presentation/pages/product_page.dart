@@ -18,7 +18,7 @@ class ProductPage extends StatelessWidget {
         title: const Text('Product Details'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.edit),
+            icon: const Icon(Icons.edit_outlined),
             onPressed: () async {
               final result = await ProductFormDialog.show(
                 context,
@@ -26,6 +26,16 @@ class ProductPage extends StatelessWidget {
               );
               if (result == true && context.mounted) {
                 Navigator.pop(context); // Refresh handled by parent page
+              }
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.currency_rupee),
+            tooltip: 'Set Grade Prices',
+            onPressed: () async {
+              final result = await SetGradePricePage.push(context, product);
+              if (result == true && context.mounted) {
+                Navigator.pop(context);
               }
             },
           ),
@@ -189,6 +199,8 @@ class ProductPage extends StatelessWidget {
                           ),
                         ),
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -211,7 +223,8 @@ class ProductPage extends StatelessWidget {
                             ),
                             IconButton(
                               icon: const Icon(
-                                Icons.edit,
+                                Icons.edit_outlined,
+                                size: 14,
                                 color: AppColors.neutralGray,
                               ),
                               onPressed: () async {
@@ -242,13 +255,11 @@ class ProductPage extends StatelessWidget {
         child: product.grades.isNotEmpty
             ? PrimaryButton(
                 label: 'SET PRICE',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const SetGradePricePage(),
-                    ),
-                  );
+                onPressed: () async {
+                  final result = await SetGradePricePage.push(context, product);
+                  if (result == true && context.mounted) {
+                    Navigator.pop(context);
+                  }
                 },
               )
             : null,

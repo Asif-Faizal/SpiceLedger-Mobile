@@ -19,6 +19,7 @@ import '../../features/admin/data/datasources/admin_product_remote_data_source.d
     as _i285;
 import '../../features/admin/data/repositories/admin_product_repository_impl.dart'
     as _i407;
+import '../../features/admin/domain/entities/product_entity.dart' as _i222;
 import '../../features/admin/domain/repositories/admin_product_repository.dart'
     as _i285;
 import '../../features/admin/domain/usecases/product_usecases.dart' as _i67;
@@ -26,6 +27,8 @@ import '../../features/admin/presentation/bloc/products/admin_products_bloc.dart
     as _i897;
 import '../../features/admin/presentation/bloc/products/product_action_bloc.dart'
     as _i1015;
+import '../../features/admin/presentation/bloc/products/set_grade_price_cubit.dart'
+    as _i684;
 import '../../features/admin/presentation/cubit/admin_navigation_cubit.dart'
     as _i176;
 import '../../features/auth/data/datasources/auth_remote_data_source.dart'
@@ -176,6 +179,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i67.CreateGradeUseCase>(
       () => _i67.CreateGradeUseCase(gh<_i285.AdminProductRepository>()),
     );
+    gh.factory<_i67.CreateDailyPriceUseCase>(
+      () => _i67.CreateDailyPriceUseCase(gh<_i285.AdminProductRepository>()),
+    );
     gh.factory<_i67.GetProductsRestUseCase>(
       () => _i67.GetProductsRestUseCase(gh<_i285.AdminProductRepository>()),
     );
@@ -193,6 +199,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i67.CreateProductUseCase>(),
         gh<_i67.CreateGradeUseCase>(),
         gh<_i67.GetProductsRestUseCase>(),
+      ),
+    );
+    gh.factoryParam<_i684.SetGradePriceCubit, _i222.ProductEntity, dynamic>(
+      (product, _) => _i684.SetGradePriceCubit(
+        gh<_i67.CreateDailyPriceUseCase>(),
+        product: product,
       ),
     );
     return this;
