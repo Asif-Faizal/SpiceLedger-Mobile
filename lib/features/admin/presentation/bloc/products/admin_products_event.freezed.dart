@@ -55,12 +55,14 @@ extension AdminProductsEventPatterns on AdminProductsEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _FetchProducts value)?  fetchProducts,TResult Function( _Refresh value)?  refresh,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _FetchProducts value)?  fetchProducts,TResult Function( _Refresh value)?  refresh,TResult Function( _SearchChanged value)?  searchChanged,TResult Function( _DateChanged value)?  dateChanged,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _FetchProducts() when fetchProducts != null:
 return fetchProducts(_that);case _Refresh() when refresh != null:
-return refresh(_that);case _:
+return refresh(_that);case _SearchChanged() when searchChanged != null:
+return searchChanged(_that);case _DateChanged() when dateChanged != null:
+return dateChanged(_that);case _:
   return orElse();
 
 }
@@ -78,12 +80,14 @@ return refresh(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _FetchProducts value)  fetchProducts,required TResult Function( _Refresh value)  refresh,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _FetchProducts value)  fetchProducts,required TResult Function( _Refresh value)  refresh,required TResult Function( _SearchChanged value)  searchChanged,required TResult Function( _DateChanged value)  dateChanged,}){
 final _that = this;
 switch (_that) {
 case _FetchProducts():
 return fetchProducts(_that);case _Refresh():
-return refresh(_that);case _:
+return refresh(_that);case _SearchChanged():
+return searchChanged(_that);case _DateChanged():
+return dateChanged(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -100,12 +104,14 @@ return refresh(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _FetchProducts value)?  fetchProducts,TResult? Function( _Refresh value)?  refresh,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _FetchProducts value)?  fetchProducts,TResult? Function( _Refresh value)?  refresh,TResult? Function( _SearchChanged value)?  searchChanged,TResult? Function( _DateChanged value)?  dateChanged,}){
 final _that = this;
 switch (_that) {
 case _FetchProducts() when fetchProducts != null:
 return fetchProducts(_that);case _Refresh() when refresh != null:
-return refresh(_that);case _:
+return refresh(_that);case _SearchChanged() when searchChanged != null:
+return searchChanged(_that);case _DateChanged() when dateChanged != null:
+return dateChanged(_that);case _:
   return null;
 
 }
@@ -122,11 +128,13 @@ return refresh(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String? date,  String? search)?  fetchProducts,TResult Function()?  refresh,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String? date,  String? search)?  fetchProducts,TResult Function()?  refresh,TResult Function( String query)?  searchChanged,TResult Function( String date)?  dateChanged,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FetchProducts() when fetchProducts != null:
 return fetchProducts(_that.date,_that.search);case _Refresh() when refresh != null:
-return refresh();case _:
+return refresh();case _SearchChanged() when searchChanged != null:
+return searchChanged(_that.query);case _DateChanged() when dateChanged != null:
+return dateChanged(_that.date);case _:
   return orElse();
 
 }
@@ -144,11 +152,13 @@ return refresh();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String? date,  String? search)  fetchProducts,required TResult Function()  refresh,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String? date,  String? search)  fetchProducts,required TResult Function()  refresh,required TResult Function( String query)  searchChanged,required TResult Function( String date)  dateChanged,}) {final _that = this;
 switch (_that) {
 case _FetchProducts():
 return fetchProducts(_that.date,_that.search);case _Refresh():
-return refresh();case _:
+return refresh();case _SearchChanged():
+return searchChanged(_that.query);case _DateChanged():
+return dateChanged(_that.date);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +175,13 @@ return refresh();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String? date,  String? search)?  fetchProducts,TResult? Function()?  refresh,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String? date,  String? search)?  fetchProducts,TResult? Function()?  refresh,TResult? Function( String query)?  searchChanged,TResult? Function( String date)?  dateChanged,}) {final _that = this;
 switch (_that) {
 case _FetchProducts() when fetchProducts != null:
 return fetchProducts(_that.date,_that.search);case _Refresh() when refresh != null:
-return refresh();case _:
+return refresh();case _SearchChanged() when searchChanged != null:
+return searchChanged(_that.query);case _DateChanged() when dateChanged != null:
+return dateChanged(_that.date);case _:
   return null;
 
 }
@@ -276,5 +288,137 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class _SearchChanged implements AdminProductsEvent {
+  const _SearchChanged(this.query);
+  
+
+ final  String query;
+
+/// Create a copy of AdminProductsEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SearchChangedCopyWith<_SearchChanged> get copyWith => __$SearchChangedCopyWithImpl<_SearchChanged>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SearchChanged&&(identical(other.query, query) || other.query == query));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,query);
+
+@override
+String toString() {
+  return 'AdminProductsEvent.searchChanged(query: $query)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SearchChangedCopyWith<$Res> implements $AdminProductsEventCopyWith<$Res> {
+  factory _$SearchChangedCopyWith(_SearchChanged value, $Res Function(_SearchChanged) _then) = __$SearchChangedCopyWithImpl;
+@useResult
+$Res call({
+ String query
+});
+
+
+
+
+}
+/// @nodoc
+class __$SearchChangedCopyWithImpl<$Res>
+    implements _$SearchChangedCopyWith<$Res> {
+  __$SearchChangedCopyWithImpl(this._self, this._then);
+
+  final _SearchChanged _self;
+  final $Res Function(_SearchChanged) _then;
+
+/// Create a copy of AdminProductsEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? query = null,}) {
+  return _then(_SearchChanged(
+null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _DateChanged implements AdminProductsEvent {
+  const _DateChanged(this.date);
+  
+
+ final  String date;
+
+/// Create a copy of AdminProductsEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DateChangedCopyWith<_DateChanged> get copyWith => __$DateChangedCopyWithImpl<_DateChanged>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DateChanged&&(identical(other.date, date) || other.date == date));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,date);
+
+@override
+String toString() {
+  return 'AdminProductsEvent.dateChanged(date: $date)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DateChangedCopyWith<$Res> implements $AdminProductsEventCopyWith<$Res> {
+  factory _$DateChangedCopyWith(_DateChanged value, $Res Function(_DateChanged) _then) = __$DateChangedCopyWithImpl;
+@useResult
+$Res call({
+ String date
+});
+
+
+
+
+}
+/// @nodoc
+class __$DateChangedCopyWithImpl<$Res>
+    implements _$DateChangedCopyWith<$Res> {
+  __$DateChangedCopyWithImpl(this._self, this._then);
+
+  final _DateChanged _self;
+  final $Res Function(_DateChanged) _then;
+
+/// Create a copy of AdminProductsEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? date = null,}) {
+  return _then(_DateChanged(
+null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 // dart format on

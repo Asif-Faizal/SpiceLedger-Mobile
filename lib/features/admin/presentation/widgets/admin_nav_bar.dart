@@ -20,6 +20,10 @@ class AdminNavBar extends StatelessWidget {
     }
   }
 
+  static bool isProductPage(int index) {
+    return index == 1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(

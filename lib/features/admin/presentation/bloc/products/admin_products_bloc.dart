@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../domain/usecases/product_usecases.dart';
@@ -7,9 +8,7 @@ import 'admin_products_state.dart';
 @injectable
 class AdminProductsBloc extends Bloc<AdminProductsEvent, AdminProductsState> {
   final GetProductsUseCase getProductsUseCase;
-
-  String? _currentDate;
-  String? _currentSearch;
+  Timer? _searchTimer;
 
   AdminProductsBloc(this.getProductsUseCase)
     : super(const AdminProductsState.initial()) {
@@ -17,6 +16,8 @@ class AdminProductsBloc extends Bloc<AdminProductsEvent, AdminProductsState> {
       await event.map(
         fetchProducts: (e) async => _onFetchProducts(e, emit),
         refresh: (_) async => _onRefresh(emit),
+        searchChanged: (e) async => _onSearchChanged(e, emit),
+        dateChanged: (e) async => _onDateChanged(e, emit),
       );
     });
   }
@@ -25,31 +26,51 @@ class AdminProductsBloc extends Bloc<AdminProductsEvent, AdminProductsState> {
     dynamic event,
     Emitter<AdminProductsState> emit,
   ) async {
-    _currentDate = event.date ?? _currentDate;
-    _currentSearch = event.search ?? _currentSearch;
+    final search = event.search ?? state.search;
+    final date = event.date ?? state.date;
 
-    emit(const AdminProductsState.loading());
+    emit(AdminProductsState.loading(search: search, date: date));
     final result = await getProductsUseCase(
-      date: _currentDate,
-      search: _currentSearch,
+      date: date,
+      search: search.isEmpty ? null : search,
     );
 
     result.fold(
-      (failure) => emit(AdminProductsState.error(failure.message)),
-      (products) => emit(AdminProductsState.loaded(products)),
+      (failure) => emit(AdminProductsState.error(message: failure.message, search: search, date: date)),
+      (products) => emit(AdminProductsState.loaded(products: products, search: search, date: date)),
     );
   }
 
   Future<void> _onRefresh(Emitter<AdminProductsState> emit) async {
-    emit(const AdminProductsState.loading());
+    final search = state.search;
+    final date = state.date;
+
+    emit(AdminProductsState.loading(search: search, date: date));
     final result = await getProductsUseCase(
-      date: _currentDate,
-      search: _currentSearch,
+      date: date,
+      search: search.isEmpty ? null : search,
     );
 
     result.fold(
-      (failure) => emit(AdminProductsState.error(failure.message)),
-      (products) => emit(AdminProductsState.loaded(products)),
+      (failure) => emit(AdminProductsState.error(message: failure.message, search: search, date: date)),
+      (products) => emit(AdminProductsState.loaded(products: products, search: search, date: date)),
     );
+  }
+
+  void _onSearchChanged(dynamic event, Emitter<AdminProductsState> emit) {
+    _searchTimer?.cancel();
+    _searchTimer = Timer(const Duration(milliseconds: 750), () {
+      add(AdminProductsEvent.fetchProducts(search: event.query));
+    });
+  }
+
+  void _onDateChanged(dynamic event, Emitter<AdminProductsState> emit) {
+    add(AdminProductsEvent.fetchProducts(date: event.date));
+  }
+
+  @override
+  Future<void> close() {
+    _searchTimer?.cancel();
+    return super.close();
   }
 }

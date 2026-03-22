@@ -1,30 +1,31 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
+import 'package:spice_ledger/core/config/env_config.dart';
 import '../storage/secure_storage.dart';
+import 'graphql_error_link.dart';
 
 @module
 abstract class GraphQLModule {
   @lazySingleton
   GraphQLClient getGraphQLClient(EncryptedStorage storage) {
-    const String graphqlEndpoint = 'http://localhost:8081/graphql';
+    final HttpLink httpLink = HttpLink(ApiConfig.graphQLClient);
 
     final AuthLink authLink = AuthLink(
       getToken: () async {
         final token = await storage.read('access_token');
         if (token != null && token.isNotEmpty) {
-          return 'Bearer $token'; // The interceptor expects this exact format based on the Go backend handling
+          return 'Bearer $token';
         }
         return null;
       },
     );
 
-    final HttpLink httpLink = HttpLink(graphqlEndpoint);
+    final GraphQLErrorLink errorLink = GraphQLErrorLink(storage);
 
-    final Link link = authLink.concat(httpLink);
+    // Order: errorLink -> authLink -> httpLink
+    // This way, if errorLink retries, authLink re-runs its getToken logic.
+    final Link link = errorLink.concat(authLink).concat(httpLink);
 
-    return GraphQLClient(
-      cache: GraphQLCache(),
-      link: link,
-    );
+    return GraphQLClient(cache: GraphQLCache(), link: link);
   }
 }

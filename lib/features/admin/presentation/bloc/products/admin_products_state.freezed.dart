@@ -14,30 +14,62 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AdminProductsState {
 
-
+ String get search; String? get date;
+/// Create a copy of AdminProductsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AdminProductsStateCopyWith<AdminProductsState> get copyWith => _$AdminProductsStateCopyWithImpl<AdminProductsState>(this as AdminProductsState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminProductsState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminProductsState&&(identical(other.search, search) || other.search == search)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,search,date);
 
 @override
 String toString() {
-  return 'AdminProductsState()';
+  return 'AdminProductsState(search: $search, date: $date)';
 }
 
 
 }
 
 /// @nodoc
-class $AdminProductsStateCopyWith<$Res>  {
-$AdminProductsStateCopyWith(AdminProductsState _, $Res Function(AdminProductsState) __);
+abstract mixin class $AdminProductsStateCopyWith<$Res>  {
+  factory $AdminProductsStateCopyWith(AdminProductsState value, $Res Function(AdminProductsState) _then) = _$AdminProductsStateCopyWithImpl;
+@useResult
+$Res call({
+ String search, String? date
+});
+
+
+
+
+}
+/// @nodoc
+class _$AdminProductsStateCopyWithImpl<$Res>
+    implements $AdminProductsStateCopyWith<$Res> {
+  _$AdminProductsStateCopyWithImpl(this._self, this._then);
+
+  final AdminProductsState _self;
+  final $Res Function(AdminProductsState) _then;
+
+/// Create a copy of AdminProductsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? search = null,Object? date = freezed,}) {
+  return _then(_self.copyWith(
+search: null == search ? _self.search : search // ignore: cast_nullable_to_non_nullable
+as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
 }
 
 
@@ -128,13 +160,13 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<ProductEntity> products)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String search,  String? date)?  initial,TResult Function( String search,  String? date)?  loading,TResult Function( List<ProductEntity> products,  String search,  String? date)?  loaded,TResult Function( String message,  String search,  String? date)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Loaded() when loaded != null:
-return loaded(_that.products);case _Error() when error != null:
-return error(_that.message);case _:
+return initial(_that.search,_that.date);case _Loading() when loading != null:
+return loading(_that.search,_that.date);case _Loaded() when loaded != null:
+return loaded(_that.products,_that.search,_that.date);case _Error() when error != null:
+return error(_that.message,_that.search,_that.date);case _:
   return orElse();
 
 }
@@ -152,13 +184,13 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<ProductEntity> products)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String search,  String? date)  initial,required TResult Function( String search,  String? date)  loading,required TResult Function( List<ProductEntity> products,  String search,  String? date)  loaded,required TResult Function( String message,  String search,  String? date)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case _Loading():
-return loading();case _Loaded():
-return loaded(_that.products);case _Error():
-return error(_that.message);case _:
+return initial(_that.search,_that.date);case _Loading():
+return loading(_that.search,_that.date);case _Loaded():
+return loaded(_that.products,_that.search,_that.date);case _Error():
+return error(_that.message,_that.search,_that.date);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -175,13 +207,13 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<ProductEntity> products)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String search,  String? date)?  initial,TResult? Function( String search,  String? date)?  loading,TResult? Function( List<ProductEntity> products,  String search,  String? date)?  loaded,TResult? Function( String message,  String search,  String? date)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _Loading() when loading != null:
-return loading();case _Loaded() when loaded != null:
-return loaded(_that.products);case _Error() when error != null:
-return error(_that.message);case _:
+return initial(_that.search,_that.date);case _Loading() when loading != null:
+return loading(_that.search,_that.date);case _Loaded() when loaded != null:
+return loaded(_that.products,_that.search,_that.date);case _Error() when error != null:
+return error(_that.message,_that.search,_that.date);case _:
   return null;
 
 }
@@ -193,71 +225,143 @@ return error(_that.message);case _:
 
 
 class _Initial implements AdminProductsState {
-  const _Initial();
+  const _Initial({this.search = '', this.date});
   
 
+@override@JsonKey() final  String search;
+@override final  String? date;
 
-
+/// Create a copy of AdminProductsState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InitialCopyWith<_Initial> get copyWith => __$InitialCopyWithImpl<_Initial>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial&&(identical(other.search, search) || other.search == search)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,search,date);
 
 @override
 String toString() {
-  return 'AdminProductsState.initial()';
+  return 'AdminProductsState.initial(search: $search, date: $date)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$InitialCopyWith<$Res> implements $AdminProductsStateCopyWith<$Res> {
+  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) _then) = __$InitialCopyWithImpl;
+@override @useResult
+$Res call({
+ String search, String? date
+});
 
 
+
+
+}
+/// @nodoc
+class __$InitialCopyWithImpl<$Res>
+    implements _$InitialCopyWith<$Res> {
+  __$InitialCopyWithImpl(this._self, this._then);
+
+  final _Initial _self;
+  final $Res Function(_Initial) _then;
+
+/// Create a copy of AdminProductsState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? search = null,Object? date = freezed,}) {
+  return _then(_Initial(
+search: null == search ? _self.search : search // ignore: cast_nullable_to_non_nullable
+as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
 class _Loading implements AdminProductsState {
-  const _Loading();
+  const _Loading({this.search = '', this.date});
   
 
+@override@JsonKey() final  String search;
+@override final  String? date;
 
-
+/// Create a copy of AdminProductsState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoadingCopyWith<_Loading> get copyWith => __$LoadingCopyWithImpl<_Loading>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading&&(identical(other.search, search) || other.search == search)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,search,date);
 
 @override
 String toString() {
-  return 'AdminProductsState.loading()';
+  return 'AdminProductsState.loading(search: $search, date: $date)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$LoadingCopyWith<$Res> implements $AdminProductsStateCopyWith<$Res> {
+  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) _then) = __$LoadingCopyWithImpl;
+@override @useResult
+$Res call({
+ String search, String? date
+});
 
 
+
+
+}
+/// @nodoc
+class __$LoadingCopyWithImpl<$Res>
+    implements _$LoadingCopyWith<$Res> {
+  __$LoadingCopyWithImpl(this._self, this._then);
+
+  final _Loading _self;
+  final $Res Function(_Loading) _then;
+
+/// Create a copy of AdminProductsState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? search = null,Object? date = freezed,}) {
+  return _then(_Loading(
+search: null == search ? _self.search : search // ignore: cast_nullable_to_non_nullable
+as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
 
 class _Loaded implements AdminProductsState {
-  const _Loaded(final  List<ProductEntity> products): _products = products;
+  const _Loaded({required final  List<ProductEntity> products, this.search = '', this.date}): _products = products;
   
 
  final  List<ProductEntity> _products;
@@ -267,10 +371,12 @@ class _Loaded implements AdminProductsState {
   return EqualUnmodifiableListView(_products);
 }
 
+@override@JsonKey() final  String search;
+@override final  String? date;
 
 /// Create a copy of AdminProductsState
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
 
@@ -278,16 +384,16 @@ _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._products, _products));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._products, _products)&&(identical(other.search, search) || other.search == search)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_products));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_products),search,date);
 
 @override
 String toString() {
-  return 'AdminProductsState.loaded(products: $products)';
+  return 'AdminProductsState.loaded(products: $products, search: $search, date: $date)';
 }
 
 
@@ -296,9 +402,9 @@ String toString() {
 /// @nodoc
 abstract mixin class _$LoadedCopyWith<$Res> implements $AdminProductsStateCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
- List<ProductEntity> products
+ List<ProductEntity> products, String search, String? date
 });
 
 
@@ -315,10 +421,12 @@ class __$LoadedCopyWithImpl<$Res>
 
 /// Create a copy of AdminProductsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? products = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? products = null,Object? search = null,Object? date = freezed,}) {
   return _then(_Loaded(
-null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
-as List<ProductEntity>,
+products: null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
+as List<ProductEntity>,search: null == search ? _self.search : search // ignore: cast_nullable_to_non_nullable
+as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -329,14 +437,16 @@ as List<ProductEntity>,
 
 
 class _Error implements AdminProductsState {
-  const _Error(this.message);
+  const _Error({required this.message, this.search = '', this.date});
   
 
  final  String message;
+@override@JsonKey() final  String search;
+@override final  String? date;
 
 /// Create a copy of AdminProductsState
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$identity);
 
@@ -344,16 +454,16 @@ _$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.message, message) || other.message == message)&&(identical(other.search, search) || other.search == search)&&(identical(other.date, date) || other.date == date));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,message);
+int get hashCode => Object.hash(runtimeType,message,search,date);
 
 @override
 String toString() {
-  return 'AdminProductsState.error(message: $message)';
+  return 'AdminProductsState.error(message: $message, search: $search, date: $date)';
 }
 
 
@@ -362,9 +472,9 @@ String toString() {
 /// @nodoc
 abstract mixin class _$ErrorCopyWith<$Res> implements $AdminProductsStateCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
- String message
+ String message, String search, String? date
 });
 
 
@@ -381,10 +491,12 @@ class __$ErrorCopyWithImpl<$Res>
 
 /// Create a copy of AdminProductsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? message = null,Object? search = null,Object? date = freezed,}) {
   return _then(_Error(
-null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,
+message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,search: null == search ? _self.search : search // ignore: cast_nullable_to_non_nullable
+as String,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

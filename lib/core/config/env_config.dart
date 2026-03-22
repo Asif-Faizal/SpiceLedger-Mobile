@@ -4,6 +4,7 @@ class ApiConfig {
   static const String basicAuthUser = String.fromEnvironment('BASIC_AUTH_USER');
   static const String basicAuthPass = String.fromEnvironment('BASIC_AUTH_PASS');
   static const String _baseUrl = String.fromEnvironment('BASE_URL');
+  static const String _graphQLClient = String.fromEnvironment('GRAPHQL_CLIENT');
   static const int restApiTimeout = int.fromEnvironment(
     'REST_API_TIMEOUT',
     defaultValue: 30,
@@ -13,6 +14,12 @@ class ApiConfig {
     if (_baseUrl.isEmpty) return 'http://127.0.0.1:8080';
     if (_baseUrl.startsWith('http')) return _baseUrl;
     return 'http://$_baseUrl';
+  }
+
+  static String get graphQLClient {
+    if (_graphQLClient.isEmpty) return 'http://localhost:8081/graphql';
+    if (_graphQLClient.startsWith('http')) return _graphQLClient;
+    return 'http://$_graphQLClient';
   }
 
   static Map<String, dynamic>? get basicAuthHeaders {

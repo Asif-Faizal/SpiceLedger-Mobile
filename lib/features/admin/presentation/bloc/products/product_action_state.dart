@@ -5,7 +5,7 @@ import '../../../domain/entities/product_entity.dart';
 part 'product_action_state.freezed.dart';
 
 @freezed
-class ProductActionState with _$ProductActionState {
+abstract class ProductActionState with _$ProductActionState {
   const factory ProductActionState.initial() = _Initial;
   const factory ProductActionState.loading() = _Loading;
   const factory ProductActionState.success(String message) = _Success;

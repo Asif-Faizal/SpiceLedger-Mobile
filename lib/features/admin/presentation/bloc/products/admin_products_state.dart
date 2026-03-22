@@ -5,10 +5,26 @@ import '../../../domain/entities/product_entity.dart';
 part 'admin_products_state.freezed.dart';
 
 @freezed
-class AdminProductsState with _$AdminProductsState {
-  const factory AdminProductsState.initial() = _Initial;
-  const factory AdminProductsState.loading() = _Loading;
-  const factory AdminProductsState.loaded(List<ProductEntity> products) =
-      _Loaded;
-  const factory AdminProductsState.error(String message) = _Error;
+abstract class AdminProductsState with _$AdminProductsState {
+  const factory AdminProductsState.initial({
+    @Default('') String search,
+    String? date,
+  }) = _Initial;
+
+  const factory AdminProductsState.loading({
+    @Default('') String search,
+    String? date,
+  }) = _Loading;
+
+  const factory AdminProductsState.loaded({
+    required List<ProductEntity> products,
+    @Default('') String search,
+    String? date,
+  }) = _Loaded;
+
+  const factory AdminProductsState.error({
+    required String message,
+    @Default('') String search,
+    String? date,
+  }) = _Error;
 }

@@ -63,6 +63,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
 
   @override
   Future<ProductModel> createProduct(Map<String, dynamic> input) async {
+    final Map<String, dynamic> cleanInput = Map.from(input)..remove('status');
     const String mutation = r'''
       mutation CreateProduct($input: CreateProductInput!) {
         createProduct(input: $input) {
@@ -77,7 +78,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
 
     final options = MutationOptions(
       document: gql(mutation),
-      variables: {'input': input},
+      variables: {'input': cleanInput},
     );
 
     final result = await _graphQLClient.mutate(options);
@@ -94,6 +95,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
 
   @override
   Future<GradeModel> createGrade(Map<String, dynamic> input) async {
+    final Map<String, dynamic> cleanInput = Map.from(input)..remove('status');
     const String mutation = r'''
       mutation CreateGrade($input: CreateGradeInput!) {
         createGrade(input: $input) {
@@ -108,7 +110,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
 
     final options = MutationOptions(
       document: gql(mutation),
-      variables: {'input': input},
+      variables: {'input': cleanInput},
     );
 
     final result = await _graphQLClient.mutate(options);
