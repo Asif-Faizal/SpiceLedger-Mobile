@@ -83,7 +83,7 @@ class _AdminProductsView extends StatelessWidget {
                             const SizedBox(width: 8),
                             Text(
                               state.date != null
-                                  ? DateFormat('MMM dd, yyyy').format(
+                                  ? DateFormat('MMM dd').format(
                                       DateFormat(
                                         'yyyy-MM-dd',
                                       ).parse(state.date!),

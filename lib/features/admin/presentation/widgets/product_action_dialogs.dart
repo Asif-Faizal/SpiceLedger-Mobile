@@ -12,6 +12,8 @@ import '../bloc/products/grade_form_cubit.dart';
 import '../bloc/products/admin_products_bloc.dart';
 import '../bloc/products/admin_products_event.dart';
 import '../bloc/products/admin_products_state.dart';
+import '../../../../core/widgets/shimmer_widget.dart';
+import '../../../../core/widgets/searchable_dropdown.dart';
 
 class ProductFormDialog extends StatelessWidget {
   final ProductEntity? product;
@@ -235,25 +237,25 @@ class GradeFormDialog extends StatelessWidget {
                         builder: (context, productsState) {
                           return productsState.maybeWhen(
                             loaded: (products, search, date) {
-                              return DropdownButtonFormField<String>(
+                              return SearchableDropdown<String>(
                                 value: formState.selectedProductId,
-                                decoration: const InputDecoration(
-                                  labelText: 'Product',
-                                ),
+                                label: 'Product',
+                                hint: 'Select a product',
                                 items: products
-                                    .map(
-                                      (p) => DropdownMenuItem(
-                                        value: p.id,
-                                        child: Text(p.name),
-                                      ),
-                                    )
+                                    .map((p) => SearchableDropdownItem<String>(
+                                          value: p.id,
+                                          label: p.name,
+                                        ))
                                     .toList(),
                                 onChanged: (val) {
                                   if (val != null) cubit.productChanged(val);
                                 },
                               );
                             },
-                            orElse: () => const LinearProgressIndicator(),
+                            orElse: () => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: const ShimmerWidget.rectangular(height: 56),
+                            ),
                           );
                         },
                       ),

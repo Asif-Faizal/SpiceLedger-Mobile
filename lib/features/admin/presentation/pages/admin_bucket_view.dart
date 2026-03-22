@@ -55,9 +55,9 @@ class AdminBucketView extends StatelessWidget {
                         result = await GradeFormDialog.show(context);
                       }
                       if (result == true && context.mounted) {
-                        context
-                            .read<AdminProductsBloc>()
-                            .add(const AdminProductsEvent.refresh());
+                        context.read<AdminProductsBloc>().add(
+                          const AdminProductsEvent.refresh(),
+                        );
                       }
                     },
                     itemBuilder: (context) => [
@@ -65,7 +65,10 @@ class AdminBucketView extends StatelessWidget {
                         value: 'product',
                         child: Row(
                           children: [
-                            const Icon(Icons.add_box, color: AppColors.blueAccent),
+                            const Icon(
+                              Icons.note_add_rounded,
+                              color: AppColors.blueAccent,
+                            ),
                             const SizedBox(width: 8),
                             const Text('Add Product'),
                           ],
@@ -75,14 +78,20 @@ class AdminBucketView extends StatelessWidget {
                         value: 'grade',
                         child: Row(
                           children: [
-                            const Icon(Icons.add_task, color: AppColors.nearBlack),
+                            const Icon(
+                              Icons.add_business,
+                              color: AppColors.blueAccent,
+                            ),
                             const SizedBox(width: 8),
                             const Text('Add Grade'),
                           ],
                         ),
                       ),
                     ],
-                    icon: const Icon(Icons.add),
+                    icon: const Icon(
+                      Icons.add_circle,
+                      color: AppColors.blueAccent,
+                    ),
                   ),
               ],
             ),
