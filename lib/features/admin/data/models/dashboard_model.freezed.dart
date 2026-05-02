@@ -299,7 +299,7 @@ as String,
 /// @nodoc
 mixin _$TopProductModel {
 
- String get productName; String get gradeName; double get volume;
+ String get name; double get volume;
 /// Create a copy of TopProductModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -312,16 +312,16 @@ $TopProductModelCopyWith<TopProductModel> get copyWith => _$TopProductModelCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TopProductModel&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.gradeName, gradeName) || other.gradeName == gradeName)&&(identical(other.volume, volume) || other.volume == volume));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TopProductModel&&(identical(other.name, name) || other.name == name)&&(identical(other.volume, volume) || other.volume == volume));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,productName,gradeName,volume);
+int get hashCode => Object.hash(runtimeType,name,volume);
 
 @override
 String toString() {
-  return 'TopProductModel(productName: $productName, gradeName: $gradeName, volume: $volume)';
+  return 'TopProductModel(name: $name, volume: $volume)';
 }
 
 
@@ -332,7 +332,7 @@ abstract mixin class $TopProductModelCopyWith<$Res>  {
   factory $TopProductModelCopyWith(TopProductModel value, $Res Function(TopProductModel) _then) = _$TopProductModelCopyWithImpl;
 @useResult
 $Res call({
- String productName, String gradeName, double volume
+ String name, double volume
 });
 
 
@@ -349,10 +349,9 @@ class _$TopProductModelCopyWithImpl<$Res>
 
 /// Create a copy of TopProductModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? productName = null,Object? gradeName = null,Object? volume = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? volume = null,}) {
   return _then(_self.copyWith(
-productName: null == productName ? _self.productName : productName // ignore: cast_nullable_to_non_nullable
-as String,gradeName: null == gradeName ? _self.gradeName : gradeName // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,volume: null == volume ? _self.volume : volume // ignore: cast_nullable_to_non_nullable
 as double,
   ));
@@ -439,10 +438,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String productName,  String gradeName,  double volume)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  double volume)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TopProductModel() when $default != null:
-return $default(_that.productName,_that.gradeName,_that.volume);case _:
+return $default(_that.name,_that.volume);case _:
   return orElse();
 
 }
@@ -460,10 +459,10 @@ return $default(_that.productName,_that.gradeName,_that.volume);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String productName,  String gradeName,  double volume)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  double volume)  $default,) {final _that = this;
 switch (_that) {
 case _TopProductModel():
-return $default(_that.productName,_that.gradeName,_that.volume);case _:
+return $default(_that.name,_that.volume);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -480,10 +479,10 @@ return $default(_that.productName,_that.gradeName,_that.volume);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String productName,  String gradeName,  double volume)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  double volume)?  $default,) {final _that = this;
 switch (_that) {
 case _TopProductModel() when $default != null:
-return $default(_that.productName,_that.gradeName,_that.volume);case _:
+return $default(_that.name,_that.volume);case _:
   return null;
 
 }
@@ -495,11 +494,10 @@ return $default(_that.productName,_that.gradeName,_that.volume);case _:
 @JsonSerializable()
 
 class _TopProductModel implements TopProductModel {
-  const _TopProductModel({required this.productName, required this.gradeName, required this.volume});
+  const _TopProductModel({required this.name, required this.volume});
   factory _TopProductModel.fromJson(Map<String, dynamic> json) => _$TopProductModelFromJson(json);
 
-@override final  String productName;
-@override final  String gradeName;
+@override final  String name;
 @override final  double volume;
 
 /// Create a copy of TopProductModel
@@ -515,16 +513,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TopProductModel&&(identical(other.productName, productName) || other.productName == productName)&&(identical(other.gradeName, gradeName) || other.gradeName == gradeName)&&(identical(other.volume, volume) || other.volume == volume));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TopProductModel&&(identical(other.name, name) || other.name == name)&&(identical(other.volume, volume) || other.volume == volume));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,productName,gradeName,volume);
+int get hashCode => Object.hash(runtimeType,name,volume);
 
 @override
 String toString() {
-  return 'TopProductModel(productName: $productName, gradeName: $gradeName, volume: $volume)';
+  return 'TopProductModel(name: $name, volume: $volume)';
 }
 
 
@@ -535,7 +533,7 @@ abstract mixin class _$TopProductModelCopyWith<$Res> implements $TopProductModel
   factory _$TopProductModelCopyWith(_TopProductModel value, $Res Function(_TopProductModel) _then) = __$TopProductModelCopyWithImpl;
 @override @useResult
 $Res call({
- String productName, String gradeName, double volume
+ String name, double volume
 });
 
 
@@ -552,10 +550,9 @@ class __$TopProductModelCopyWithImpl<$Res>
 
 /// Create a copy of TopProductModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? productName = null,Object? gradeName = null,Object? volume = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? volume = null,}) {
   return _then(_TopProductModel(
-productName: null == productName ? _self.productName : productName // ignore: cast_nullable_to_non_nullable
-as String,gradeName: null == gradeName ? _self.gradeName : gradeName // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,volume: null == volume ? _self.volume : volume // ignore: cast_nullable_to_non_nullable
 as double,
   ));

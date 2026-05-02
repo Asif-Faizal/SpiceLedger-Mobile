@@ -35,18 +35,16 @@ class TransactionEntity extends Equatable {
 }
 
 class TopProductEntity extends Equatable {
-  final String productName;
-  final String gradeName;
+  final String name;
   final double volume;
 
   const TopProductEntity({
-    required this.productName,
-    required this.gradeName,
+    required this.name,
     required this.volume,
   });
 
   @override
-  List<Object?> get props => [productName, gradeName, volume];
+  List<Object?> get props => [name, volume];
 }
 
 class AdminDashboardEntity extends Equatable {

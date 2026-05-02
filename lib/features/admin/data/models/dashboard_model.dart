@@ -37,8 +37,7 @@ extension TransactionModelX on TransactionModel {
 @freezed
 abstract class TopProductModel with _$TopProductModel {
   const factory TopProductModel({
-    required String productName,
-    required String gradeName,
+    required String name,
     required double volume,
   }) = _TopProductModel;
 
@@ -48,8 +47,7 @@ abstract class TopProductModel with _$TopProductModel {
 
 extension TopProductModelX on TopProductModel {
   TopProductEntity toEntity() => TopProductEntity(
-        productName: productName,
-        gradeName: gradeName,
+        name: name,
         volume: volume,
       );
 }

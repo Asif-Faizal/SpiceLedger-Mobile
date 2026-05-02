@@ -184,21 +184,9 @@ class AdminDashboardPage extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 12),
                                   Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          product.productName,
-                                          style: const TextStyle(fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          product.gradeName,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: AppColors.neutralGray,
-                                          ),
-                                        ),
-                                      ],
+                                    child: Text(
+                                      product.name,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   Text(

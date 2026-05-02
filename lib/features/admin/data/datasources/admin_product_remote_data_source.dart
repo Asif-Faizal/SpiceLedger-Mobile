@@ -183,8 +183,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
           totalTransactions
           totalVolume
           topProducts {
-            productName
-            gradeName
+            name
             volume
           }
           recentTransactions {

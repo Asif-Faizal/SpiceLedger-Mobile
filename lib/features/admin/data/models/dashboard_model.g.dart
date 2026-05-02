@@ -32,17 +32,12 @@ Map<String, dynamic> _$TransactionModelToJson(_TransactionModel instance) =>
 
 _TopProductModel _$TopProductModelFromJson(Map<String, dynamic> json) =>
     _TopProductModel(
-      productName: json['productName'] as String,
-      gradeName: json['gradeName'] as String,
+      name: json['name'] as String,
       volume: (json['volume'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$TopProductModelToJson(_TopProductModel instance) =>
-    <String, dynamic>{
-      'productName': instance.productName,
-      'gradeName': instance.gradeName,
-      'volume': instance.volume,
-    };
+    <String, dynamic>{'name': instance.name, 'volume': instance.volume};
 
 _AdminDashboardModel _$AdminDashboardModelFromJson(Map<String, dynamic> json) =>
     _AdminDashboardModel(
