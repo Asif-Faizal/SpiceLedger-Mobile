@@ -9,7 +9,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define-from-file=.env",
+                "--dart-define-from-file=${workspaceFolder}/.env",
                 "--dart-define=ENVIRONMENT=development"
             ]
         },
@@ -18,7 +18,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define-from-file=.env",
+                "--dart-define-from-file=${workspaceFolder}/.env",
                 "--dart-define=ENVIRONMENT=testing"
             ]
         },
@@ -27,7 +27,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define-from-file=.env",
+                "--dart-define-from-file=${workspaceFolder}/.env",
                 "--dart-define=ENVIRONMENT=production"
             ]
         }

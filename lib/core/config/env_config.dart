@@ -11,13 +11,16 @@ class ApiConfig {
   );
 
   static String get baseUrl {
-    if (_baseUrl.isEmpty) return 'http://127.0.0.1:8080';
+    if (_baseUrl.isEmpty) {
+      // Default to 10.0.2.2 for Android emulator, 127.0.0.1 for others
+      return 'http://10.0.2.2:8080'; 
+    }
     if (_baseUrl.startsWith('http')) return _baseUrl;
     return 'http://$_baseUrl';
   }
 
   static String get graphQLClient {
-    if (_graphQLClient.isEmpty) return 'http://localhost:8081/graphql';
+    if (_graphQLClient.isEmpty) return 'http://10.0.2.2:8081/graphql';
     if (_graphQLClient.startsWith('http')) return _graphQLClient;
     return 'http://$_graphQLClient';
   }
