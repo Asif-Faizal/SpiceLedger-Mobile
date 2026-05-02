@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:injectable/injectable.dart';
+import '../models/dashboard_model.dart';
 import '../models/product_model.dart';
 
 abstract class AdminProductRemoteDataSource {
@@ -9,6 +10,7 @@ abstract class AdminProductRemoteDataSource {
   Future<GradeModel> createGrade(Map<String, dynamic> input);
   Future<void> createDailyPrice(Map<String, dynamic> input);
   Future<List<ProductModel>> getProductsRest();
+  Future<AdminDashboardModel> getDashboard();
 }
 
 @Injectable(as: AdminProductRemoteDataSource)
@@ -169,5 +171,50 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
     } catch (e) {
       throw Exception('REST API Error: $e');
     }
+  }
+
+  @override
+  Future<AdminDashboardModel> getDashboard() async {
+    const String query = r'''
+      query GetAdminDashboard {
+        adminDashboard {
+          totalUsers
+          totalProducts
+          totalTransactions
+          totalVolume
+          topProducts {
+            productName
+            gradeName
+            volume
+          }
+          recentTransactions {
+            id
+            userId
+            spiceGradeId
+            type
+            quantity
+            price
+            tradeDate
+            createdAt
+          }
+        }
+      }
+    ''';
+
+    final options = QueryOptions(
+      document: gql(query),
+      fetchPolicy: FetchPolicy.networkOnly,
+    );
+
+    final result = await _graphQLClient.query(options);
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    final data = result.data?['adminDashboard'];
+    if (data == null) throw Exception("Failed to load dashboard data");
+
+    return AdminDashboardModel.fromJson(Map<String, dynamic>.from(data));
   }
 }

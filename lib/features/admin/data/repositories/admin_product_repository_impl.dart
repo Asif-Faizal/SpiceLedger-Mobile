@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
+import '../../domain/entities/dashboard_entity.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/repositories/admin_product_repository.dart';
 import '../datasources/admin_product_remote_data_source.dart';
+import '../models/dashboard_model.dart';
 import '../models/product_model.dart';
 
 @Injectable(as: AdminProductRepository)
@@ -11,6 +13,16 @@ class AdminProductRepositoryImpl implements AdminProductRepository {
   final AdminProductRemoteDataSource remoteDataSource;
 
   AdminProductRepositoryImpl(this.remoteDataSource);
+
+  @override
+  Future<Either<Failure, AdminDashboardEntity>> getDashboard() async {
+    try {
+      final model = await remoteDataSource.getDashboard();
+      return Right(model.toEntity());
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 
   @override
   Future<Either<Failure, List<ProductEntity>>> getProducts(
