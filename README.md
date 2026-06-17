@@ -1,6 +1,6 @@
 # SpiceLedger Mobile
 
-Flutter client for SpiceLedger — admin catalog management and merchant trading. Connects to [SpiceLedger-Backend](../SpiceLedger-Backend) via REST (proxy) and GraphQL.
+Flutter client for SpiceLedger — admin catalog management and merchant trading. Connects to [SpiceLedger-Backend](../SpiceLedger-Backend) unified **gateway** on port **8080**.
 
 ## Stack
 
@@ -38,11 +38,11 @@ cp .env.example .env
 
 Edit `.env` for your target:
 
-| Target | `BASE_URL` | `GRAPHQL_CLIENT` |
-|--------|------------|------------------|
-| Android emulator | `http://10.0.2.2:8080` | `http://10.0.2.2:8081/graphql` |
-| iOS simulator | `http://127.0.0.1:8080` | `http://127.0.0.1:8081/graphql` |
-| Physical device | `http://<your-lan-ip>:8080` | `http://<your-lan-ip>:8081/graphql` |
+| Target | `BASE_URL` | `GRAPHQL_CLIENT` (optional) |
+|--------|------------|-------------------------------|
+| Android emulator | `http://10.0.2.2:8080` | omit (defaults to `BASE_URL/graphql`) |
+| iOS simulator | `http://127.0.0.1:8080` | omit |
+| Physical device | `http://<your-lan-ip>:8080` | omit |
 
 ### Run
 
@@ -122,7 +122,8 @@ Navigation is imperative (`Navigator.push` / `pushReplacement`) — no `go_route
 
 ## Development notes
 
-- REST calls use **proxy** (`BASE_URL` + `/rest/...` paths).
-- GraphQL calls hit the **graphql service directly** (`GRAPHQL_CLIENT`), not `/graphql` on the proxy.
+- REST and GraphQL both use the **gateway** on `BASE_URL` (`:8080` when using `make up-full-build`).
+- REST paths: `BASE_URL` + `/rest/...` (handled by Dio data sources).
+- GraphQL: `BASE_URL/graphql` unless `GRAPHQL_CLIENT` is set explicitly.
 - Device ID is hardcoded as `dev_987` for login, refresh, and logout.
 - Backend must return `{ success, message, data }` for REST; GraphQL uses the same envelope on the HTTP layer (see [NETWORKING.md](docs/NETWORKING.md)).

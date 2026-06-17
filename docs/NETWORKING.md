@@ -4,10 +4,10 @@ The app uses **two HTTP clients** to talk to [SpiceLedger-Backend](../SpiceLedge
 
 | Client | Package | Base URL | Used for |
 |--------|---------|----------|----------|
-| **Dio** | `dio` | `ApiConfig.baseUrl` (proxy `:8080`) | Auth, accounts, merchant details |
-| **GraphQL** | `graphql_flutter` | `ApiConfig.graphQLClient` (graphql `:8081`) | Admin dashboard, products, grades, daily prices |
+| **Dio** | `dio` | `ApiConfig.baseUrl` (gateway `:8080`) | Auth, accounts, merchant details |
+| **GraphQL** | `graphql_flutter` | `ApiConfig.graphQLClient` (`:8080/graphql`) | Admin dashboard, products, grades, daily prices |
 
-REST paths are prefixed with `/rest/...` on the Dio client because `baseUrl` is the proxy root.
+REST paths are prefixed with `/rest/...` on the Dio client because `baseUrl` is the gateway root.
 
 ---
 
@@ -37,7 +37,7 @@ On GraphQL errors the backend returns:
 }
 ```
 
-Admin GraphQL data sources check `result.hasException` and `result.data?['fieldName']`. Ensure the backend graphql service is **rebuilt** after envelope changes (`make up-full-build` in backend).
+Admin GraphQL data sources check `result.hasException` and `result.data?['fieldName']`. Rebuild the backend gateway after API changes (`make up-full-build`).
 
 ---
 

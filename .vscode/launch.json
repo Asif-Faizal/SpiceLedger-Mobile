@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -10,6 +7,28 @@
             "type": "dart",
             "args": [
                 "--dart-define-from-file=${workspaceFolder}/.env",
+                "--dart-define=ENVIRONMENT=development"
+            ]
+        },
+        {
+            "name": "SpiceLedger-Mobile (Android Emulator)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=BASIC_AUTH_USER=admin",
+                "--dart-define=BASIC_AUTH_PASS=secret123",
+                "--dart-define=BASE_URL=http://10.0.2.2:8080",
+                "--dart-define=ENVIRONMENT=development"
+            ]
+        },
+        {
+            "name": "SpiceLedger-Mobile (iOS Simulator)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=BASIC_AUTH_USER=admin",
+                "--dart-define=BASIC_AUTH_PASS=secret123",
+                "--dart-define=BASE_URL=http://127.0.0.1:8080",
                 "--dart-define=ENVIRONMENT=development"
             ]
         },

@@ -6,7 +6,7 @@
 |-------------|-----------------|
 | Flutter SDK | `^3.10.1` (`environment.sdk` in `pubspec.yaml`) |
 | Dart | Bundled with Flutter |
-| SpiceLedger Backend | Running at ports **8080** (proxy) and **8081** (graphql) — see [SpiceLedger-Backend](../SpiceLedger-Backend/README.md) |
+| SpiceLedger Backend | Gateway on **8080** (`make up-full-build`) — see [SpiceLedger-Backend](../SpiceLedger-Backend/README.md) |
 | IDE | VS Code / Android Studio with Flutter extension |
 
 ---
@@ -38,8 +38,8 @@ Copy [`.env.example`](../.env.example) to `.env` (gitignored). VS Code launch co
 
 | Variable | Required | Default if empty | Description |
 |----------|----------|------------------|-------------|
-| `BASE_URL` | Recommended | `http://10.0.2.2:8080` | Proxy base URL for REST (`dio`) |
-| `GRAPHQL_CLIENT` | Recommended | `http://10.0.2.2:8081/graphql` | GraphQL HTTP endpoint |
+| `BASE_URL` | Recommended | Platform default (see below) | Gateway base URL for REST (`dio`) |
+| `GRAPHQL_CLIENT` | No | `{BASE_URL}/graphql` | GraphQL HTTP endpoint on the same gateway |
 | `BASIC_AUTH_USER` | For login/register | — | Basic auth username (must match backend) |
 | `BASIC_AUTH_PASS` | For login/register | — | Basic auth password |
 | `REST_API_TIMEOUT` | No | `30` | Dio connect/receive timeout (seconds) |
@@ -49,9 +49,11 @@ Copy [`.env.example`](../.env.example) to `.env` (gitignored). VS Code launch co
 
 | Platform | `BASE_URL` | `GRAPHQL_CLIENT` |
 |----------|------------|------------------|
-| **Android emulator** | `http://10.0.2.2:8080` | `http://10.0.2.2:8081/graphql` |
-| **iOS simulator** | `http://127.0.0.1:8080` | `http://127.0.0.1:8081/graphql` |
-| **Physical device** | `http://<LAN-IP>:8080` | `http://<LAN-IP>:8081/graphql` |
+| **Android emulator** | `http://10.0.2.2:8080` | omit (auto: `…8080/graphql`) |
+| **iOS simulator** | `http://127.0.0.1:8080` | omit |
+| **Physical device** | `http://<LAN-IP>:8080` | omit |
+
+`ApiConfig` picks Android vs iOS defaults when `BASE_URL` is empty. VS Code also provides **Android Emulator** and **iOS Simulator** launch configs with the correct host baked in.
 
 `10.0.2.2` is the Android emulator alias for the host machine's `localhost`.
 
@@ -112,8 +114,9 @@ Generated artifacts (do not edit manually):
 
 1. Start backend: `cd ../SpiceLedger-Backend && make up-full-build`
 2. Verify health:
+   - `curl http://localhost:8080/health`
    - `curl http://localhost:8080/rest/health`
-   - `curl http://localhost:8081/health`
+   - `curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/graphql` (expect 400/405 without body — service is up)
 3. Match `.env` host to your emulator/device (see table above)
 4. Login with seed users (`admin@spice.com` / `merchant@spice.com`, password `secret123`)
 
@@ -124,7 +127,7 @@ Generated artifacts (do not edit manually):
 | Problem | Fix |
 |---------|-----|
 | Connection refused on REST | Wrong `BASE_URL` for platform; backend not running |
-| GraphQL fails, REST works | Check `GRAPHQL_CLIENT` points to `:8081/graphql`; rebuild graphql image after backend changes |
+| GraphQL fails, REST works | Remove stale `GRAPHQL_CLIENT=:8081` from `.env`; rebuild backend with `make up-full-build` |
 | `GetIt: Object/factory not registered` | Run `build_runner build` after adding `@injectable` classes |
 | Login 401 | Set `BASIC_AUTH_USER` / `BASIC_AUTH_PASS` in `.env` to match backend |
 | Stale tokens after DB reset | Clear app data or logout; secure storage persists across hot restart |

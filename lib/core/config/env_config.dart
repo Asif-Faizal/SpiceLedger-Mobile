@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class ApiConfig {
   static const String basicAuthUser = String.fromEnvironment('BASIC_AUTH_USER');
   static const String basicAuthPass = String.fromEnvironment('BASIC_AUTH_PASS');
@@ -10,19 +12,33 @@ class ApiConfig {
     defaultValue: 30,
   );
 
-  static String get baseUrl {
-    if (_baseUrl.isEmpty) {
-      // Default to 10.0.2.2 for Android emulator, 127.0.0.1 for others
-      return 'http://10.0.2.2:8080'; 
+  /// Default gateway host when `BASE_URL` is not set (Docker `make up-full-build`).
+  static String get _defaultGatewayHost {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.iOS:
+      case TargetPlatform.macOS:
+        return 'http://127.0.0.1:8080';
+      default:
+        // Android emulator: 10.0.2.2 maps to host machine localhost
+        return 'http://10.0.2.2:8080';
     }
+  }
+
+  static String get baseUrl {
+    if (_baseUrl.isEmpty) return _defaultGatewayHost;
     if (_baseUrl.startsWith('http')) return _baseUrl;
     return 'http://$_baseUrl';
   }
 
+  /// GraphQL on the same gateway as REST (`/graphql` on port 8080).
   static String get graphQLClient {
-    if (_graphQLClient.isEmpty) return 'http://10.0.2.2:8081/graphql';
-    if (_graphQLClient.startsWith('http')) return _graphQLClient;
-    return 'http://$_graphQLClient';
+    if (_graphQLClient.isNotEmpty) {
+      if (_graphQLClient.startsWith('http')) return _graphQLClient;
+      return 'http://$_graphQLClient';
+    }
+    final root =
+        baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl;
+    return '$root/graphql';
   }
 
   static Map<String, dynamic>? get basicAuthHeaders {
