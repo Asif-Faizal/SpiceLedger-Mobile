@@ -15,14 +15,14 @@ import 'package:graphql_flutter/graphql_flutter.dart' as _i128;
 import 'package:hive_ce/hive.dart' as _i738;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../../features/admin/data/datasources/admin_product_remote_data_source.dart'
-    as _i285;
-import '../../features/admin/data/repositories/admin_product_repository_impl.dart'
-    as _i407;
+import '../../features/admin/data/datasources/admin_remote_data_source.dart'
+    as _i517;
+import '../../features/admin/data/repositories/admin_repository_impl.dart'
+    as _i335;
 import '../../features/admin/domain/entities/product_entity.dart' as _i222;
-import '../../features/admin/domain/repositories/admin_product_repository.dart'
-    as _i285;
-import '../../features/admin/domain/usecases/product_usecases.dart' as _i67;
+import '../../features/admin/domain/repositories/admin_repository.dart'
+    as _i583;
+import '../../features/admin/domain/usecases/admin_usecases.dart' as _i817;
 import '../../features/admin/presentation/bloc/dashboard/admin_dashboard_bloc.dart'
     as _i101;
 import '../../features/admin/presentation/bloc/products/admin_products_bloc.dart'
@@ -55,10 +55,14 @@ import '../../features/merchant/data/repositories/merchant_repository_impl.dart'
     as _i458;
 import '../../features/merchant/domain/repositories/merchant_repository.dart'
     as _i90;
+import '../../features/merchant/domain/usecases/get_merchant_dashboard_usecase.dart'
+    as _i702;
 import '../../features/merchant/domain/usecases/get_merchant_details_usecase.dart'
     as _i814;
 import '../../features/merchant/domain/usecases/save_merchant_details_usecase.dart'
     as _i144;
+import '../../features/merchant/presentation/bloc/merchant_dashboard/merchant_dashboard_bloc.dart'
+    as _i353;
 import '../../features/merchant/presentation/bloc/merchant_details_bloc.dart'
     as _i1050;
 import '../../features/merchant/presentation/cubit/merchant_navigation_cubit.dart'
@@ -109,8 +113,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i153.OnboardingCubit>(
       () => _i153.OnboardingCubit(gh<_i738.Box<dynamic>>()),
     );
-    gh.factory<_i285.AdminProductRemoteDataSource>(
-      () => _i285.AdminProductRemoteDataSourceImpl(
+    gh.factory<_i517.AdminProductRemoteDataSource>(
+      () => _i517.AdminProductRemoteDataSourceImpl(
         gh<_i128.GraphQLClient>(),
         gh<_i361.Dio>(),
       ),
@@ -119,7 +123,15 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i107.AuthRemoteDataSourceImpl(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i542.MerchantRemoteDataSource>(
-      () => _i542.MerchantRemoteDataSourceImpl(gh<_i361.Dio>()),
+      () => _i542.MerchantRemoteDataSourceImpl(
+        gh<_i361.Dio>(),
+        gh<_i128.GraphQLClient>(),
+      ),
+    );
+    gh.factory<_i583.AdminProductRepository>(
+      () => _i335.AdminProductRepositoryImpl(
+        gh<_i517.AdminProductRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(
@@ -145,10 +157,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i90.MerchantRepository>(
       () => _i458.MerchantRepositoryImpl(gh<_i542.MerchantRemoteDataSource>()),
     );
-    gh.factory<_i285.AdminProductRepository>(
-      () => _i407.AdminProductRepositoryImpl(
-        gh<_i285.AdminProductRemoteDataSource>(),
-      ),
+    gh.factory<_i817.GetAdminDashboardUseCase>(
+      () => _i817.GetAdminDashboardUseCase(gh<_i583.AdminProductRepository>()),
+    );
+    gh.factory<_i817.GetProductsUseCase>(
+      () => _i817.GetProductsUseCase(gh<_i583.AdminProductRepository>()),
+    );
+    gh.factory<_i817.CreateProductUseCase>(
+      () => _i817.CreateProductUseCase(gh<_i583.AdminProductRepository>()),
+    );
+    gh.factory<_i817.CreateGradeUseCase>(
+      () => _i817.CreateGradeUseCase(gh<_i583.AdminProductRepository>()),
+    );
+    gh.factory<_i817.CreateDailyPriceUseCase>(
+      () => _i817.CreateDailyPriceUseCase(gh<_i583.AdminProductRepository>()),
+    );
+    gh.factory<_i817.GetProductsRestUseCase>(
+      () => _i817.GetProductsRestUseCase(gh<_i583.AdminProductRepository>()),
     );
     gh.factory<_i228.ProfileBloc>(
       () => _i228.ProfileBloc(
@@ -163,35 +188,37 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i699.CheckEmailCubit>(
       () => _i699.CheckEmailCubit(gh<_i879.CheckEmailUseCase>()),
     );
+    gh.factoryParam<_i684.SetGradePriceCubit, _i222.ProductEntity, dynamic>(
+      (product, _) => _i684.SetGradePriceCubit(
+        gh<_i817.CreateDailyPriceUseCase>(),
+        product: product,
+      ),
+    );
     gh.lazySingleton<_i814.GetMerchantDetailsUseCase>(
       () => _i814.GetMerchantDetailsUseCase(gh<_i90.MerchantRepository>()),
     );
     gh.lazySingleton<_i144.SaveMerchantDetailsUseCase>(
       () => _i144.SaveMerchantDetailsUseCase(gh<_i90.MerchantRepository>()),
     );
+    gh.factory<_i702.GetMerchantDashboardUseCase>(
+      () => _i702.GetMerchantDashboardUseCase(gh<_i90.MerchantRepository>()),
+    );
+    gh.factory<_i353.MerchantDashboardBloc>(
+      () =>
+          _i353.MerchantDashboardBloc(gh<_i702.GetMerchantDashboardUseCase>()),
+    );
     gh.factory<_i210.RegisterBloc>(
       () => _i210.RegisterBloc(gh<_i941.RegisterUseCase>()),
     );
-    gh.factory<_i67.GetAdminDashboardUseCase>(
-      () => _i67.GetAdminDashboardUseCase(gh<_i285.AdminProductRepository>()),
-    );
-    gh.factory<_i67.GetProductsUseCase>(
-      () => _i67.GetProductsUseCase(gh<_i285.AdminProductRepository>()),
-    );
-    gh.factory<_i67.CreateProductUseCase>(
-      () => _i67.CreateProductUseCase(gh<_i285.AdminProductRepository>()),
-    );
-    gh.factory<_i67.CreateGradeUseCase>(
-      () => _i67.CreateGradeUseCase(gh<_i285.AdminProductRepository>()),
-    );
-    gh.factory<_i67.CreateDailyPriceUseCase>(
-      () => _i67.CreateDailyPriceUseCase(gh<_i285.AdminProductRepository>()),
-    );
-    gh.factory<_i67.GetProductsRestUseCase>(
-      () => _i67.GetProductsRestUseCase(gh<_i285.AdminProductRepository>()),
-    );
     gh.factory<_i897.AdminProductsBloc>(
-      () => _i897.AdminProductsBloc(gh<_i67.GetProductsUseCase>()),
+      () => _i897.AdminProductsBloc(gh<_i817.GetProductsUseCase>()),
+    );
+    gh.factory<_i1015.ProductActionBloc>(
+      () => _i1015.ProductActionBloc(
+        gh<_i817.CreateProductUseCase>(),
+        gh<_i817.CreateGradeUseCase>(),
+        gh<_i817.GetProductsRestUseCase>(),
+      ),
     );
     gh.factory<_i1050.MerchantDetailsBloc>(
       () => _i1050.MerchantDetailsBloc(
@@ -200,20 +227,7 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.factory<_i101.AdminDashboardBloc>(
-      () => _i101.AdminDashboardBloc(gh<_i67.GetAdminDashboardUseCase>()),
-    );
-    gh.factory<_i1015.ProductActionBloc>(
-      () => _i1015.ProductActionBloc(
-        gh<_i67.CreateProductUseCase>(),
-        gh<_i67.CreateGradeUseCase>(),
-        gh<_i67.GetProductsRestUseCase>(),
-      ),
-    );
-    gh.factoryParam<_i684.SetGradePriceCubit, _i222.ProductEntity, dynamic>(
-      (product, _) => _i684.SetGradePriceCubit(
-        gh<_i67.CreateDailyPriceUseCase>(),
-        product: product,
-      ),
+      () => _i101.AdminDashboardBloc(gh<_i817.GetAdminDashboardUseCase>()),
     );
     return this;
   }

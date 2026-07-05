@@ -75,194 +75,217 @@ class _RegisterViewState extends State<_RegisterView> {
             orElse: () {},
           );
         },
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Join the Spice Trading Network',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  'Create your professional profile to access real-time inventory and global market data.',
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: AppColors.neutralGray,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                BlocBuilder<RegisterFormCubit, RegisterFormState>(
-                  builder: (context, state) {
-                    return TextField(
-                      onChanged: (v) =>
-                          context.read<RegisterFormCubit>().setName(v),
-                      decoration: InputDecoration(
-                        labelText: 'Full Name',
-                        hintText: 'John Doe',
-                        errorText: state.showErrors ? state.nameError : null,
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 12),
-                TextField(
-                  controller: _emailController,
-                  readOnly: true,
-                  onChanged: (v) =>
-                      context.read<RegisterFormCubit>().setEmail(v),
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'name@company.com',
-                  ),
-                ),
-                const SizedBox(height: 12),
-                BlocBuilder<RegisterFormCubit, RegisterFormState>(
-                  builder: (context, form) {
-                    return TextField(
-                      obscureText: form.obscurePassword,
-                      onChanged: (v) =>
-                          context.read<RegisterFormCubit>().setPassword(v),
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        hintText: 'Create a password',
-                        errorText: form.showErrors ? form.passwordError : null,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            form.obscurePassword
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            size: 18,
-                          ),
-                          onPressed: () => context
-                              .read<RegisterFormCubit>()
-                              .toggleObscurePassword(),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.info,
-                      size: 16,
-                      color: AppColors.neutralGray,
-                    ),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        'Must be at least 8 characters with 1 symbol',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                BlocBuilder<RegisterFormCubit, RegisterFormState>(
-                  builder: (context, form) {
-                    return TextField(
-                      obscureText: form.obscureConfirm,
-                      onChanged: (v) =>
-                          context.read<RegisterFormCubit>().setConfirm(v),
-                      decoration: InputDecoration(
-                        labelText: 'Confirm Password',
-                        hintText: 'Re-enter password',
-                        errorText: form.showErrors ? form.confirmError : null,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            form.obscureConfirm
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            size: 18,
-                          ),
-                          onPressed: () => context
-                              .read<RegisterFormCubit>()
-                              .toggleObscureConfirm(),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const Spacer(),
-                BlocBuilder<RegisterBloc, RegisterState>(
-                  builder: (context, state) {
-                    final isLoading = state.maybeWhen(
-                      loading: () => true,
-                      orElse: () => false,
-                    );
-                    return PrimaryButton(
-                      label: isLoading ? 'Creating Account...' : 'Create Account',
-                      trailingIcon: isLoading ? null : Icons.arrow_forward,
-                      onPressed: isLoading
-                          ? null
-                          : () {
-                              final cubit = context.read<RegisterFormCubit>();
-                              cubit.setShowErrors(true);
-                              if (cubit.state.isValid) {
-                                context.read<RegisterBloc>().add(
-                                      RegisterEvent.registerSubmitted(
-                                        cubit.state.name,
-                                        cubit.state.email,
-                                        cubit.state.password,
-                                      ),
-                                    );
-                              }
-                            },
-                    );
-                  },
-                ),
-                const SizedBox(height: 12),
-                Row(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Already have an account?',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      'Join the Spice Trading Network',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    TextLinkButton(
-                      label: 'Log in',
-                      expanded: false,
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (_) => CheckEmailPage()),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Create your professional profile to access real-time inventory and global market data.',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: AppColors.neutralGray,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    BlocBuilder<RegisterFormCubit, RegisterFormState>(
+                      builder: (context, state) {
+                        return TextField(
+                          onChanged: (v) =>
+                              context.read<RegisterFormCubit>().setName(v),
+                          decoration: InputDecoration(
+                            labelText: 'Full Name',
+                            hintText: 'John Doe',
+                            errorText: state.showErrors ? state.nameError : null,
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    TextField(
+                      controller: _emailController,
+                      readOnly: true,
+                      onChanged: (v) =>
+                          context.read<RegisterFormCubit>().setEmail(v),
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                        hintText: 'name@company.com',
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    BlocBuilder<RegisterFormCubit, RegisterFormState>(
+                      builder: (context, form) {
+                        return TextField(
+                          obscureText: form.obscurePassword,
+                          onChanged: (v) =>
+                              context.read<RegisterFormCubit>().setPassword(v),
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            hintText: 'Create a password',
+                            errorText:
+                                form.showErrors ? form.passwordError : null,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                form.obscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                size: 18,
+                              ),
+                              onPressed: () => context
+                                  .read<RegisterFormCubit>()
+                                  .toggleObscurePassword(),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.info,
+                          size: 16,
+                          color: AppColors.neutralGray,
+                        ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            'Must be at least 8 characters with 1 symbol',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    BlocBuilder<RegisterFormCubit, RegisterFormState>(
+                      builder: (context, form) {
+                        return TextField(
+                          obscureText: form.obscureConfirm,
+                          onChanged: (v) =>
+                              context.read<RegisterFormCubit>().setConfirm(v),
+                          decoration: InputDecoration(
+                            labelText: 'Confirm Password',
+                            hintText: 'Re-enter password',
+                            errorText:
+                                form.showErrors ? form.confirmError : null,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                form.obscureConfirm
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                size: 18,
+                              ),
+                              onPressed: () => context
+                                  .read<RegisterFormCubit>()
+                                  .toggleObscureConfirm(),
+                            ),
+                          ),
                         );
                       },
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
-                RichText(
-                  text: TextSpan(
-                    style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  BlocBuilder<RegisterBloc, RegisterState>(
+                    builder: (context, state) {
+                      final isLoading = state.maybeWhen(
+                        loading: () => true,
+                        orElse: () => false,
+                      );
+                      return PrimaryButton(
+                        label: isLoading
+                            ? 'Creating Account...'
+                            : 'Create Account',
+                        trailingIcon: isLoading ? null : Icons.arrow_forward,
+                        onPressed: isLoading
+                            ? null
+                            : () {
+                                final cubit = context.read<RegisterFormCubit>();
+                                cubit.setShowErrors(true);
+                                if (cubit.state.isValid) {
+                                  context.read<RegisterBloc>().add(
+                                        RegisterEvent.registerSubmitted(
+                                          cubit.state.name,
+                                          cubit.state.email,
+                                          cubit.state.password,
+                                        ),
+                                      );
+                                }
+                              },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
                     children: [
-                      const TextSpan(
-                        text: 'By creating an account, you agree to our ',
+                      Text(
+                        'Already have an account?',
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
-                      TextSpan(
-                        text: 'Terms of Service',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap = () {},
+                      TextLinkButton(
+                        label: 'Log in',
+                        expanded: false,
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => CheckEmailPage(),
+                            ),
+                          );
+                        },
                       ),
-                      const TextSpan(text: ' and '),
-                      TextSpan(
-                        text: 'Privacy Policy',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap = () {},
-                      ),
-                      const TextSpan(text: '.'),
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 8),
+                  RichText(
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.bodySmall,
+                      children: [
+                        const TextSpan(
+                          text: 'By creating an account, you agree to our ',
+                        ),
+                        TextSpan(
+                          text: 'Terms of Service',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                        ),
+                        const TextSpan(text: ' and '),
+                        TextSpan(
+                          text: 'Privacy Policy',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                        ),
+                        const TextSpan(text: '.'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

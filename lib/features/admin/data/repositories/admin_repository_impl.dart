@@ -3,8 +3,8 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/dashboard_entity.dart';
 import '../../domain/entities/product_entity.dart';
-import '../../domain/repositories/admin_product_repository.dart';
-import '../datasources/admin_product_remote_data_source.dart';
+import '../../domain/repositories/admin_repository.dart';
+import '../datasources/admin_remote_data_source.dart';
 import '../models/dashboard_model.dart';
 import '../models/product_model.dart';
 

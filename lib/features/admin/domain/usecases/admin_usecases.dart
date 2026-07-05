@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
 import '../entities/dashboard_entity.dart';
 import '../entities/product_entity.dart';
-import '../repositories/admin_product_repository.dart';
+import '../repositories/admin_repository.dart';
 
 @injectable
 class GetAdminDashboardUseCase {

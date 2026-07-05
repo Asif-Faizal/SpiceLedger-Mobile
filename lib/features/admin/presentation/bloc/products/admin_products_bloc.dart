@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../../../domain/usecases/product_usecases.dart';
+import '../../../domain/usecases/admin_usecases.dart';
 import 'admin_products_event.dart';
 import 'admin_products_state.dart';
 

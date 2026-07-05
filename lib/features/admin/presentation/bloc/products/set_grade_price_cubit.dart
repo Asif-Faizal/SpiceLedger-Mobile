@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/entities/product_entity.dart';
-import '../../../domain/usecases/product_usecases.dart';
+import '../../../domain/usecases/admin_usecases.dart';
 
 part 'set_grade_price_cubit.freezed.dart';
 

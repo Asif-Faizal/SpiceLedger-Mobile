@@ -29,16 +29,16 @@ class ProductPage extends StatelessWidget {
               }
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.currency_rupee),
-            tooltip: 'Set Grade Prices',
-            onPressed: () async {
-              final result = await SetGradePricePage.push(context, product);
-              if (result == true && context.mounted) {
-                Navigator.pop(context);
-              }
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.currency_rupee),
+          //   tooltip: 'Set Grade Prices',
+          //   onPressed: () async {
+          //     final result = await SetGradePricePage.push(context, product);
+          //     if (result == true && context.mounted) {
+          //       Navigator.pop(context);
+          //     }
+          //   },
+          // ),
         ],
       ),
       body: SingleChildScrollView(

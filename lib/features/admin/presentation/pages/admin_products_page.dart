@@ -115,180 +115,187 @@ class _AdminProductsView extends StatelessWidget {
                     if (products.isEmpty) {
                       return const Center(child: Text('No products found.'));
                     }
-                    return ListView.separated(
-                      padding: const EdgeInsets.all(16.0),
-                      itemCount: products.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 16.0),
-                      itemBuilder: (context, index) {
-                        final product = products[index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => ProductPage(product: product),
-                              ),
-                            ).then((_) {
-                              context.read<AdminProductsBloc>().add(
-                                const AdminProductsEvent.refresh(),
-                              );
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              border: Border.all(color: AppColors.outline),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.05),
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
+                    // Wrap the ListView with RefreshIndicator
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<AdminProductsBloc>().add(
+                          const AdminProductsEvent.refresh(),
+                        );
+                        // Wait until loading completes (simple implementation)
+                        await Future.delayed(const Duration(milliseconds: 500));
+                      },
+                      child: ListView.separated(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(16.0),
+                        itemCount: products.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 16.0),
+                        itemBuilder: (context, index) {
+                          final product = products[index];
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ProductPage(product: product),
                                 ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Image Placeholder
-                                      Container(
-                                        width: 60,
-                                        height: 60,
-                                        color: AppColors.lightGray,
-                                        child: const Icon(
-                                          Icons.image_not_supported_outlined,
-                                          color: AppColors.neutralGray,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 16.0),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              product.name,
-                                              style: Theme.of(
-                                                context,
-                                              ).textTheme.titleSmall,
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              product.description,
-                                              style: Theme.of(
-                                                context,
-                                              ).textTheme.bodySmall,
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              product.category.toUpperCase(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.copyWith(
-                                                    color:
-                                                        AppColors.neutralGray,
-                                                    fontSize: 12,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
-                                        ),
-                                        color: product.status == 'active'
-                                            ? AppColors.success.withValues(
-                                                alpha: 0.1,
-                                              )
-                                            : AppColors.danger.withValues(
-                                                alpha: 0.1,
-                                              ),
-                                        child: Text(
-                                          product.status.toUpperCase(),
-                                          style: TextStyle(
-                                            color: product.status == 'active'
-                                                ? AppColors.success
-                                                : AppColors.danger,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                              ).then((_) {
+                                context.read<AdminProductsBloc>().add(
+                                  const AdminProductsEvent.refresh(),
+                                );
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.white,
+                                border: Border.all(color: AppColors.outline),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withAlpha(13),
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 2),
                                   ),
-                                ),
-                                const Divider(
-                                  height: 1,
-                                  color: AppColors.outline,
-                                ),
-                                if (product.grades.isNotEmpty)
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                   Padding(
                                     padding: const EdgeInsets.all(16.0),
-                                    child: Wrap(
-                                      spacing: 8,
-                                      runSpacing: 8,
-                                      children: product.grades
-                                          .take(5)
-                                          .map(
-                                            (grade) => Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 8,
-                                                  ),
-                                              decoration: BoxDecoration(
-                                                color: AppColors.lightGray,
-                                                border: Border.all(
-                                                  color: AppColors.outline,
-                                                ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Image Placeholder
+                                        Container(
+                                          width: 60,
+                                          height: 60,
+                                          color: AppColors.lightGray,
+                                          child: const Icon(
+                                            Icons.image_not_supported_outlined,
+                                            color: AppColors.neutralGray,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 16.0),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                product.name,
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.titleSmall,
                                               ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    grade.name,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyMedium
-                                                        ?.copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                  ),
-                                                  const SizedBox(height: 2),
-                                                  Text(
-                                                    grade.price != null
-                                                        ? '₹${grade.price!.toStringAsFixed(2)}'
-                                                        : 'N/A',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyMedium
-                                                        ?.copyWith(
-                                                          color: AppColors
-                                                              .blueAccent,
-                                                        ),
-                                                  ),
-                                                ],
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                product.description,
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.bodySmall,
                                               ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                product.category.toUpperCase(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium
+                                                    ?.copyWith(
+                                                      color:
+                                                          AppColors.neutralGray,
+                                                      fontSize: 12,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                            vertical: 4,
+                                          ),
+                                          color: product.status == 'active'
+                                              ? AppColors.success.withAlpha(26)
+                                              : AppColors.danger.withAlpha(26),
+                                          child: Text(
+                                            product.status.toUpperCase(),
+                                            style: TextStyle(
+                                              color: product.status == 'active'
+                                                  ? AppColors.success
+                                                  : AppColors.danger,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          )
-                                          .toList(),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                              ],
+                                  const Divider(
+                                    height: 1,
+                                    color: AppColors.outline,
+                                  ),
+                                  if (product.grades.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Wrap(
+                                        spacing: 8,
+                                        runSpacing: 8,
+                                        children: product.grades
+                                            .take(5)
+                                            .map(
+                                              (grade) => Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 8,
+                                                    ),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors.lightGray,
+                                                  border: Border.all(
+                                                    color: AppColors.outline,
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      grade.name,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.copyWith(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                    const SizedBox(height: 2),
+                                                    Text(
+                                                      grade.price != null
+                                                          ? '₹${grade.price!.toStringAsFixed(2)}'
+                                                          : 'N/A',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium
+                                                          ?.copyWith(
+                                                            color: AppColors
+                                                                .blueAccent,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     );
                   },
                 );

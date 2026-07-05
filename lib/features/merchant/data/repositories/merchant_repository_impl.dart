@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
+import '../../domain/entities/merchant_dashboard_entity.dart';
 import '../../domain/entities/merchant_entity.dart';
 import '../../domain/repositories/merchant_repository.dart';
 import '../datasources/merchant_remote_data_source.dart';
+import '../models/merchant_dashboard_model.dart';
 import '../models/merchant_model.dart';
 
 @LazySingleton(as: MerchantRepository)
@@ -34,6 +36,18 @@ class MerchantRepositoryImpl implements MerchantRepository {
       return Right(savedModel.toEntity());
     } on Failure catch (e) {
       return Left(e);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MerchantDashboardEntity>> getDashboard({
+    int days = 7,
+  }) async {
+    try {
+      final model = await remoteDataSource.getDashboard(days: days);
+      return Right(model.toEntity());
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
