@@ -9,6 +9,7 @@ class MerchantDashboardState with _$MerchantDashboardState {
   const factory MerchantDashboardState.loading() = _Loading;
   const factory MerchantDashboardState.loaded({
     required MerchantDashboardEntity dashboard,
+    required List<MerchantTransactionEntity> recentTransactions,
     required int days,
   }) = _Loaded;
   const factory MerchantDashboardState.error({

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'merchant_dashboard_state.dart';
+part of 'merchant_transactions_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'merchant_dashboard_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MerchantDashboardState {
+mixin _$MerchantTransactionsState {
 
 
 
@@ -20,7 +20,7 @@ mixin _$MerchantDashboardState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MerchantDashboardState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MerchantTransactionsState);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MerchantDashboardState()';
+  return 'MerchantTransactionsState()';
 }
 
 
 }
 
 /// @nodoc
-class $MerchantDashboardStateCopyWith<$Res>  {
-$MerchantDashboardStateCopyWith(MerchantDashboardState _, $Res Function(MerchantDashboardState) __);
+class $MerchantTransactionsStateCopyWith<$Res>  {
+$MerchantTransactionsStateCopyWith(MerchantTransactionsState _, $Res Function(MerchantTransactionsState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [MerchantDashboardState].
-extension MerchantDashboardStatePatterns on MerchantDashboardState {
+/// Adds pattern-matching-related methods to [MerchantTransactionsState].
+extension MerchantTransactionsStatePatterns on MerchantTransactionsState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( MerchantDashboardEntity dashboard,  List<MerchantTransactionEntity> recentTransactions,  int days)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<MerchantTransactionEntity> transactions,  List<MerchantPositionEntity> positions,  String? selectedGradeId,  bool hasMore,  bool isLoadingMore)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.dashboard,_that.recentTransactions,_that.days);case _Error() when error != null:
+return loaded(_that.transactions,_that.positions,_that.selectedGradeId,_that.hasMore,_that.isLoadingMore);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( MerchantDashboardEntity dashboard,  List<MerchantTransactionEntity> recentTransactions,  int days)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<MerchantTransactionEntity> transactions,  List<MerchantPositionEntity> positions,  String? selectedGradeId,  bool hasMore,  bool isLoadingMore)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.dashboard,_that.recentTransactions,_that.days);case _Error():
+return loaded(_that.transactions,_that.positions,_that.selectedGradeId,_that.hasMore,_that.isLoadingMore);case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( MerchantDashboardEntity dashboard,  List<MerchantTransactionEntity> recentTransactions,  int days)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<MerchantTransactionEntity> transactions,  List<MerchantPositionEntity> positions,  String? selectedGradeId,  bool hasMore,  bool isLoadingMore)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.dashboard,_that.recentTransactions,_that.days);case _Error() when error != null:
+return loaded(_that.transactions,_that.positions,_that.selectedGradeId,_that.hasMore,_that.isLoadingMore);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -192,7 +192,7 @@ return error(_that.message);case _:
 /// @nodoc
 
 
-class _Initial implements MerchantDashboardState {
+class _Initial implements MerchantTransactionsState {
   const _Initial();
   
 
@@ -212,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MerchantDashboardState.initial()';
+  return 'MerchantTransactionsState.initial()';
 }
 
 
@@ -224,7 +224,7 @@ String toString() {
 /// @nodoc
 
 
-class _Loading implements MerchantDashboardState {
+class _Loading implements MerchantTransactionsState {
   const _Loading();
   
 
@@ -244,7 +244,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MerchantDashboardState.loading()';
+  return 'MerchantTransactionsState.loading()';
 }
 
 
@@ -256,21 +256,29 @@ String toString() {
 /// @nodoc
 
 
-class _Loaded implements MerchantDashboardState {
-  const _Loaded({required this.dashboard, required final  List<MerchantTransactionEntity> recentTransactions, required this.days}): _recentTransactions = recentTransactions;
+class _Loaded implements MerchantTransactionsState {
+  const _Loaded({required final  List<MerchantTransactionEntity> transactions, required final  List<MerchantPositionEntity> positions, this.selectedGradeId, required this.hasMore, required this.isLoadingMore}): _transactions = transactions,_positions = positions;
   
 
- final  MerchantDashboardEntity dashboard;
- final  List<MerchantTransactionEntity> _recentTransactions;
- List<MerchantTransactionEntity> get recentTransactions {
-  if (_recentTransactions is EqualUnmodifiableListView) return _recentTransactions;
+ final  List<MerchantTransactionEntity> _transactions;
+ List<MerchantTransactionEntity> get transactions {
+  if (_transactions is EqualUnmodifiableListView) return _transactions;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_recentTransactions);
+  return EqualUnmodifiableListView(_transactions);
 }
 
- final  int days;
+ final  List<MerchantPositionEntity> _positions;
+ List<MerchantPositionEntity> get positions {
+  if (_positions is EqualUnmodifiableListView) return _positions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_positions);
+}
 
-/// Create a copy of MerchantDashboardState
+ final  String? selectedGradeId;
+ final  bool hasMore;
+ final  bool isLoadingMore;
+
+/// Create a copy of MerchantTransactionsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -280,27 +288,27 @@ _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&(identical(other.dashboard, dashboard) || other.dashboard == dashboard)&&const DeepCollectionEquality().equals(other._recentTransactions, _recentTransactions)&&(identical(other.days, days) || other.days == days));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._transactions, _transactions)&&const DeepCollectionEquality().equals(other._positions, _positions)&&(identical(other.selectedGradeId, selectedGradeId) || other.selectedGradeId == selectedGradeId)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,dashboard,const DeepCollectionEquality().hash(_recentTransactions),days);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_transactions),const DeepCollectionEquality().hash(_positions),selectedGradeId,hasMore,isLoadingMore);
 
 @override
 String toString() {
-  return 'MerchantDashboardState.loaded(dashboard: $dashboard, recentTransactions: $recentTransactions, days: $days)';
+  return 'MerchantTransactionsState.loaded(transactions: $transactions, positions: $positions, selectedGradeId: $selectedGradeId, hasMore: $hasMore, isLoadingMore: $isLoadingMore)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$LoadedCopyWith<$Res> implements $MerchantDashboardStateCopyWith<$Res> {
+abstract mixin class _$LoadedCopyWith<$Res> implements $MerchantTransactionsStateCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
 @useResult
 $Res call({
- MerchantDashboardEntity dashboard, List<MerchantTransactionEntity> recentTransactions, int days
+ List<MerchantTransactionEntity> transactions, List<MerchantPositionEntity> positions, String? selectedGradeId, bool hasMore, bool isLoadingMore
 });
 
 
@@ -315,14 +323,16 @@ class __$LoadedCopyWithImpl<$Res>
   final _Loaded _self;
   final $Res Function(_Loaded) _then;
 
-/// Create a copy of MerchantDashboardState
+/// Create a copy of MerchantTransactionsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? dashboard = null,Object? recentTransactions = null,Object? days = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? transactions = null,Object? positions = null,Object? selectedGradeId = freezed,Object? hasMore = null,Object? isLoadingMore = null,}) {
   return _then(_Loaded(
-dashboard: null == dashboard ? _self.dashboard : dashboard // ignore: cast_nullable_to_non_nullable
-as MerchantDashboardEntity,recentTransactions: null == recentTransactions ? _self._recentTransactions : recentTransactions // ignore: cast_nullable_to_non_nullable
-as List<MerchantTransactionEntity>,days: null == days ? _self.days : days // ignore: cast_nullable_to_non_nullable
-as int,
+transactions: null == transactions ? _self._transactions : transactions // ignore: cast_nullable_to_non_nullable
+as List<MerchantTransactionEntity>,positions: null == positions ? _self._positions : positions // ignore: cast_nullable_to_non_nullable
+as List<MerchantPositionEntity>,selectedGradeId: freezed == selectedGradeId ? _self.selectedGradeId : selectedGradeId // ignore: cast_nullable_to_non_nullable
+as String?,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -332,13 +342,13 @@ as int,
 /// @nodoc
 
 
-class _Error implements MerchantDashboardState {
+class _Error implements MerchantTransactionsState {
   const _Error({required this.message});
   
 
  final  String message;
 
-/// Create a copy of MerchantDashboardState
+/// Create a copy of MerchantTransactionsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -357,14 +367,14 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'MerchantDashboardState.error(message: $message)';
+  return 'MerchantTransactionsState.error(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $MerchantDashboardStateCopyWith<$Res> {
+abstract mixin class _$ErrorCopyWith<$Res> implements $MerchantTransactionsStateCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
 @useResult
 $Res call({
@@ -383,7 +393,7 @@ class __$ErrorCopyWithImpl<$Res>
   final _Error _self;
   final $Res Function(_Error) _then;
 
-/// Create a copy of MerchantDashboardState
+/// Create a copy of MerchantTransactionsState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(_Error(

@@ -59,12 +59,18 @@ import '../../features/merchant/domain/usecases/get_merchant_dashboard_usecase.d
     as _i702;
 import '../../features/merchant/domain/usecases/get_merchant_details_usecase.dart'
     as _i814;
+import '../../features/merchant/domain/usecases/merchant_market_usecases.dart'
+    as _i214;
 import '../../features/merchant/domain/usecases/save_merchant_details_usecase.dart'
     as _i144;
 import '../../features/merchant/presentation/bloc/merchant_dashboard/merchant_dashboard_bloc.dart'
     as _i353;
 import '../../features/merchant/presentation/bloc/merchant_details_bloc.dart'
     as _i1050;
+import '../../features/merchant/presentation/bloc/positions/merchant_positions_bloc.dart'
+    as _i909;
+import '../../features/merchant/presentation/bloc/transactions/merchant_transactions_bloc.dart'
+    as _i472;
 import '../../features/merchant/presentation/cubit/merchant_navigation_cubit.dart'
     as _i461;
 import '../../features/onboarding/presentation/bloc/onboarding_cubit.dart'
@@ -203,12 +209,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i702.GetMerchantDashboardUseCase>(
       () => _i702.GetMerchantDashboardUseCase(gh<_i90.MerchantRepository>()),
     );
-    gh.factory<_i353.MerchantDashboardBloc>(
+    gh.factory<_i214.GetMerchantPositionsUseCase>(
+      () => _i214.GetMerchantPositionsUseCase(gh<_i90.MerchantRepository>()),
+    );
+    gh.factory<_i214.GetMerchantGradePositionUseCase>(
       () =>
-          _i353.MerchantDashboardBloc(gh<_i702.GetMerchantDashboardUseCase>()),
+          _i214.GetMerchantGradePositionUseCase(gh<_i90.MerchantRepository>()),
+    );
+    gh.factory<_i214.ListMerchantTransactionsUseCase>(
+      () =>
+          _i214.ListMerchantTransactionsUseCase(gh<_i90.MerchantRepository>()),
+    );
+    gh.factory<_i214.ListMerchantGradeTransactionsUseCase>(
+      () => _i214.ListMerchantGradeTransactionsUseCase(
+        gh<_i90.MerchantRepository>(),
+      ),
     );
     gh.factory<_i210.RegisterBloc>(
       () => _i210.RegisterBloc(gh<_i941.RegisterUseCase>()),
+    );
+    gh.factory<_i909.MerchantPositionsBloc>(
+      () =>
+          _i909.MerchantPositionsBloc(gh<_i214.GetMerchantPositionsUseCase>()),
     );
     gh.factory<_i897.AdminProductsBloc>(
       () => _i897.AdminProductsBloc(gh<_i817.GetProductsUseCase>()),
@@ -228,6 +250,19 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i101.AdminDashboardBloc>(
       () => _i101.AdminDashboardBloc(gh<_i817.GetAdminDashboardUseCase>()),
+    );
+    gh.factory<_i472.MerchantTransactionsBloc>(
+      () => _i472.MerchantTransactionsBloc(
+        gh<_i214.GetMerchantPositionsUseCase>(),
+        gh<_i214.ListMerchantTransactionsUseCase>(),
+        gh<_i214.ListMerchantGradeTransactionsUseCase>(),
+      ),
+    );
+    gh.factory<_i353.MerchantDashboardBloc>(
+      () => _i353.MerchantDashboardBloc(
+        gh<_i702.GetMerchantDashboardUseCase>(),
+        gh<_i214.ListMerchantTransactionsUseCase>(),
+      ),
     );
     return this;
   }

@@ -6,11 +6,23 @@ import '../../../../core/network/error_handler.dart';
 import '../../../../core/network/models/api_response.dart';
 import '../models/merchant_dashboard_model.dart';
 import '../models/merchant_model.dart';
+import '../models/merchant_position_model.dart';
 
 abstract class MerchantRemoteDataSource {
   Future<MerchantModel?> getMerchantDetails();
   Future<MerchantModel> saveMerchantDetails(MerchantModel model);
   Future<MerchantDashboardModel> getDashboard({int days});
+  Future<List<MerchantPositionModel>> getPositions();
+  Future<MerchantPositionModel> getGradePosition(String spiceGradeId);
+  Future<List<MerchantTransactionModel>> listTransactions({
+    int skip,
+    int take,
+  });
+  Future<List<MerchantTransactionModel>> listGradeTransactions({
+    required String spiceGradeId,
+    int skip,
+    int take,
+  });
 }
 
 @LazySingleton(as: MerchantRemoteDataSource)
@@ -163,5 +175,167 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     if (data == null) throw Exception('Failed to load merchant dashboard data');
 
     return MerchantDashboardModel.fromJson(Map<String, dynamic>.from(data));
+  }
+
+  @override
+  Future<List<MerchantPositionModel>> getPositions() async {
+    const String query = r'''
+      query GetPositions {
+        getPositions {
+          userId
+          spiceGradeId
+          totalQty
+          totalCost
+          avgCost
+          todayPrice
+          realizedPnL
+          unrealizedPnL
+          updatedAt
+        }
+      }
+    ''';
+
+    final result = await _graphQLClient.query(
+      QueryOptions(
+        document: gql(query),
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    final data = result.data?['getPositions'] as List<dynamic>?;
+    if (data == null) throw Exception('Failed to load positions');
+
+    return data
+        .map((e) => MerchantPositionModel.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+  }
+
+  @override
+  Future<MerchantPositionModel> getGradePosition(String spiceGradeId) async {
+    const String query = r'''
+      query GetGradePosition($spiceGradeId: ID!) {
+        getGradePosition(spiceGradeId: $spiceGradeId) {
+          userId
+          spiceGradeId
+          totalQty
+          totalCost
+          avgCost
+          todayPrice
+          realizedPnL
+          unrealizedPnL
+          updatedAt
+        }
+      }
+    ''';
+
+    final result = await _graphQLClient.query(
+      QueryOptions(
+        document: gql(query),
+        variables: {'spiceGradeId': spiceGradeId},
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    final data = result.data?['getGradePosition'];
+    if (data == null) throw Exception('Failed to load grade position');
+
+    return MerchantPositionModel.fromJson(Map<String, dynamic>.from(data));
+  }
+
+  @override
+  Future<List<MerchantTransactionModel>> listTransactions({
+    int skip = 0,
+    int take = 20,
+  }) async {
+    const String query = r'''
+      query ListTransactions($skip: Int, $take: Int) {
+        listTransactions(skip: $skip, take: $take) {
+          id
+          userId
+          spiceGradeId
+          type
+          quantity
+          price
+          tradeDate
+          createdAt
+        }
+      }
+    ''';
+
+    final result = await _graphQLClient.query(
+      QueryOptions(
+        document: gql(query),
+        variables: {'skip': skip, 'take': take},
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    final data = result.data?['listTransactions'] as List<dynamic>?;
+    if (data == null) throw Exception('Failed to load transactions');
+
+    return data
+        .map(
+          (e) => MerchantTransactionModel.fromJson(Map<String, dynamic>.from(e)),
+        )
+        .toList();
+  }
+
+  @override
+  Future<List<MerchantTransactionModel>> listGradeTransactions({
+    required String spiceGradeId,
+    int skip = 0,
+    int take = 20,
+  }) async {
+    const String query = r'''
+      query ListGradeTransactions($spiceGradeId: ID!, $skip: Int, $take: Int) {
+        listGradeTransactions(spiceGradeId: $spiceGradeId, skip: $skip, take: $take) {
+          id
+          userId
+          spiceGradeId
+          type
+          quantity
+          price
+          tradeDate
+          createdAt
+        }
+      }
+    ''';
+
+    final result = await _graphQLClient.query(
+      QueryOptions(
+        document: gql(query),
+        variables: {
+          'spiceGradeId': spiceGradeId,
+          'skip': skip,
+          'take': take,
+        },
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    final data = result.data?['listGradeTransactions'] as List<dynamic>?;
+    if (data == null) throw Exception('Failed to load grade transactions');
+
+    return data
+        .map(
+          (e) => MerchantTransactionModel.fromJson(Map<String, dynamic>.from(e)),
+        )
+        .toList();
   }
 }

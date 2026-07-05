@@ -6,15 +6,27 @@ import '../../domain/entities/merchant_dashboard_entity.dart';
 import '../bloc/merchant_dashboard/merchant_dashboard_bloc.dart';
 import '../bloc/merchant_dashboard/merchant_dashboard_event.dart';
 import '../bloc/merchant_dashboard/merchant_dashboard_state.dart';
+import '../bloc/positions/merchant_positions_bloc.dart';
+import '../bloc/positions/merchant_positions_event.dart';
+import '../bloc/positions/merchant_positions_state.dart';
+import '../widgets/merchant_market_widgets.dart';
 
 class MerchantDashboardPage extends StatelessWidget {
   const MerchantDashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<MerchantDashboardBloc>()
-        ..add(const MerchantDashboardEvent.fetchDashboard()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => getIt<MerchantDashboardBloc>()
+            ..add(const MerchantDashboardEvent.fetchDashboard()),
+        ),
+        BlocProvider(
+          create: (_) => getIt<MerchantPositionsBloc>()
+            ..add(const MerchantPositionsEvent.fetchPositions()),
+        ),
+      ],
       child: const _MerchantDashboardView(),
     );
   }
@@ -36,6 +48,9 @@ class _MerchantDashboardView extends StatelessWidget {
               context.read<MerchantDashboardBloc>().add(
                     const MerchantDashboardEvent.fetchDashboard(),
                   );
+              context.read<MerchantPositionsBloc>().add(
+                    const MerchantPositionsEvent.fetchPositions(),
+                  );
             },
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -43,12 +58,12 @@ class _MerchantDashboardView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _SectionTitle('Portfolio Summary'),
+                  const _SectionTitle('Portfolio Summary'),
                   const SizedBox(height: 16),
                   _SummaryGrid(summary: s.dashboard.summary),
                   const SizedBox(height: 24),
                   if (s.dashboard.insights.isNotEmpty) ...[
-                    _SectionTitle('Insights'),
+                    const _SectionTitle('Insights'),
                     const SizedBox(height: 16),
                     ...s.dashboard.insights.map(
                       (insight) => Padding(
@@ -58,19 +73,13 @@ class _MerchantDashboardView extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                   ],
-                  _SectionTitle('Holdings'),
+                  const _SectionTitle('Open Positions'),
                   const SizedBox(height: 16),
-                  if (s.dashboard.holdings.isEmpty)
-                    const _EmptyState('No open positions')
-                  else
-                    ...s.dashboard.holdings.map(
-                      (holding) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: _HoldingCard(holding: holding),
-                      ),
-                    ),
+                  _PositionsSection(
+                    gradeLabels: _gradeLabelsFromDashboard(s.dashboard),
+                  ),
                   const SizedBox(height: 24),
-                  _SectionTitle('Portfolio Mix'),
+                  const _SectionTitle('Portfolio Mix'),
                   const SizedBox(height: 16),
                   if (s.dashboard.portfolioMix.isEmpty)
                     const _EmptyState('No portfolio data')
@@ -82,7 +91,7 @@ class _MerchantDashboardView extends StatelessWidget {
                       ),
                     ),
                   const SizedBox(height: 24),
-                  _SectionTitle('Price Movers'),
+                  const _SectionTitle('Price Movers'),
                   const SizedBox(height: 16),
                   if (s.dashboard.movers.isEmpty)
                     const _EmptyState('No price data')
@@ -94,15 +103,20 @@ class _MerchantDashboardView extends StatelessWidget {
                       ),
                     ),
                   const SizedBox(height: 24),
-                  _SectionTitle('Recent Transactions'),
+                  const _SectionTitle('Recent Transactions'),
                   const SizedBox(height: 16),
-                  if (s.dashboard.recentTransactions.isEmpty)
+                  if (s.recentTransactions.isEmpty)
                     const _EmptyState('No recent activity')
                   else
-                    ...s.dashboard.recentTransactions.map(
+                    ...s.recentTransactions.map(
                       (txn) => Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: _TransactionCard(txn: txn),
+                        child: MerchantTransactionCard(
+                          txn: txn,
+                          gradeLabel: _gradeLabelsFromDashboard(
+                            s.dashboard,
+                          )[txn.spiceGradeId],
+                        ),
                       ),
                     ),
                   const SizedBox(height: 24),
@@ -145,6 +159,54 @@ class _MerchantDashboardView extends StatelessWidget {
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+}
+
+Map<String, String> _gradeLabelsFromDashboard(MerchantDashboardEntity dashboard) {
+  return {
+    for (final h in dashboard.holdings)
+      h.spiceGradeId: '${h.productName} — ${h.gradeName}',
+  };
+}
+
+class _PositionsSection extends StatelessWidget {
+  final Map<String, String> gradeLabels;
+
+  const _PositionsSection({required this.gradeLabels});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MerchantPositionsBloc, MerchantPositionsState>(
+      builder: (context, state) {
+        return state.when(
+          initial: () => const SizedBox.shrink(),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (message) => Text('Error: $message'),
+          loaded: (positions) {
+            if (positions.isEmpty) {
+              return const _EmptyState('No open positions');
+            }
+            return Column(
+              children: positions.map((position) {
+                final label = gradeLabels[position.spiceGradeId];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: MerchantPositionCard(
+                    position: position,
+                    label: label,
+                    onTap: () => openGradePositionDetail(
+                      context,
+                      position.spiceGradeId,
+                      label: label,
+                    ),
+                  ),
+                );
+              }).toList(),
+            );
+          },
         );
       },
     );
@@ -268,8 +330,8 @@ class _StatCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.05),
-        border: Border.all(color: color.withOpacity(0.2)),
+        color: color.withValues(alpha: 0.05),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -329,8 +391,8 @@ class _InsightCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: _severityColor.withOpacity(0.05),
-        border: Border.all(color: _severityColor.withOpacity(0.2)),
+        color: _severityColor.withValues(alpha: 0.05),
+        border: Border.all(color: _severityColor.withValues(alpha: 0.2)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -346,61 +408,6 @@ class _InsightCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 13,
               color: AppColors.neutralGray,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _HoldingCard extends StatelessWidget {
-  final MerchantHoldingEntity holding;
-
-  const _HoldingCard({required this.holding});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  '${holding.productName} — ${holding.gradeName}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              Text(
-                '${holding.weightPercent}%',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.blueAccent,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('${holding.quantity.toStringAsFixed(1)} kg'),
-              Text('₹${holding.marketValue.toStringAsFixed(0)}'),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Unrealized: ₹${holding.unrealizedPnL.toStringAsFixed(0)} (${holding.unrealizedPnLPercent.toStringAsFixed(1)}%)',
-            style: TextStyle(
-              fontSize: 12,
-              color: holding.unrealizedPnL >= 0 ? Colors.green : Colors.red,
             ),
           ),
         ],
@@ -508,55 +515,6 @@ class _MoverCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: _directionColor,
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _TransactionCard extends StatelessWidget {
-  final MerchantTransactionEntity txn;
-
-  const _TransactionCard({required this.txn});
-
-  @override
-  Widget build(BuildContext context) {
-    final isBuy = txn.type == 'BUY';
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            isBuy ? Icons.add_circle_outline : Icons.remove_circle_outline,
-            color: isBuy ? Colors.green : Colors.red,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${txn.type} ${txn.quantity.toStringAsFixed(1)} kg',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  txn.tradeDate,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.neutralGray,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Text(
-            '₹${txn.price.toStringAsFixed(0)}',
-            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ],
       ),
