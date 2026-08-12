@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di/injection.dart';
-import '../../domain/entities/merchant_position_entity.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../domain/utils/merchant_market_utils.dart';
 import '../bloc/transactions/merchant_transactions_bloc.dart';
 import '../bloc/transactions/merchant_transactions_event.dart';
 import '../bloc/transactions/merchant_transactions_state.dart';
 import '../widgets/merchant_market_widgets.dart';
+import '../widgets/merchant_transaction_filter_sheet.dart';
 
 class MerchantTransactionsPage extends StatelessWidget {
   const MerchantTransactionsPage({super.key});
@@ -31,137 +33,141 @@ class _MerchantTransactionsView extends StatelessWidget {
           initial: (_) => const SizedBox.shrink(),
           loading: (_) => const Center(child: CircularProgressIndicator()),
           error: (e) => Center(child: Text('Error: ${e.message}')),
-          loaded: (s) => RefreshIndicator(
-            onRefresh: () async {
-              context.read<MerchantTransactionsBloc>().add(
-                    const MerchantTransactionsEvent.fetch(),
-                  );
-            },
-            child: CustomScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Filter by grade',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        _GradeFilterChips(
-                          positions: s.positions,
-                          selectedGradeId: s.selectedGradeId,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                if (s.transactions.isEmpty)
-                  const SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Center(child: Text('No transactions found')),
-                  )
-                else
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          if (index == s.transactions.length) {
-                            if (s.hasMore && !s.isLoadingMore) {
-                              context.read<MerchantTransactionsBloc>().add(
-                                    const MerchantTransactionsEvent.loadMore(),
-                                  );
-                            }
-                            return s.isLoadingMore
-                                ? const Padding(
-                                    padding: EdgeInsets.all(16),
-                                    child: Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                  )
-                                : const SizedBox(height: 24);
-                          }
+          loaded: (s) {
+            final labels = GradeLabelLookup.fromProducts(s.products);
 
-                          final txn = s.transactions[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: MerchantTransactionCard(txn: txn),
-                          );
-                        },
-                        childCount: s.transactions.length + 1,
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<MerchantTransactionsBloc>().add(
+                      const MerchantTransactionsEvent.fetch(),
+                    );
+              },
+              child: CustomScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton.icon(
+                                  onPressed: () async {
+                                    final filter =
+                                        await showMerchantTransactionFilterSheet(
+                                      context: context,
+                                      products: s.products,
+                                      initialFilter: s.filter,
+                                    );
+                                    if (!context.mounted || filter == null) {
+                                      return;
+                                    }
+                                    if (filter.isActive) {
+                                      context
+                                          .read<MerchantTransactionsBloc>()
+                                          .add(
+                                            MerchantTransactionsEvent
+                                                .applyFilter(filter),
+                                          );
+                                    } else {
+                                      context
+                                          .read<MerchantTransactionsBloc>()
+                                          .add(
+                                            const MerchantTransactionsEvent
+                                                .clearFilter(),
+                                          );
+                                    }
+                                  },
+                                  icon: const Icon(Icons.tune, size: 18),
+                                  label: const Text('Filters & sort'),
+                                ),
+                              ),
+                              if (s.filter.isActive) ...[
+                                const SizedBox(width: 8),
+                                IconButton(
+                                  tooltip: 'Clear filters',
+                                  onPressed: () {
+                                    context.read<MerchantTransactionsBloc>().add(
+                                          const MerchantTransactionsEvent
+                                              .clearFilter(),
+                                        );
+                                  },
+                                  icon: const Icon(Icons.close),
+                                ),
+                              ],
+                            ],
+                          ),
+                          if (s.filter.isActive) ...[
+                            const SizedBox(height: 8),
+                            Text(
+                              s.filter.summaryLabel,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: AppColors.neutralGray,
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 4),
+                          Text(
+                            '${s.displayedTransactions.length} transaction(s)',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: AppColors.neutralGray,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+                  if (s.displayedTransactions.isEmpty)
+                    const SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Center(child: Text('No transactions found')),
+                    )
+                  else
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            if (index == s.displayedTransactions.length) {
+                              if (s.hasMore && !s.isLoadingMore) {
+                                context.read<MerchantTransactionsBloc>().add(
+                                      const MerchantTransactionsEvent.loadMore(),
+                                    );
+                              }
+                              return s.isLoadingMore
+                                  ? const Padding(
+                                      padding: EdgeInsets.all(16),
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    )
+                                  : const SizedBox(height: 24);
+                            }
 
-class _GradeFilterChips extends StatelessWidget {
-  final List<MerchantPositionEntity> positions;
-  final String? selectedGradeId;
-
-  const _GradeFilterChips({
-    required this.positions,
-    required this.selectedGradeId,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: FilterChip(
-              label: const Text('All'),
-              selected: selectedGradeId == null,
-              onSelected: (_) {
-                context.read<MerchantTransactionsBloc>().add(
-                      const MerchantTransactionsEvent.filterByGrade(null),
-                    );
-              },
-            ),
-          ),
-          ...positions.map((position) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: FilterChip(
-                label: Text(shortGradeId(position.spiceGradeId)),
-                selected: selectedGradeId == position.spiceGradeId,
-                onSelected: (_) {
-                  context.read<MerchantTransactionsBloc>().add(
-                        MerchantTransactionsEvent.filterByGrade(
-                          position.spiceGradeId,
+                            final txn = s.displayedTransactions[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: MerchantTransactionCard(
+                                txn: txn,
+                                gradeLabel: labels.labelFor(txn.spiceGradeId),
+                              ),
+                            );
+                          },
+                          childCount: s.displayedTransactions.length + 1,
                         ),
-                      );
-                },
+                      ),
+                    ),
+                ],
               ),
             );
-          }),
-          if (selectedGradeId != null)
-            TextButton.icon(
-              onPressed: () => openGradePositionDetail(
-                context,
-                selectedGradeId!,
-              ),
-              icon: const Icon(Icons.info_outline, size: 16),
-              label: const Text('Position detail'),
-            ),
-        ],
-      ),
+          },
+        );
+      },
     );
   }
 }

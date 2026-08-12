@@ -1,9 +1,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
+import '../entities/catalog_entity.dart';
 import '../entities/merchant_dashboard_entity.dart';
 import '../entities/merchant_position_entity.dart';
 import '../repositories/merchant_repository.dart';
+
+@injectable
+class GetMerchantProductsUseCase {
+  final MerchantRepository repository;
+
+  GetMerchantProductsUseCase(this.repository);
+
+  Future<Either<Failure, List<MerchantProductEntity>>> call({
+    String? date,
+    String? search,
+  }) {
+    return repository.getProducts(date: date, search: search);
+  }
+}
 
 @injectable
 class GetMerchantPositionsUseCase {

@@ -63,6 +63,8 @@ import '../../features/merchant/domain/usecases/merchant_market_usecases.dart'
     as _i214;
 import '../../features/merchant/domain/usecases/save_merchant_details_usecase.dart'
     as _i144;
+import '../../features/merchant/presentation/bloc/inventory/merchant_inventory_bloc.dart'
+    as _i184;
 import '../../features/merchant/presentation/bloc/merchant_dashboard/merchant_dashboard_bloc.dart'
     as _i353;
 import '../../features/merchant/presentation/bloc/merchant_details_bloc.dart'
@@ -209,6 +211,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i702.GetMerchantDashboardUseCase>(
       () => _i702.GetMerchantDashboardUseCase(gh<_i90.MerchantRepository>()),
     );
+    gh.factory<_i214.GetMerchantProductsUseCase>(
+      () => _i214.GetMerchantProductsUseCase(gh<_i90.MerchantRepository>()),
+    );
     gh.factory<_i214.GetMerchantPositionsUseCase>(
       () => _i214.GetMerchantPositionsUseCase(gh<_i90.MerchantRepository>()),
     );
@@ -248,20 +253,26 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i144.SaveMerchantDetailsUseCase>(),
       ),
     );
-    gh.factory<_i101.AdminDashboardBloc>(
-      () => _i101.AdminDashboardBloc(gh<_i817.GetAdminDashboardUseCase>()),
-    );
     gh.factory<_i472.MerchantTransactionsBloc>(
       () => _i472.MerchantTransactionsBloc(
-        gh<_i214.GetMerchantPositionsUseCase>(),
+        gh<_i214.GetMerchantProductsUseCase>(),
         gh<_i214.ListMerchantTransactionsUseCase>(),
         gh<_i214.ListMerchantGradeTransactionsUseCase>(),
       ),
+    );
+    gh.factory<_i101.AdminDashboardBloc>(
+      () => _i101.AdminDashboardBloc(gh<_i817.GetAdminDashboardUseCase>()),
     );
     gh.factory<_i353.MerchantDashboardBloc>(
       () => _i353.MerchantDashboardBloc(
         gh<_i702.GetMerchantDashboardUseCase>(),
         gh<_i214.ListMerchantTransactionsUseCase>(),
+      ),
+    );
+    gh.factory<_i184.MerchantInventoryBloc>(
+      () => _i184.MerchantInventoryBloc(
+        gh<_i214.GetMerchantProductsUseCase>(),
+        gh<_i214.GetMerchantPositionsUseCase>(),
       ),
     );
     return this;

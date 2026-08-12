@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'merchant_transactions_state.dart';
+part of 'merchant_inventory_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'merchant_transactions_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MerchantTransactionsState {
+mixin _$MerchantInventoryState {
 
 
 
@@ -20,7 +20,7 @@ mixin _$MerchantTransactionsState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MerchantTransactionsState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MerchantInventoryState);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MerchantTransactionsState()';
+  return 'MerchantInventoryState()';
 }
 
 
 }
 
 /// @nodoc
-class $MerchantTransactionsStateCopyWith<$Res>  {
-$MerchantTransactionsStateCopyWith(MerchantTransactionsState _, $Res Function(MerchantTransactionsState) __);
+class $MerchantInventoryStateCopyWith<$Res>  {
+$MerchantInventoryStateCopyWith(MerchantInventoryState _, $Res Function(MerchantInventoryState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [MerchantTransactionsState].
-extension MerchantTransactionsStatePatterns on MerchantTransactionsState {
+/// Adds pattern-matching-related methods to [MerchantInventoryState].
+extension MerchantInventoryStatePatterns on MerchantInventoryState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<MerchantProductEntity> products,  List<MerchantTransactionEntity> allTransactions,  List<MerchantTransactionEntity> displayedTransactions,  TransactionFilterEntity filter,  bool hasMore,  bool isLoadingMore)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<InventoryProductItemEntity> items)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.products,_that.allTransactions,_that.displayedTransactions,_that.filter,_that.hasMore,_that.isLoadingMore);case _Error() when error != null:
+return loaded(_that.items);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<MerchantProductEntity> products,  List<MerchantTransactionEntity> allTransactions,  List<MerchantTransactionEntity> displayedTransactions,  TransactionFilterEntity filter,  bool hasMore,  bool isLoadingMore)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<InventoryProductItemEntity> items)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.products,_that.allTransactions,_that.displayedTransactions,_that.filter,_that.hasMore,_that.isLoadingMore);case _Error():
+return loaded(_that.items);case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<MerchantProductEntity> products,  List<MerchantTransactionEntity> allTransactions,  List<MerchantTransactionEntity> displayedTransactions,  TransactionFilterEntity filter,  bool hasMore,  bool isLoadingMore)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<InventoryProductItemEntity> items)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.products,_that.allTransactions,_that.displayedTransactions,_that.filter,_that.hasMore,_that.isLoadingMore);case _Error() when error != null:
+return loaded(_that.items);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -192,7 +192,7 @@ return error(_that.message);case _:
 /// @nodoc
 
 
-class _Initial implements MerchantTransactionsState {
+class _Initial implements MerchantInventoryState {
   const _Initial();
   
 
@@ -212,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MerchantTransactionsState.initial()';
+  return 'MerchantInventoryState.initial()';
 }
 
 
@@ -224,7 +224,7 @@ String toString() {
 /// @nodoc
 
 
-class _Loading implements MerchantTransactionsState {
+class _Loading implements MerchantInventoryState {
   const _Loading();
   
 
@@ -244,7 +244,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MerchantTransactionsState.loading()';
+  return 'MerchantInventoryState.loading()';
 }
 
 
@@ -256,36 +256,19 @@ String toString() {
 /// @nodoc
 
 
-class _Loaded implements MerchantTransactionsState {
-  const _Loaded({required final  List<MerchantProductEntity> products, required final  List<MerchantTransactionEntity> allTransactions, required final  List<MerchantTransactionEntity> displayedTransactions, required this.filter, required this.hasMore, required this.isLoadingMore}): _products = products,_allTransactions = allTransactions,_displayedTransactions = displayedTransactions;
+class _Loaded implements MerchantInventoryState {
+  const _Loaded({required final  List<InventoryProductItemEntity> items}): _items = items;
   
 
- final  List<MerchantProductEntity> _products;
- List<MerchantProductEntity> get products {
-  if (_products is EqualUnmodifiableListView) return _products;
+ final  List<InventoryProductItemEntity> _items;
+ List<InventoryProductItemEntity> get items {
+  if (_items is EqualUnmodifiableListView) return _items;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_products);
+  return EqualUnmodifiableListView(_items);
 }
 
- final  List<MerchantTransactionEntity> _allTransactions;
- List<MerchantTransactionEntity> get allTransactions {
-  if (_allTransactions is EqualUnmodifiableListView) return _allTransactions;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_allTransactions);
-}
 
- final  List<MerchantTransactionEntity> _displayedTransactions;
- List<MerchantTransactionEntity> get displayedTransactions {
-  if (_displayedTransactions is EqualUnmodifiableListView) return _displayedTransactions;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_displayedTransactions);
-}
-
- final  TransactionFilterEntity filter;
- final  bool hasMore;
- final  bool isLoadingMore;
-
-/// Create a copy of MerchantTransactionsState
+/// Create a copy of MerchantInventoryState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -295,27 +278,27 @@ _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._products, _products)&&const DeepCollectionEquality().equals(other._allTransactions, _allTransactions)&&const DeepCollectionEquality().equals(other._displayedTransactions, _displayedTransactions)&&(identical(other.filter, filter) || other.filter == filter)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._items, _items));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_products),const DeepCollectionEquality().hash(_allTransactions),const DeepCollectionEquality().hash(_displayedTransactions),filter,hasMore,isLoadingMore);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_items));
 
 @override
 String toString() {
-  return 'MerchantTransactionsState.loaded(products: $products, allTransactions: $allTransactions, displayedTransactions: $displayedTransactions, filter: $filter, hasMore: $hasMore, isLoadingMore: $isLoadingMore)';
+  return 'MerchantInventoryState.loaded(items: $items)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$LoadedCopyWith<$Res> implements $MerchantTransactionsStateCopyWith<$Res> {
+abstract mixin class _$LoadedCopyWith<$Res> implements $MerchantInventoryStateCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<MerchantProductEntity> products, List<MerchantTransactionEntity> allTransactions, List<MerchantTransactionEntity> displayedTransactions, TransactionFilterEntity filter, bool hasMore, bool isLoadingMore
+ List<InventoryProductItemEntity> items
 });
 
 
@@ -330,17 +313,12 @@ class __$LoadedCopyWithImpl<$Res>
   final _Loaded _self;
   final $Res Function(_Loaded) _then;
 
-/// Create a copy of MerchantTransactionsState
+/// Create a copy of MerchantInventoryState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? products = null,Object? allTransactions = null,Object? displayedTransactions = null,Object? filter = null,Object? hasMore = null,Object? isLoadingMore = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? items = null,}) {
   return _then(_Loaded(
-products: null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
-as List<MerchantProductEntity>,allTransactions: null == allTransactions ? _self._allTransactions : allTransactions // ignore: cast_nullable_to_non_nullable
-as List<MerchantTransactionEntity>,displayedTransactions: null == displayedTransactions ? _self._displayedTransactions : displayedTransactions // ignore: cast_nullable_to_non_nullable
-as List<MerchantTransactionEntity>,filter: null == filter ? _self.filter : filter // ignore: cast_nullable_to_non_nullable
-as TransactionFilterEntity,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
-as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
-as bool,
+items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<InventoryProductItemEntity>,
   ));
 }
 
@@ -350,13 +328,13 @@ as bool,
 /// @nodoc
 
 
-class _Error implements MerchantTransactionsState {
+class _Error implements MerchantInventoryState {
   const _Error({required this.message});
   
 
  final  String message;
 
-/// Create a copy of MerchantTransactionsState
+/// Create a copy of MerchantInventoryState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -375,14 +353,14 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'MerchantTransactionsState.error(message: $message)';
+  return 'MerchantInventoryState.error(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $MerchantTransactionsStateCopyWith<$Res> {
+abstract mixin class _$ErrorCopyWith<$Res> implements $MerchantInventoryStateCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
 @useResult
 $Res call({
@@ -401,7 +379,7 @@ class __$ErrorCopyWithImpl<$Res>
   final _Error _self;
   final $Res Function(_Error) _then;
 
-/// Create a copy of MerchantTransactionsState
+/// Create a copy of MerchantInventoryState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(_Error(

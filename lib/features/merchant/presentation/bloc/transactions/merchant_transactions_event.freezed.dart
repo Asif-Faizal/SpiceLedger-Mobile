@@ -55,12 +55,13 @@ extension MerchantTransactionsEventPatterns on MerchantTransactionsEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Fetch value)?  fetch,TResult Function( _FilterByGrade value)?  filterByGrade,TResult Function( _LoadMore value)?  loadMore,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Fetch value)?  fetch,TResult Function( _ApplyFilter value)?  applyFilter,TResult Function( _ClearFilter value)?  clearFilter,TResult Function( _LoadMore value)?  loadMore,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Fetch() when fetch != null:
-return fetch(_that);case _FilterByGrade() when filterByGrade != null:
-return filterByGrade(_that);case _LoadMore() when loadMore != null:
+return fetch(_that);case _ApplyFilter() when applyFilter != null:
+return applyFilter(_that);case _ClearFilter() when clearFilter != null:
+return clearFilter(_that);case _LoadMore() when loadMore != null:
 return loadMore(_that);case _:
   return orElse();
 
@@ -79,12 +80,13 @@ return loadMore(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Fetch value)  fetch,required TResult Function( _FilterByGrade value)  filterByGrade,required TResult Function( _LoadMore value)  loadMore,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Fetch value)  fetch,required TResult Function( _ApplyFilter value)  applyFilter,required TResult Function( _ClearFilter value)  clearFilter,required TResult Function( _LoadMore value)  loadMore,}){
 final _that = this;
 switch (_that) {
 case _Fetch():
-return fetch(_that);case _FilterByGrade():
-return filterByGrade(_that);case _LoadMore():
+return fetch(_that);case _ApplyFilter():
+return applyFilter(_that);case _ClearFilter():
+return clearFilter(_that);case _LoadMore():
 return loadMore(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -102,12 +104,13 @@ return loadMore(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Fetch value)?  fetch,TResult? Function( _FilterByGrade value)?  filterByGrade,TResult? Function( _LoadMore value)?  loadMore,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Fetch value)?  fetch,TResult? Function( _ApplyFilter value)?  applyFilter,TResult? Function( _ClearFilter value)?  clearFilter,TResult? Function( _LoadMore value)?  loadMore,}){
 final _that = this;
 switch (_that) {
 case _Fetch() when fetch != null:
-return fetch(_that);case _FilterByGrade() when filterByGrade != null:
-return filterByGrade(_that);case _LoadMore() when loadMore != null:
+return fetch(_that);case _ApplyFilter() when applyFilter != null:
+return applyFilter(_that);case _ClearFilter() when clearFilter != null:
+return clearFilter(_that);case _LoadMore() when loadMore != null:
 return loadMore(_that);case _:
   return null;
 
@@ -125,11 +128,12 @@ return loadMore(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetch,TResult Function( String? spiceGradeId)?  filterByGrade,TResult Function()?  loadMore,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetch,TResult Function( TransactionFilterEntity filter)?  applyFilter,TResult Function()?  clearFilter,TResult Function()?  loadMore,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Fetch() when fetch != null:
-return fetch();case _FilterByGrade() when filterByGrade != null:
-return filterByGrade(_that.spiceGradeId);case _LoadMore() when loadMore != null:
+return fetch();case _ApplyFilter() when applyFilter != null:
+return applyFilter(_that.filter);case _ClearFilter() when clearFilter != null:
+return clearFilter();case _LoadMore() when loadMore != null:
 return loadMore();case _:
   return orElse();
 
@@ -148,11 +152,12 @@ return loadMore();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetch,required TResult Function( String? spiceGradeId)  filterByGrade,required TResult Function()  loadMore,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetch,required TResult Function( TransactionFilterEntity filter)  applyFilter,required TResult Function()  clearFilter,required TResult Function()  loadMore,}) {final _that = this;
 switch (_that) {
 case _Fetch():
-return fetch();case _FilterByGrade():
-return filterByGrade(_that.spiceGradeId);case _LoadMore():
+return fetch();case _ApplyFilter():
+return applyFilter(_that.filter);case _ClearFilter():
+return clearFilter();case _LoadMore():
 return loadMore();case _:
   throw StateError('Unexpected subclass');
 
@@ -170,11 +175,12 @@ return loadMore();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetch,TResult? Function( String? spiceGradeId)?  filterByGrade,TResult? Function()?  loadMore,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetch,TResult? Function( TransactionFilterEntity filter)?  applyFilter,TResult? Function()?  clearFilter,TResult? Function()?  loadMore,}) {final _that = this;
 switch (_that) {
 case _Fetch() when fetch != null:
-return fetch();case _FilterByGrade() when filterByGrade != null:
-return filterByGrade(_that.spiceGradeId);case _LoadMore() when loadMore != null:
+return fetch();case _ApplyFilter() when applyFilter != null:
+return applyFilter(_that.filter);case _ClearFilter() when clearFilter != null:
+return clearFilter();case _LoadMore() when loadMore != null:
 return loadMore();case _:
   return null;
 
@@ -218,43 +224,43 @@ String toString() {
 /// @nodoc
 
 
-class _FilterByGrade implements MerchantTransactionsEvent {
-  const _FilterByGrade(this.spiceGradeId);
+class _ApplyFilter implements MerchantTransactionsEvent {
+  const _ApplyFilter(this.filter);
   
 
- final  String? spiceGradeId;
+ final  TransactionFilterEntity filter;
 
 /// Create a copy of MerchantTransactionsEvent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$FilterByGradeCopyWith<_FilterByGrade> get copyWith => __$FilterByGradeCopyWithImpl<_FilterByGrade>(this, _$identity);
+_$ApplyFilterCopyWith<_ApplyFilter> get copyWith => __$ApplyFilterCopyWithImpl<_ApplyFilter>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FilterByGrade&&(identical(other.spiceGradeId, spiceGradeId) || other.spiceGradeId == spiceGradeId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ApplyFilter&&(identical(other.filter, filter) || other.filter == filter));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spiceGradeId);
+int get hashCode => Object.hash(runtimeType,filter);
 
 @override
 String toString() {
-  return 'MerchantTransactionsEvent.filterByGrade(spiceGradeId: $spiceGradeId)';
+  return 'MerchantTransactionsEvent.applyFilter(filter: $filter)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$FilterByGradeCopyWith<$Res> implements $MerchantTransactionsEventCopyWith<$Res> {
-  factory _$FilterByGradeCopyWith(_FilterByGrade value, $Res Function(_FilterByGrade) _then) = __$FilterByGradeCopyWithImpl;
+abstract mixin class _$ApplyFilterCopyWith<$Res> implements $MerchantTransactionsEventCopyWith<$Res> {
+  factory _$ApplyFilterCopyWith(_ApplyFilter value, $Res Function(_ApplyFilter) _then) = __$ApplyFilterCopyWithImpl;
 @useResult
 $Res call({
- String? spiceGradeId
+ TransactionFilterEntity filter
 });
 
 
@@ -262,24 +268,56 @@ $Res call({
 
 }
 /// @nodoc
-class __$FilterByGradeCopyWithImpl<$Res>
-    implements _$FilterByGradeCopyWith<$Res> {
-  __$FilterByGradeCopyWithImpl(this._self, this._then);
+class __$ApplyFilterCopyWithImpl<$Res>
+    implements _$ApplyFilterCopyWith<$Res> {
+  __$ApplyFilterCopyWithImpl(this._self, this._then);
 
-  final _FilterByGrade _self;
-  final $Res Function(_FilterByGrade) _then;
+  final _ApplyFilter _self;
+  final $Res Function(_ApplyFilter) _then;
 
 /// Create a copy of MerchantTransactionsEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? spiceGradeId = freezed,}) {
-  return _then(_FilterByGrade(
-freezed == spiceGradeId ? _self.spiceGradeId : spiceGradeId // ignore: cast_nullable_to_non_nullable
-as String?,
+@pragma('vm:prefer-inline') $Res call({Object? filter = null,}) {
+  return _then(_ApplyFilter(
+null == filter ? _self.filter : filter // ignore: cast_nullable_to_non_nullable
+as TransactionFilterEntity,
   ));
 }
 
 
 }
+
+/// @nodoc
+
+
+class _ClearFilter implements MerchantTransactionsEvent {
+  const _ClearFilter();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClearFilter);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'MerchantTransactionsEvent.clearFilter()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 

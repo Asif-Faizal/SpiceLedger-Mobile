@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/error_handler.dart';
 import '../../../../core/network/models/api_response.dart';
+import '../models/catalog_product_model.dart';
 import '../models/merchant_dashboard_model.dart';
 import '../models/merchant_model.dart';
 import '../models/merchant_position_model.dart';
@@ -12,6 +13,7 @@ abstract class MerchantRemoteDataSource {
   Future<MerchantModel?> getMerchantDetails();
   Future<MerchantModel> saveMerchantDetails(MerchantModel model);
   Future<MerchantDashboardModel> getDashboard({int days});
+  Future<List<MerchantProductModel>> getProducts({String? date, String? search});
   Future<List<MerchantPositionModel>> getPositions();
   Future<MerchantPositionModel> getGradePosition(String spiceGradeId);
   Future<List<MerchantTransactionModel>> listTransactions({
@@ -175,6 +177,54 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     if (data == null) throw Exception('Failed to load merchant dashboard data');
 
     return MerchantDashboardModel.fromJson(Map<String, dynamic>.from(data));
+  }
+
+  @override
+  Future<List<MerchantProductModel>> getProducts({
+    String? date,
+    String? search,
+  }) async {
+    const String query = r'''
+      query GetProducts($date: String, $search: String) {
+        products(date: $date, search: $search) {
+          id
+          name
+          category
+          description
+          status
+          grades {
+            id
+            productId
+            name
+            description
+            status
+            price
+          }
+        }
+      }
+    ''';
+
+    final result = await _graphQLClient.query(
+      QueryOptions(
+        document: gql(query),
+        variables: {
+          if (date != null) 'date': date,
+          if (search != null && search.isNotEmpty) 'search': search,
+        },
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    final data = result.data?['products'] as List<dynamic>?;
+    if (data == null) throw Exception('Failed to load products');
+
+    return data
+        .map((e) => MerchantProductModel.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
   }
 
   @override

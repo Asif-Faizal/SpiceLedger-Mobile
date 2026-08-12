@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/failures.dart';
+import '../entities/catalog_entity.dart';
 import '../entities/merchant_dashboard_entity.dart';
 import '../entities/merchant_entity.dart';
 import '../entities/merchant_position_entity.dart';
@@ -10,6 +11,10 @@ abstract class MerchantRepository {
     MerchantEntity entity,
   );
   Future<Either<Failure, MerchantDashboardEntity>> getDashboard({int days});
+  Future<Either<Failure, List<MerchantProductEntity>>> getProducts({
+    String? date,
+    String? search,
+  });
   Future<Either<Failure, List<MerchantPositionEntity>>> getPositions();
   Future<Either<Failure, MerchantPositionEntity>> getGradePosition(
     String spiceGradeId,
