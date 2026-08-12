@@ -95,12 +95,22 @@ class MerchantRepositoryImpl implements MerchantRepository {
   @override
   Future<Either<Failure, List<MerchantTransactionEntity>>> listTransactions({
     int skip = 0,
-    int take = 20,
+    int take = 10,
+    String? spiceGradeId,
+    String? productId,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   }) async {
     try {
       final models = await remoteDataSource.listTransactions(
         skip: skip,
         take: take,
+        spiceGradeId: spiceGradeId,
+        productId: productId,
+        sort: sort,
+        dateFrom: dateFrom,
+        dateTo: dateTo,
       );
       return Right(models.map((m) => m.toEntity()).toList());
     } catch (e) {
@@ -113,13 +123,19 @@ class MerchantRepositoryImpl implements MerchantRepository {
       listGradeTransactions({
     required String spiceGradeId,
     int skip = 0,
-    int take = 20,
+    int take = 10,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   }) async {
     try {
       final models = await remoteDataSource.listGradeTransactions(
         spiceGradeId: spiceGradeId,
         skip: skip,
         take: take,
+        sort: sort,
+        dateFrom: dateFrom,
+        dateTo: dateTo,
       );
       return Right(models.map((m) => m.toEntity()).toList());
     } catch (e) {

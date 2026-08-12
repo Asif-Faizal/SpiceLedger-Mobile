@@ -22,10 +22,18 @@ abstract class MerchantRepository {
   Future<Either<Failure, List<MerchantTransactionEntity>>> listTransactions({
     int skip,
     int take,
+    String? spiceGradeId,
+    String? productId,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   });
   Future<Either<Failure, List<MerchantTransactionEntity>>> listGradeTransactions({
     required String spiceGradeId,
     int skip,
     int take,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   });
 }

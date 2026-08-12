@@ -19,11 +19,19 @@ abstract class MerchantRemoteDataSource {
   Future<List<MerchantTransactionModel>> listTransactions({
     int skip,
     int take,
+    String? spiceGradeId,
+    String? productId,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   });
   Future<List<MerchantTransactionModel>> listGradeTransactions({
     required String spiceGradeId,
     int skip,
     int take,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   });
 }
 
@@ -303,11 +311,32 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
   @override
   Future<List<MerchantTransactionModel>> listTransactions({
     int skip = 0,
-    int take = 20,
+    int take = 10,
+    String? spiceGradeId,
+    String? productId,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   }) async {
     const String query = r'''
-      query ListTransactions($skip: Int, $take: Int) {
-        listTransactions(skip: $skip, take: $take) {
+      query ListTransactions(
+        $skip: Int
+        $take: Int
+        $spiceGradeId: ID
+        $productId: ID
+        $sort: String
+        $dateFrom: String
+        $dateTo: String
+      ) {
+        listTransactions(
+          skip: $skip
+          take: $take
+          spiceGradeId: $spiceGradeId
+          productId: $productId
+          sort: $sort
+          dateFrom: $dateFrom
+          dateTo: $dateTo
+        ) {
           id
           userId
           spiceGradeId
@@ -323,7 +352,16 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     final result = await _graphQLClient.query(
       QueryOptions(
         document: gql(query),
-        variables: {'skip': skip, 'take': take},
+        variables: {
+          'skip': skip,
+          'take': take,
+          if (spiceGradeId != null && spiceGradeId.isNotEmpty)
+            'spiceGradeId': spiceGradeId,
+          if (productId != null && productId.isNotEmpty) 'productId': productId,
+          if (sort != null && sort.isNotEmpty) 'sort': sort,
+          if (dateFrom != null && dateFrom.isNotEmpty) 'dateFrom': dateFrom,
+          if (dateTo != null && dateTo.isNotEmpty) 'dateTo': dateTo,
+        },
         fetchPolicy: FetchPolicy.networkOnly,
       ),
     );
@@ -346,11 +384,28 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
   Future<List<MerchantTransactionModel>> listGradeTransactions({
     required String spiceGradeId,
     int skip = 0,
-    int take = 20,
+    int take = 10,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   }) async {
     const String query = r'''
-      query ListGradeTransactions($spiceGradeId: ID!, $skip: Int, $take: Int) {
-        listGradeTransactions(spiceGradeId: $spiceGradeId, skip: $skip, take: $take) {
+      query ListGradeTransactions(
+        $spiceGradeId: ID!
+        $skip: Int
+        $take: Int
+        $sort: String
+        $dateFrom: String
+        $dateTo: String
+      ) {
+        listGradeTransactions(
+          spiceGradeId: $spiceGradeId
+          skip: $skip
+          take: $take
+          sort: $sort
+          dateFrom: $dateFrom
+          dateTo: $dateTo
+        ) {
           id
           userId
           spiceGradeId
@@ -370,6 +425,9 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
           'spiceGradeId': spiceGradeId,
           'skip': skip,
           'take': take,
+          if (sort != null && sort.isNotEmpty) 'sort': sort,
+          if (dateFrom != null && dateFrom.isNotEmpty) 'dateFrom': dateFrom,
+          if (dateTo != null && dateTo.isNotEmpty) 'dateTo': dateTo,
         },
         fetchPolicy: FetchPolicy.networkOnly,
       ),

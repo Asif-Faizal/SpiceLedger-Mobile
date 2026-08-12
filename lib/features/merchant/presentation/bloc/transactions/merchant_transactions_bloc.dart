@@ -1,16 +1,17 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../../core/error/failures.dart';
 import '../../../domain/entities/merchant_dashboard_entity.dart';
 import '../../../domain/entities/transaction_filter_entity.dart';
 import '../../../domain/usecases/merchant_market_usecases.dart';
-import '../../../domain/utils/merchant_market_utils.dart';
 import 'merchant_transactions_event.dart';
 import 'merchant_transactions_state.dart';
 
 @injectable
 class MerchantTransactionsBloc
     extends Bloc<MerchantTransactionsEvent, MerchantTransactionsState> {
-  static const _pageSize = 50;
+  static const _pageSize = 10;
 
   final GetMerchantProductsUseCase getMerchantProductsUseCase;
   final ListMerchantTransactionsUseCase listMerchantTransactionsUseCase;
@@ -35,9 +36,9 @@ class MerchantTransactionsBloc
     emit(const MerchantTransactionsState.loading());
 
     final productsResult = await getMerchantProductsUseCase();
-    final transactionsResult = await listMerchantTransactionsUseCase(
+    final transactionsResult = await _fetchPage(
+      filter: const TransactionFilterEntity(),
       skip: 0,
-      take: _pageSize,
     );
 
     await productsResult.fold(
@@ -53,11 +54,7 @@ class MerchantTransactionsBloc
               MerchantTransactionsState.loaded(
                 products: products,
                 allTransactions: transactions,
-                displayedTransactions: applyTransactionFilters(
-                  transactions: transactions,
-                  filter: filter,
-                  products: products,
-                ),
+                displayedTransactions: transactions,
                 filter: filter,
                 hasMore: transactions.length >= _pageSize,
                 isLoadingMore: false,
@@ -73,29 +70,14 @@ class MerchantTransactionsBloc
     Emitter<MerchantTransactionsState> emit,
     TransactionFilterEntity filter,
   ) async {
-    final snapshot = state.whenOrNull(
-      loaded: (
-        products,
-        allTransactions,
-        displayedTransactions,
-        currentFilter,
-        hasMore,
-        isLoadingMore,
-      ) =>
-          (
-            products,
-            allTransactions,
-            currentFilter,
-            hasMore,
-          ),
+    final products = state.whenOrNull(
+      loaded: (products, a, b, c, d, e) => products,
     );
 
-    if (snapshot == null) {
+    if (products == null) {
       add(const MerchantTransactionsEvent.fetch());
       return;
     }
-
-    final (products, _, _, _) = snapshot;
 
     emit(
       MerchantTransactionsState.loaded(
@@ -108,50 +90,22 @@ class MerchantTransactionsBloc
       ),
     );
 
-    List<MerchantTransactionEntity> source;
-
-    if (filter.gradeId != null) {
-      final result = await listMerchantGradeTransactionsUseCase(
-        spiceGradeId: filter.gradeId!,
-        skip: 0,
-        take: _pageSize,
-      );
-      final fetched = result.fold((_) => <MerchantTransactionEntity>[], (v) => v);
-      if (result.isLeft()) {
-        emit(MerchantTransactionsState.error(
-          message: result.fold((f) => f.message, (_) => ''),
-        ));
-        return;
-      }
-      source = fetched;
-    } else {
-      final result = await listMerchantTransactionsUseCase(
-        skip: 0,
-        take: _pageSize,
-      );
-      final fetched = result.fold((_) => <MerchantTransactionEntity>[], (v) => v);
-      if (result.isLeft()) {
-        emit(MerchantTransactionsState.error(
-          message: result.fold((f) => f.message, (_) => ''),
-        ));
-        return;
-      }
-      source = fetched;
-    }
-
-    emit(
-      MerchantTransactionsState.loaded(
-        products: products,
-        allTransactions: source,
-        displayedTransactions: applyTransactionFilters(
-          transactions: source,
-          filter: filter,
-          products: products,
-        ),
-        filter: filter,
-        hasMore: source.length >= _pageSize,
-        isLoadingMore: false,
-      ),
+    final result = await _fetchPage(filter: filter, skip: 0);
+    result.fold(
+      (failure) =>
+          emit(MerchantTransactionsState.error(message: failure.message)),
+      (source) {
+        emit(
+          MerchantTransactionsState.loaded(
+            products: products,
+            allTransactions: source,
+            displayedTransactions: source,
+            filter: filter,
+            hasMore: source.length >= _pageSize,
+            isLoadingMore: false,
+          ),
+        );
+      },
     );
   }
 
@@ -180,43 +134,32 @@ class MerchantTransactionsBloc
 
     if (snapshot == null) return;
 
-    final (products, allTransactions, filter, hasMore, isLoadingMore) = snapshot;
+    final (products, allTransactions, filter, hasMore, isLoadingMore) =
+        snapshot;
     if (!hasMore || isLoadingMore) return;
 
     emit(
       MerchantTransactionsState.loaded(
         products: products,
         allTransactions: allTransactions,
-        displayedTransactions: applyTransactionFilters(
-          transactions: allTransactions,
-          filter: filter,
-          products: products,
-        ),
+        displayedTransactions: allTransactions,
         filter: filter,
         hasMore: hasMore,
         isLoadingMore: true,
       ),
     );
 
-    final skip = allTransactions.length;
-    final result = filter.gradeId != null
-        ? await listMerchantGradeTransactionsUseCase(
-            spiceGradeId: filter.gradeId!,
-            skip: skip,
-            take: _pageSize,
-          )
-        : await listMerchantTransactionsUseCase(skip: skip, take: _pageSize);
+    final result = await _fetchPage(
+      filter: filter,
+      skip: allTransactions.length,
+    );
 
     result.fold(
       (failure) => emit(
         MerchantTransactionsState.loaded(
           products: products,
           allTransactions: allTransactions,
-          displayedTransactions: applyTransactionFilters(
-            transactions: allTransactions,
-            filter: filter,
-            products: products,
-          ),
+          displayedTransactions: allTransactions,
           filter: filter,
           hasMore: hasMore,
           isLoadingMore: false,
@@ -228,17 +171,42 @@ class MerchantTransactionsBloc
           MerchantTransactionsState.loaded(
             products: products,
             allTransactions: merged,
-            displayedTransactions: applyTransactionFilters(
-              transactions: merged,
-              filter: filter,
-              products: products,
-            ),
+            displayedTransactions: merged,
             filter: filter,
             hasMore: more.length >= _pageSize,
             isLoadingMore: false,
           ),
         );
       },
+    );
+  }
+
+  Future<Either<Failure, List<MerchantTransactionEntity>>> _fetchPage({
+    required TransactionFilterEntity filter,
+    required int skip,
+  }) {
+    final sort = filter.sortQueryValue;
+    final dateFrom = filter.dateFromQueryValue;
+    final dateTo = filter.dateToQueryValue;
+
+    if (filter.gradeId != null) {
+      return listMerchantGradeTransactionsUseCase(
+        spiceGradeId: filter.gradeId!,
+        skip: skip,
+        take: _pageSize,
+        sort: sort,
+        dateFrom: dateFrom,
+        dateTo: dateTo,
+      );
+    }
+
+    return listMerchantTransactionsUseCase(
+      skip: skip,
+      take: _pageSize,
+      productId: filter.productId,
+      sort: sort,
+      dateFrom: dateFrom,
+      dateTo: dateTo,
     );
   }
 }

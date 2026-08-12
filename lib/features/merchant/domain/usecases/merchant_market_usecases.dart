@@ -50,9 +50,22 @@ class ListMerchantTransactionsUseCase {
 
   Future<Either<Failure, List<MerchantTransactionEntity>>> call({
     int skip = 0,
-    int take = 20,
+    int take = 10,
+    String? spiceGradeId,
+    String? productId,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   }) {
-    return repository.listTransactions(skip: skip, take: take);
+    return repository.listTransactions(
+      skip: skip,
+      take: take,
+      spiceGradeId: spiceGradeId,
+      productId: productId,
+      sort: sort,
+      dateFrom: dateFrom,
+      dateTo: dateTo,
+    );
   }
 }
 
@@ -65,12 +78,18 @@ class ListMerchantGradeTransactionsUseCase {
   Future<Either<Failure, List<MerchantTransactionEntity>>> call({
     required String spiceGradeId,
     int skip = 0,
-    int take = 20,
+    int take = 10,
+    String? sort,
+    String? dateFrom,
+    String? dateTo,
   }) {
     return repository.listGradeTransactions(
       spiceGradeId: spiceGradeId,
       skip: skip,
       take: take,
+      sort: sort,
+      dateFrom: dateFrom,
+      dateTo: dateTo,
     );
   }
 }

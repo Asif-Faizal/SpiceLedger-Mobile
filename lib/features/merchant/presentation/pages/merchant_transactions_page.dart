@@ -65,21 +65,14 @@ class _MerchantTransactionsView extends StatelessWidget {
                                     if (!context.mounted || filter == null) {
                                       return;
                                     }
-                                    if (filter.isActive) {
-                                      context
-                                          .read<MerchantTransactionsBloc>()
-                                          .add(
-                                            MerchantTransactionsEvent
-                                                .applyFilter(filter),
-                                          );
-                                    } else {
-                                      context
-                                          .read<MerchantTransactionsBloc>()
-                                          .add(
-                                            const MerchantTransactionsEvent
-                                                .clearFilter(),
-                                          );
-                                    }
+                                    // Always re-fetch from backend so sort-only
+                                    // changes are applied (not only product/date).
+                                    context
+                                        .read<MerchantTransactionsBloc>()
+                                        .add(
+                                          MerchantTransactionsEvent
+                                              .applyFilter(filter),
+                                        );
                                   },
                                   icon: const Icon(Icons.tune, size: 18),
                                   label: const Text('Filters & sort'),

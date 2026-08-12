@@ -10,6 +10,7 @@ import '../bloc/positions/merchant_positions_bloc.dart';
 import '../bloc/positions/merchant_positions_event.dart';
 import '../bloc/positions/merchant_positions_state.dart';
 import '../widgets/merchant_market_widgets.dart';
+import 'merchant_trends_page.dart';
 
 class MerchantDashboardPage extends StatelessWidget {
   const MerchantDashboardPage({super.key});
@@ -58,29 +59,35 @@ class _MerchantDashboardView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const _SectionTitle('Portfolio Summary'),
-                  const SizedBox(height: 16),
+                  const _SectionTitle('Portfolio'),
+                  const SizedBox(height: 12),
                   _SummaryGrid(summary: s.dashboard.summary),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
+                  _TrendsLink(
+                    days: s.days,
+                    pnlTrend: s.dashboard.pnlTrend,
+                    activityTrend: s.dashboard.activityTrend,
+                  ),
                   if (s.dashboard.insights.isNotEmpty) ...[
+                    const SizedBox(height: 20),
                     const _SectionTitle('Insights'),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 12),
                     ...s.dashboard.insights.map(
                       (insight) => Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: _InsightCard(insight: insight),
                       ),
                     ),
-                    const SizedBox(height: 24),
                   ],
+                  const SizedBox(height: 20),
                   const _SectionTitle('Open Positions'),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   _PositionsSection(
                     gradeLabels: _gradeLabelsFromDashboard(s.dashboard),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
                   const _SectionTitle('Portfolio Mix'),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   if (s.dashboard.portfolioMix.isEmpty)
                     const _EmptyState('No portfolio data')
                   else
@@ -90,9 +97,9 @@ class _MerchantDashboardView extends StatelessWidget {
                         child: _PortfolioMixCard(item: item),
                       ),
                     ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
                   const _SectionTitle('Price Movers'),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   if (s.dashboard.movers.isEmpty)
                     const _EmptyState('No price data')
                   else
@@ -102,13 +109,13 @@ class _MerchantDashboardView extends StatelessWidget {
                         child: _MoverCard(mover: mover),
                       ),
                     ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
                   const _SectionTitle('Recent Transactions'),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   if (s.recentTransactions.isEmpty)
                     const _EmptyState('No recent activity')
                   else
-                    ...s.recentTransactions.map(
+                    ...s.recentTransactions.take(5).map(
                       (txn) => Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: MerchantTransactionCard(
@@ -116,42 +123,6 @@ class _MerchantDashboardView extends StatelessWidget {
                           gradeLabel: _gradeLabelsFromDashboard(
                             s.dashboard,
                           )[txn.spiceGradeId],
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 24),
-                  _SectionTitle('P&L Trend (${s.days}d)'),
-                  const SizedBox(height: 16),
-                  if (s.dashboard.pnlTrend.isEmpty)
-                    const _EmptyState('No P&L data')
-                  else
-                    ...s.dashboard.pnlTrend.map(
-                      (point) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: _TrendRow(
-                          label: point.date,
-                          primary:
-                              'Daily: ₹${point.dailyRealizedPnL.toStringAsFixed(0)}',
-                          secondary:
-                              'Cumulative: ₹${point.cumulativeRealizedPnL.toStringAsFixed(0)}',
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 24),
-                  _SectionTitle('Activity Trend (${s.days}d)'),
-                  const SizedBox(height: 16),
-                  if (s.dashboard.activityTrend.isEmpty)
-                    const _EmptyState('No activity data')
-                  else
-                    ...s.dashboard.activityTrend.map(
-                      (point) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: _TrendRow(
-                          label: point.date,
-                          primary:
-                              'Buy ${point.buyQuantity.toStringAsFixed(0)} kg (${point.buyCount})',
-                          secondary:
-                              'Sell ${point.sellQuantity.toStringAsFixed(0)} kg (${point.sellCount})',
                         ),
                       ),
                     ),
@@ -170,6 +141,71 @@ Map<String, String> _gradeLabelsFromDashboard(MerchantDashboardEntity dashboard)
     for (final h in dashboard.holdings)
       h.spiceGradeId: '${h.productName} — ${h.gradeName}',
   };
+}
+
+class _TrendsLink extends StatelessWidget {
+  final int days;
+  final List<PnlTrendPointEntity> pnlTrend;
+  final List<ActivityTrendPointEntity> activityTrend;
+
+  const _TrendsLink({
+    required this.days,
+    required this.pnlTrend,
+    required this.activityTrend,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => MerchantTrendsPage(
+              days: days,
+              pnlTrend: pnlTrend,
+              activityTrend: activityTrend,
+            ),
+          ),
+        );
+      },
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.outline),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: const Row(
+          children: [
+            Icon(Icons.show_chart, color: AppColors.blueAccent, size: 22),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'P&L & Activity Trends',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    'View daily realized P&L and buy/sell activity',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.neutralGray,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: AppColors.neutralGray),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _PositionsSection extends StatelessWidget {
@@ -236,7 +272,7 @@ class _EmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child: Text(message),
       ),
     );
@@ -254,9 +290,9 @@ class _SummaryGrid extends StatelessWidget {
       crossAxisCount: 2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      mainAxisSpacing: 12,
-      crossAxisSpacing: 12,
-      childAspectRatio: 1.5,
+      mainAxisSpacing: 10,
+      crossAxisSpacing: 10,
+      childAspectRatio: 1.7,
       children: [
         _StatCard(
           label: 'Portfolio Value',
@@ -265,47 +301,22 @@ class _SummaryGrid extends StatelessWidget {
           color: Colors.blue,
         ),
         _StatCard(
-          label: 'Open Positions',
-          value: summary.openPositions.toString(),
-          icon: Icons.inventory_2_outlined,
-          color: Colors.orange,
-        ),
-        _StatCard(
           label: 'Net P&L',
           value: '₹${summary.netPnL.toStringAsFixed(0)}',
           icon: Icons.trending_up,
           color: summary.netPnL >= 0 ? Colors.green : Colors.red,
         ),
         _StatCard(
-          label: 'Total Quantity',
+          label: 'Open Positions',
+          value: summary.openPositions.toString(),
+          icon: Icons.inventory_2_outlined,
+          color: Colors.orange,
+        ),
+        _StatCard(
+          label: 'Quantity',
           value: '${summary.totalQuantityKg.toStringAsFixed(1)} kg',
           icon: Icons.scale,
           color: Colors.purple,
-        ),
-        _StatCard(
-          label: 'Realized P&L',
-          value: '₹${summary.totalRealizedPnL.toStringAsFixed(0)}',
-          icon: Icons.payments_outlined,
-          color: Colors.teal,
-        ),
-        _StatCard(
-          label: 'Unrealized P&L',
-          value: '₹${summary.totalUnrealizedPnL.toStringAsFixed(0)}',
-          icon: Icons.show_chart,
-          color: Colors.indigo,
-        ),
-        _StatCard(
-          label: 'Trades (${summary.tradesInPeriod})',
-          value:
-              'B ${summary.buyVolumeInPeriod.toStringAsFixed(0)} / S ${summary.sellVolumeInPeriod.toStringAsFixed(0)} kg',
-          icon: Icons.swap_horiz,
-          color: Colors.green,
-        ),
-        _StatCard(
-          label: 'Total Cost',
-          value: '₹${summary.totalCost.toStringAsFixed(0)}',
-          icon: Icons.receipt_long_outlined,
-          color: AppColors.neutralGray,
         ),
       ],
     );
@@ -338,18 +349,18 @@ class _StatCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(icon, color: color, size: 20),
+          Icon(icon, color: color, size: 18),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 value,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: AppColors.nearBlack,
                 ),
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
@@ -358,8 +369,6 @@ class _StatCard extends StatelessWidget {
                   fontSize: 11,
                   color: AppColors.neutralGray,
                 ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -514,58 +523,6 @@ class _MoverCard extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: _directionColor,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _TrendRow extends StatelessWidget {
-  final String label;
-  final String primary;
-  final String secondary;
-
-  const _TrendRow({
-    required this.label,
-    required this.primary,
-    required this.secondary,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 88,
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppColors.neutralGray,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(primary, style: const TextStyle(fontSize: 13)),
-                Text(
-                  secondary,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.neutralGray,
-                  ),
-                ),
-              ],
             ),
           ),
         ],

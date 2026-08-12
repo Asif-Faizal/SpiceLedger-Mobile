@@ -32,8 +32,19 @@ class TransactionFilterEntity extends Equatable {
       dateFrom != null ||
       dateTo != null;
 
+  bool get hasCustomSort => sortOrder != TransactionSortOrder.newestFirst;
+
   bool get isActive =>
-      hasProductFilter || hasGradeFilter || hasDateFilter;
+      hasProductFilter || hasGradeFilter || hasDateFilter || hasCustomSort;
+
+  /// Backend sort token: ASC = oldest first, DESC = newest first.
+  String get sortQueryValue =>
+      sortOrder == TransactionSortOrder.oldestFirst ? 'ASC' : 'DESC';
+
+  String? get dateFromQueryValue =>
+      dateFrom == null ? null : _fmt(dateFrom!);
+
+  String? get dateToQueryValue => dateTo == null ? null : _fmt(dateTo!);
 
   TransactionFilterEntity cleared() => const TransactionFilterEntity();
 
@@ -53,6 +64,9 @@ class TransactionFilterEntity extends Equatable {
       parts.add(
         '${_fmt(dateFrom!)} – ${_fmt(dateTo!)}',
       );
+    }
+    if (hasCustomSort) {
+      parts.add('Oldest first');
     }
     return parts.join(' · ');
   }
