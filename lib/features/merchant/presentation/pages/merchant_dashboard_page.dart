@@ -6,9 +6,6 @@ import '../../domain/entities/merchant_dashboard_entity.dart';
 import '../bloc/merchant_dashboard/merchant_dashboard_bloc.dart';
 import '../bloc/merchant_dashboard/merchant_dashboard_event.dart';
 import '../bloc/merchant_dashboard/merchant_dashboard_state.dart';
-import '../bloc/positions/merchant_positions_bloc.dart';
-import '../bloc/positions/merchant_positions_event.dart';
-import '../bloc/positions/merchant_positions_state.dart';
 import '../widgets/merchant_market_widgets.dart';
 import 'merchant_trends_page.dart';
 
@@ -17,17 +14,9 @@ class MerchantDashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => getIt<MerchantDashboardBloc>()
-            ..add(const MerchantDashboardEvent.fetchDashboard()),
-        ),
-        BlocProvider(
-          create: (_) => getIt<MerchantPositionsBloc>()
-            ..add(const MerchantPositionsEvent.fetchPositions()),
-        ),
-      ],
+    return BlocProvider(
+      create: (_) => getIt<MerchantDashboardBloc>()
+        ..add(const MerchantDashboardEvent.fetchDashboard()),
       child: const _MerchantDashboardView(),
     );
   }
@@ -43,89 +32,91 @@ class _MerchantDashboardView extends StatelessWidget {
         return state.map(
           initial: (_) => const SizedBox.shrink(),
           loading: (_) => const Center(child: CircularProgressIndicator()),
-          error: (e) => Center(child: Text('Error: ${e.message}')),
+          error: (e) => Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                e.message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: AppColors.neutralGray),
+              ),
+            ),
+          ),
           loaded: (s) => RefreshIndicator(
             onRefresh: () async {
               context.read<MerchantDashboardBloc>().add(
                     const MerchantDashboardEvent.fetchDashboard(),
                   );
-              context.read<MerchantPositionsBloc>().add(
-                    const MerchantPositionsEvent.fetchPositions(),
-                  );
             },
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const _SectionTitle('Portfolio'),
+                  _PortfolioHeader(summary: s.dashboard.summary),
+                  const SizedBox(height: 10),
+                  _NetPnLCard(summary: s.dashboard.summary),
                   const SizedBox(height: 12),
-                  _SummaryGrid(summary: s.dashboard.summary),
-                  const SizedBox(height: 16),
                   _TrendsLink(
                     days: s.days,
                     pnlTrend: s.dashboard.pnlTrend,
                     activityTrend: s.dashboard.activityTrend,
                   ),
                   if (s.dashboard.insights.isNotEmpty) ...[
-                    const SizedBox(height: 20),
-                    const _SectionTitle('Insights'),
-                    const SizedBox(height: 12),
-                    ...s.dashboard.insights.map(
-                      (insight) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: _InsightCard(insight: insight),
-                      ),
-                    ),
+                    const SizedBox(height: 16),
+                    ...s.dashboard.insights.take(2).map(
+                          (insight) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: _InsightChip(insight: insight),
+                          ),
+                        ),
                   ],
-                  const SizedBox(height: 20),
-                  const _SectionTitle('Open Positions'),
-                  const SizedBox(height: 12),
-                  _PositionsSection(
-                    gradeLabels: _gradeLabelsFromDashboard(s.dashboard),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      const Text(
+                        'Holdings',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        '${s.dashboard.summary.openPositions} positions',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppColors.neutralGray,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  const _SectionTitle('Portfolio Mix'),
-                  const SizedBox(height: 12),
-                  if (s.dashboard.portfolioMix.isEmpty)
-                    const _EmptyState('No portfolio data')
-                  else
-                    ...s.dashboard.portfolioMix.map(
-                      (item) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: _PortfolioMixCard(item: item),
-                      ),
-                    ),
-                  const SizedBox(height: 20),
-                  const _SectionTitle('Price Movers'),
-                  const SizedBox(height: 12),
-                  if (s.dashboard.movers.isEmpty)
-                    const _EmptyState('No price data')
-                  else
-                    ...s.dashboard.movers.map(
-                      (mover) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: _MoverCard(mover: mover),
-                      ),
-                    ),
-                  const SizedBox(height: 20),
-                  const _SectionTitle('Recent Transactions'),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
+                  _HoldingsList(
+                    holdings: s.dashboard.holdings,
+                    movers: s.dashboard.movers,
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Recent',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
                   if (s.recentTransactions.isEmpty)
                     const _EmptyState('No recent activity')
                   else
-                    ...s.recentTransactions.take(5).map(
-                      (txn) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: MerchantTransactionCard(
-                          txn: txn,
-                          gradeLabel: _gradeLabelsFromDashboard(
-                            s.dashboard,
-                          )[txn.spiceGradeId],
+                    ...s.recentTransactions.take(3).map(
+                          (txn) => Padding(
+                            padding: const EdgeInsets.only(bottom: 6),
+                            child: MerchantTransactionCard(
+                              txn: txn,
+                              gradeLabel: _gradeLabelsFromDashboard(
+                                s.dashboard,
+                              )[txn.spiceGradeId],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
                 ],
               ),
             ),
@@ -143,6 +134,168 @@ Map<String, String> _gradeLabelsFromDashboard(MerchantDashboardEntity dashboard)
   };
 }
 
+class _PortfolioHeader extends StatelessWidget {
+  final MerchantDashboardSummaryEntity summary;
+
+  const _PortfolioHeader({required this.summary});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: AppColors.blueAccent.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: AppColors.blueAccent.withValues(alpha: 0.15),
+        ),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.account_balance_wallet_outlined,
+            color: AppColors.blueAccent,
+            size: 20,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '₹${summary.portfolioValue.toStringAsFixed(0)}',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.nearBlack,
+                  ),
+                ),
+                Text(
+                  '${summary.totalQuantityKg.toStringAsFixed(1)} kg · ${summary.openPositions} open',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.neutralGray,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NetPnLCard extends StatelessWidget {
+  final MerchantDashboardSummaryEntity summary;
+
+  const _NetPnLCard({required this.summary});
+
+  Color get _netColor =>
+      summary.netPnL >= 0 ? AppColors.success : AppColors.danger;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: _netColor.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: _netColor.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.show_chart, color: _netColor, size: 18),
+              const SizedBox(width: 8),
+              const Text(
+                'Net P&L',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.neutralGray,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                '₹${summary.netPnL.toStringAsFixed(0)}',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: _netColor,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: _PnLBreakdownItem(
+                  label: 'Realized',
+                  value: summary.totalRealizedPnL,
+                  color: AppColors.neutralGray,
+                ),
+              ),
+              Container(
+                width: 1,
+                height: 28,
+                color: AppColors.outline,
+              ),
+              Expanded(
+                child: _PnLBreakdownItem(
+                  label: 'Unrealized',
+                  value: summary.totalUnrealizedPnL,
+                  color: summary.totalUnrealizedPnL >= 0
+                      ? AppColors.success
+                      : AppColors.danger,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PnLBreakdownItem extends StatelessWidget {
+  final String label;
+  final double value;
+  final Color color;
+
+  const _PnLBreakdownItem({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 11, color: AppColors.neutralGray),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          '₹${value.toStringAsFixed(0)}',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _TrendsLink extends StatelessWidget {
   final int days;
   final List<PnlTrendPointEntity> pnlTrend;
@@ -156,109 +309,294 @@ class _TrendsLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => MerchantTrendsPage(
-              days: days,
-              pnlTrend: pnlTrend,
-              activityTrend: activityTrend,
-            ),
-          ),
-        );
-      },
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.outline),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: const Row(
-          children: [
-            Icon(Icons.show_chart, color: AppColors.blueAccent, size: 22),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'P&L & Activity Trends',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    'View daily realized P&L and buy/sell activity',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: AppColors.neutralGray,
-                    ),
-                  ),
-                ],
+    return Material(
+      color: AppColors.lightGray,
+      borderRadius: BorderRadius.circular(10),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => MerchantTrendsPage(
+                days: days,
+                pnlTrend: pnlTrend,
+                activityTrend: activityTrend,
               ),
             ),
-            Icon(Icons.chevron_right, color: AppColors.neutralGray),
-          ],
+          );
+        },
+        borderRadius: BorderRadius.circular(10),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(
+                  Icons.bar_chart_rounded,
+                  color: AppColors.blueAccent,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Performance trends',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      'Charts · daily P&L · buy/sell activity',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: AppColors.neutralGray,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right, color: AppColors.neutralGray),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _PositionsSection extends StatelessWidget {
-  final Map<String, String> gradeLabels;
+class _HoldingsList extends StatelessWidget {
+  final List<MerchantHoldingEntity> holdings;
+  final List<MerchantMoverEntity> movers;
 
-  const _PositionsSection({required this.gradeLabels});
+  const _HoldingsList({
+    required this.holdings,
+    required this.movers,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MerchantPositionsBloc, MerchantPositionsState>(
-      builder: (context, state) {
-        return state.when(
-          initial: () => const SizedBox.shrink(),
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (message) => Text('Error: $message'),
-          loaded: (positions) {
-            if (positions.isEmpty) {
-              return const _EmptyState('No open positions');
-            }
-            return Column(
-              children: positions.map((position) {
-                final label = gradeLabels[position.spiceGradeId];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: MerchantPositionCard(
-                    position: position,
-                    label: label,
-                    onTap: () => openGradePositionDetail(
-                      context,
-                      position.spiceGradeId,
-                      label: label,
-                    ),
-                  ),
-                );
-              }).toList(),
-            );
-          },
+    if (holdings.isEmpty) {
+      return const _EmptyState('No open positions');
+    }
+
+    final moverByGrade = {for (final m in movers) m.spiceGradeId: m};
+
+    return Column(
+      children: holdings.map((holding) {
+        final mover = moverByGrade[holding.spiceGradeId];
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 6),
+          child: _CombinedHoldingCard(
+            holding: holding,
+            mover: mover,
+            onTap: () => openGradePositionDetail(
+              context,
+              holding.spiceGradeId,
+              label: '${holding.productName} — ${holding.gradeName}',
+            ),
+          ),
         );
-      },
+      }).toList(),
     );
   }
 }
 
-class _SectionTitle extends StatelessWidget {
-  final String title;
+class _CombinedHoldingCard extends StatelessWidget {
+  final MerchantHoldingEntity holding;
+  final MerchantMoverEntity? mover;
+  final VoidCallback onTap;
 
-  const _SectionTitle(this.title);
+  const _CombinedHoldingCard({
+    required this.holding,
+    required this.mover,
+    required this.onTap,
+  });
+
+  Color _directionColor(String? direction) {
+    switch (direction) {
+      case 'UP':
+        return AppColors.success;
+      case 'DOWN':
+        return AppColors.danger;
+      default:
+        return AppColors.neutralGray;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    final priceColor = _directionColor(mover?.direction);
+    final unrealizedColor = holding.unrealizedPnL >= 0
+        ? AppColors.success
+        : AppColors.danger;
+
+    return Material(
+      color: AppColors.white,
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.outline),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${holding.productName} · ${holding.gradeName}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Text(
+                    '₹${holding.marketValue.toStringAsFixed(0)}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(
+                    Icons.chevron_right,
+                    size: 16,
+                    color: AppColors.neutralGray,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Text(
+                    '${holding.quantity.toStringAsFixed(1)} kg',
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppColors.neutralGray,
+                    ),
+                  ),
+                  const Text(
+                    ' · ',
+                    style: TextStyle(color: AppColors.neutralGray),
+                  ),
+                  Text(
+                    '₹${holding.todayPrice.toStringAsFixed(0)}/kg',
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: AppColors.neutralGray,
+                    ),
+                  ),
+                  if (mover != null && mover!.changePercent.abs() > 0.01) ...[
+                    const SizedBox(width: 6),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: priceColor.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        '${mover!.changePercent >= 0 ? '+' : ''}${mover!.changePercent.toStringAsFixed(1)}%',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: priceColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                  const Spacer(),
+                  Text(
+                    'U ₹${holding.unrealizedPnL.toStringAsFixed(0)}',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: unrealizedColor,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _InsightChip extends StatelessWidget {
+  final MerchantInsightEntity insight;
+
+  const _InsightChip({required this.insight});
+
+  Color get _color {
+    switch (insight.severity.toLowerCase()) {
+      case 'warning':
+        return Colors.orange;
+      case 'error':
+        return AppColors.danger;
+      case 'success':
+        return AppColors.success;
+      default:
+        return AppColors.blueAccent;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: _color.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: _color.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.lightbulb_outline, size: 16, color: _color),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  insight.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  insight.body,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: AppColors.neutralGray,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -270,262 +608,13 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Text(message),
-      ),
-    );
-  }
-}
-
-class _SummaryGrid extends StatelessWidget {
-  final MerchantDashboardSummaryEntity summary;
-
-  const _SummaryGrid({required this.summary});
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 2,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
-      childAspectRatio: 1.7,
-      children: [
-        _StatCard(
-          label: 'Portfolio Value',
-          value: '₹${summary.portfolioValue.toStringAsFixed(0)}',
-          icon: Icons.account_balance_wallet_outlined,
-          color: Colors.blue,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Center(
+        child: Text(
+          message,
+          style: const TextStyle(color: AppColors.neutralGray, fontSize: 13),
         ),
-        _StatCard(
-          label: 'Net P&L',
-          value: '₹${summary.netPnL.toStringAsFixed(0)}',
-          icon: Icons.trending_up,
-          color: summary.netPnL >= 0 ? Colors.green : Colors.red,
-        ),
-        _StatCard(
-          label: 'Open Positions',
-          value: summary.openPositions.toString(),
-          icon: Icons.inventory_2_outlined,
-          color: Colors.orange,
-        ),
-        _StatCard(
-          label: 'Quantity',
-          value: '${summary.totalQuantityKg.toStringAsFixed(1)} kg',
-          icon: Icons.scale,
-          color: Colors.purple,
-        ),
-      ],
-    );
-  }
-}
-
-class _StatCard extends StatelessWidget {
-  final String label;
-  final String value;
-  final IconData icon;
-  final Color color;
-
-  const _StatCard({
-    required this.label,
-    required this.value,
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.05),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(icon, color: color, size: 18),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.nearBlack,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 11,
-                  color: AppColors.neutralGray,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _InsightCard extends StatelessWidget {
-  final MerchantInsightEntity insight;
-
-  const _InsightCard({required this.insight});
-
-  Color get _severityColor {
-    switch (insight.severity.toLowerCase()) {
-      case 'warning':
-        return Colors.orange;
-      case 'error':
-        return Colors.red;
-      default:
-        return AppColors.blueAccent;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: _severityColor.withValues(alpha: 0.05),
-        border: Border.all(color: _severityColor.withValues(alpha: 0.2)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            insight.title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            insight.body,
-            style: const TextStyle(
-              fontSize: 13,
-              color: AppColors.neutralGray,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _PortfolioMixCard extends StatelessWidget {
-  final PortfolioMixItemEntity item;
-
-  const _PortfolioMixCard({required this.item});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              item.label,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Text('${item.quantity.toStringAsFixed(1)} kg'),
-          const SizedBox(width: 12),
-          Text(
-            '₹${item.value.toStringAsFixed(0)}',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: AppColors.neutralGray,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MoverCard extends StatelessWidget {
-  final MerchantMoverEntity mover;
-
-  const _MoverCard({required this.mover});
-
-  Color get _directionColor {
-    switch (mover.direction) {
-      case 'UP':
-        return Colors.green;
-      case 'DOWN':
-        return Colors.red;
-      default:
-        return AppColors.neutralGray;
-    }
-  }
-
-  IconData get _directionIcon {
-    switch (mover.direction) {
-      case 'UP':
-        return Icons.arrow_upward;
-      case 'DOWN':
-        return Icons.arrow_downward;
-      default:
-        return Icons.remove;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        children: [
-          Icon(_directionIcon, color: _directionColor, size: 20),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${mover.productName} — ${mover.gradeName}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  '₹${mover.todayPrice.toStringAsFixed(0)} (was ₹${mover.previousPrice.toStringAsFixed(0)})',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.neutralGray,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Text(
-            '${mover.changePercent.toStringAsFixed(1)}%',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: _directionColor,
-            ),
-          ),
-        ],
       ),
     );
   }

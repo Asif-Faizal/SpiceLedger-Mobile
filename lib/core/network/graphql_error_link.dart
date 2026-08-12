@@ -3,12 +3,18 @@ import 'package:dio/dio.dart' as dio;
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../config/env_config.dart';
 import '../storage/secure_storage.dart';
+import 'session_force_logout.dart';
 
 class GraphQLErrorLink extends Link {
   final EncryptedStorage storage;
   static Future<bool>? _refreshFuture;
 
   GraphQLErrorLink(this.storage);
+
+  static const _friendlyConnectionMessage =
+      'Unable to connect to the server. Please sign in again.';
+  static const _friendlySessionMessage =
+      'Your session has expired. Please sign in again.';
 
   @override
   Stream<Response> request(Request request, [NextLink? forward]) {
@@ -19,31 +25,36 @@ class GraphQLErrorLink extends Link {
     late StreamController<Response> controller;
     StreamSubscription<Response>? originalSubscription;
     StreamSubscription<Response>? retrySubscription;
-    bool isRetrying = false;
+    var isRetrying = false;
 
     controller = StreamController<Response>(
       onListen: () {
         void onResponse(Response response) async {
-          final bool isUnauthenticated = response.errors?.any((error) =>
-                  error.message.toLowerCase().contains('unauthenticated') ||
-                  error.message.toLowerCase().contains('token is expired')) ??
+          final isUnauthenticated = response.errors?.any((error) {
+                final msg = error.message.toLowerCase();
+                return msg.contains('unauthenticated') ||
+                    msg.contains('token is expired') ||
+                    msg.contains('unauthorized') ||
+                    msg.contains('jwt');
+              }) ??
               false;
 
           if (isUnauthenticated) {
-            print('GraphQLErrorLink: 401/Unauthenticated in response. Triggering refresh.');
             isRetrying = true;
             final success = await _synchronizedRefreshToken();
-            
+
             if (success) {
-              print('GraphQLErrorLink: Refresh success. Retrying...');
               retrySubscription = forward(request).listen(
                 (r) => controller.add(r),
-                onError: (e) => controller.addError(e),
+                onError: (e) async {
+                  await _emitCleanError(controller, e);
+                },
                 onDone: () => controller.close(),
               );
             } else {
-              controller.add(response);
-              controller.close();
+              await SessionForceLogout.run(storage);
+              controller.addError(Exception(_friendlySessionMessage));
+              await controller.close();
             }
           } else {
             controller.add(response);
@@ -51,37 +62,13 @@ class GraphQLErrorLink extends Link {
         }
 
         void onError(Object error) async {
-          final errStr = error.toString().toLowerCase();
-          final bool isUnauthenticated = errStr.contains('unauthenticated') ||
-              errStr.contains('token is expired') ||
-              errStr.contains('401');
-
-          if (isUnauthenticated) {
-            print('GraphQLErrorLink: 401/Unauthenticated in error stream: $error. Triggering refresh.');
-            isRetrying = true;
-            final success = await _synchronizedRefreshToken();
-            
-            if (success) {
-              print('GraphQLErrorLink: Refresh success. Retrying...');
-              retrySubscription = forward(request).listen(
-                (r) => controller.add(r),
-                onError: (e) => controller.addError(e),
-                onDone: () => controller.close(),
-              );
-            } else {
-              controller.addError(error);
-              controller.close();
-            }
-          } else {
-            controller.addError(error);
-          }
+          await _emitCleanError(controller, error);
         }
 
         originalSubscription = forward(request).listen(
           onResponse,
           onError: onError,
           onDone: () {
-            // Only close if we are not in the process of retrying
             if (!isRetrying) {
               controller.close();
             }
@@ -97,16 +84,90 @@ class GraphQLErrorLink extends Link {
     return controller.stream;
   }
 
+  Future<void> _emitCleanError(
+    StreamController<Response> controller,
+    Object error,
+  ) async {
+    final errStr = error.toString().toLowerCase();
+
+    if (_isConnectionFailure(errStr)) {
+      await SessionForceLogout.run(storage);
+      controller.addError(Exception(_friendlyConnectionMessage));
+      await controller.close();
+      return;
+    }
+
+    final isUnauthenticated = errStr.contains('unauthenticated') ||
+        errStr.contains('token is expired') ||
+        errStr.contains('unauthorized') ||
+        errStr.contains('401');
+
+    if (isUnauthenticated) {
+      final success = await _synchronizedRefreshToken();
+      if (!success) {
+        await SessionForceLogout.run(storage);
+        controller.addError(Exception(_friendlySessionMessage));
+        await controller.close();
+        return;
+      }
+    }
+
+    controller.addError(Exception(_friendlyMessageFromError(error)));
+    await controller.close();
+  }
+
+  bool _isConnectionFailure(String errStr) {
+    return errStr.contains('socketexception') ||
+        errStr.contains('connection refused') ||
+        errStr.contains('connection errored') ||
+        errStr.contains('failed host lookup') ||
+        errStr.contains('network is unreachable') ||
+        errStr.contains('clientexception') ||
+        errStr.contains('xmlhttprequest error') ||
+        errStr.contains('timeout');
+  }
+
+  String _friendlyMessageFromError(Object error) {
+    final errStr = error.toString();
+    final lower = errStr.toLowerCase();
+    if (_isConnectionFailure(lower)) {
+      return _friendlyConnectionMessage;
+    }
+    if (lower.contains('unauthenticated') ||
+        lower.contains('token is expired') ||
+        lower.contains('unauthorized')) {
+      return _friendlySessionMessage;
+    }
+    return _sanitizeGraphqlMessage(errStr);
+  }
+
+  String _sanitizeGraphqlMessage(String raw) {
+    final cleaned = raw
+        .replaceAll(RegExp(r'OperationException\([^)]*\)'), '')
+        .replaceAll(RegExp(r'ServerException:[^\n]*'), '')
+        .replaceAll(RegExp(r'ClientException:[^\n]*'), '')
+        .replaceAll(RegExp(r'SocketException:[^\n]*'), '')
+        .replaceAll(RegExp(r'package:[^\s]+'), '')
+        .replaceAll(RegExp(r'#\d+\s+'), '')
+        .trim();
+
+    if (cleaned.isEmpty ||
+        cleaned.length > 180 ||
+        cleaned.contains('http://') ||
+        cleaned.contains('https://')) {
+      return 'Something went wrong. Please try again.';
+    }
+    return cleaned;
+  }
+
   Future<bool> _synchronizedRefreshToken() async {
     if (_refreshFuture != null) {
-      print('GraphQLErrorLink: Refresh already in progress. Waiting...');
       return _refreshFuture!;
     }
 
     _refreshFuture = _refreshToken();
     try {
-      final result = await _refreshFuture!;
-      return result;
+      return await _refreshFuture!;
     } finally {
       _refreshFuture = null;
     }
@@ -115,7 +176,6 @@ class GraphQLErrorLink extends Link {
   Future<bool> _refreshToken() async {
     final refreshToken = await storage.read('refresh_token');
     if (refreshToken == null || refreshToken.isEmpty) {
-      print('GraphQLErrorLink: No refresh token available.');
       return false;
     }
 
@@ -135,18 +195,12 @@ class GraphQLErrorLink extends Link {
 
       if (success && responseData['data'] != null) {
         final data = responseData['data'];
-        final newAccessToken = data['access_token'];
-        final newRefreshToken = data['refresh_token'];
-
-        await storage.write('access_token', newAccessToken);
-        await storage.write('refresh_token', newRefreshToken);
-        print('GraphQLErrorLink: Tokens updated successfully.');
+        await storage.write('access_token', data['access_token']);
+        await storage.write('refresh_token', data['refresh_token']);
         return true;
-      } else {
-        print('GraphQLErrorLink: Refresh failed in payload: ${responseData['message']}');
       }
-    } catch (e) {
-      print('GraphQLErrorLink: Exception during refresh: $e');
+    } catch (_) {
+      // Refresh failed — caller will force logout.
     }
     return false;
   }

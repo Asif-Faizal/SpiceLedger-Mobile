@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/network/error_handler.dart';
 import '../../domain/entities/catalog_entity.dart';
 import '../../domain/entities/merchant_dashboard_entity.dart';
 import '../../domain/entities/merchant_entity.dart';
@@ -26,7 +27,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -41,7 +42,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -53,7 +54,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
       final model = await remoteDataSource.getDashboard(days: days);
       return Right(model.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -66,7 +67,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
       final models = await remoteDataSource.getProducts(date: date, search: search);
       return Right(models.map((m) => m.toEntity()).toList());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -76,7 +77,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
       final models = await remoteDataSource.getPositions();
       return Right(models.map((m) => m.toEntity()).toList());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -88,7 +89,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
       final model = await remoteDataSource.getGradePosition(spiceGradeId);
       return Right(model.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -114,7 +115,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
       );
       return Right(models.map((m) => m.toEntity()).toList());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -139,7 +140,7 @@ class MerchantRepositoryImpl implements MerchantRepository {
       );
       return Right(models.map((m) => m.toEntity()).toList());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 }

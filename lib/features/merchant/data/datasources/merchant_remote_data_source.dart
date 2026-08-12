@@ -178,7 +178,7 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     final result = await _graphQLClient.query(options);
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['merchantDashboard'];
@@ -224,7 +224,7 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     );
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['products'] as List<dynamic>?;
@@ -261,7 +261,7 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     );
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['getPositions'] as List<dynamic>?;
@@ -299,7 +299,7 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     );
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['getGradePosition'];
@@ -367,7 +367,7 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     );
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['listTransactions'] as List<dynamic>?;
@@ -434,7 +434,7 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     );
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['listGradeTransactions'] as List<dynamic>?;

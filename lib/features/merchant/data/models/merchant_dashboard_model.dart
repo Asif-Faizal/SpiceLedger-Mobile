@@ -227,7 +227,9 @@ abstract class MerchantDashboardModel with _$MerchantDashboardModel {
   const factory MerchantDashboardModel({
     required MerchantDashboardSummaryModel summary,
     required List<MerchantHoldingModel> holdings,
-    required List<PortfolioMixItemModel> portfolioMix,
+    @JsonKey(fromJson: _portfolioMixFromJson)
+    @Default([])
+    List<PortfolioMixItemModel> portfolioMix,
     required List<PnlTrendPointModel> pnlTrend,
     required List<ActivityTrendPointModel> activityTrend,
     required List<MerchantTransactionModel> recentTransactions,
@@ -237,6 +239,13 @@ abstract class MerchantDashboardModel with _$MerchantDashboardModel {
 
   factory MerchantDashboardModel.fromJson(Map<String, dynamic> json) =>
       _$MerchantDashboardModelFromJson(json);
+}
+
+List<PortfolioMixItemModel> _portfolioMixFromJson(dynamic json) {
+  if (json is! List) return [];
+  return json
+      .map((e) => PortfolioMixItemModel.fromJson(e as Map<String, dynamic>))
+      .toList();
 }
 
 extension MerchantDashboardModelX on MerchantDashboardModel {

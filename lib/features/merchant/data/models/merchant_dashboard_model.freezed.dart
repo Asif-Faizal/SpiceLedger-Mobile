@@ -2254,7 +2254,7 @@ as String,
 /// @nodoc
 mixin _$MerchantDashboardModel {
 
- MerchantDashboardSummaryModel get summary; List<MerchantHoldingModel> get holdings; List<PortfolioMixItemModel> get portfolioMix; List<PnlTrendPointModel> get pnlTrend; List<ActivityTrendPointModel> get activityTrend; List<MerchantTransactionModel> get recentTransactions; List<MerchantInsightModel> get insights; List<MerchantMoverModel> get movers;
+ MerchantDashboardSummaryModel get summary; List<MerchantHoldingModel> get holdings;@JsonKey(fromJson: _portfolioMixFromJson) List<PortfolioMixItemModel> get portfolioMix; List<PnlTrendPointModel> get pnlTrend; List<ActivityTrendPointModel> get activityTrend; List<MerchantTransactionModel> get recentTransactions; List<MerchantInsightModel> get insights; List<MerchantMoverModel> get movers;
 /// Create a copy of MerchantDashboardModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2287,7 +2287,7 @@ abstract mixin class $MerchantDashboardModelCopyWith<$Res>  {
   factory $MerchantDashboardModelCopyWith(MerchantDashboardModel value, $Res Function(MerchantDashboardModel) _then) = _$MerchantDashboardModelCopyWithImpl;
 @useResult
 $Res call({
- MerchantDashboardSummaryModel summary, List<MerchantHoldingModel> holdings, List<PortfolioMixItemModel> portfolioMix, List<PnlTrendPointModel> pnlTrend, List<ActivityTrendPointModel> activityTrend, List<MerchantTransactionModel> recentTransactions, List<MerchantInsightModel> insights, List<MerchantMoverModel> movers
+ MerchantDashboardSummaryModel summary, List<MerchantHoldingModel> holdings,@JsonKey(fromJson: _portfolioMixFromJson) List<PortfolioMixItemModel> portfolioMix, List<PnlTrendPointModel> pnlTrend, List<ActivityTrendPointModel> activityTrend, List<MerchantTransactionModel> recentTransactions, List<MerchantInsightModel> insights, List<MerchantMoverModel> movers
 });
 
 
@@ -2408,7 +2408,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MerchantDashboardSummaryModel summary,  List<MerchantHoldingModel> holdings,  List<PortfolioMixItemModel> portfolioMix,  List<PnlTrendPointModel> pnlTrend,  List<ActivityTrendPointModel> activityTrend,  List<MerchantTransactionModel> recentTransactions,  List<MerchantInsightModel> insights,  List<MerchantMoverModel> movers)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MerchantDashboardSummaryModel summary,  List<MerchantHoldingModel> holdings, @JsonKey(fromJson: _portfolioMixFromJson)  List<PortfolioMixItemModel> portfolioMix,  List<PnlTrendPointModel> pnlTrend,  List<ActivityTrendPointModel> activityTrend,  List<MerchantTransactionModel> recentTransactions,  List<MerchantInsightModel> insights,  List<MerchantMoverModel> movers)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MerchantDashboardModel() when $default != null:
 return $default(_that.summary,_that.holdings,_that.portfolioMix,_that.pnlTrend,_that.activityTrend,_that.recentTransactions,_that.insights,_that.movers);case _:
@@ -2429,7 +2429,7 @@ return $default(_that.summary,_that.holdings,_that.portfolioMix,_that.pnlTrend,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MerchantDashboardSummaryModel summary,  List<MerchantHoldingModel> holdings,  List<PortfolioMixItemModel> portfolioMix,  List<PnlTrendPointModel> pnlTrend,  List<ActivityTrendPointModel> activityTrend,  List<MerchantTransactionModel> recentTransactions,  List<MerchantInsightModel> insights,  List<MerchantMoverModel> movers)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MerchantDashboardSummaryModel summary,  List<MerchantHoldingModel> holdings, @JsonKey(fromJson: _portfolioMixFromJson)  List<PortfolioMixItemModel> portfolioMix,  List<PnlTrendPointModel> pnlTrend,  List<ActivityTrendPointModel> activityTrend,  List<MerchantTransactionModel> recentTransactions,  List<MerchantInsightModel> insights,  List<MerchantMoverModel> movers)  $default,) {final _that = this;
 switch (_that) {
 case _MerchantDashboardModel():
 return $default(_that.summary,_that.holdings,_that.portfolioMix,_that.pnlTrend,_that.activityTrend,_that.recentTransactions,_that.insights,_that.movers);case _:
@@ -2449,7 +2449,7 @@ return $default(_that.summary,_that.holdings,_that.portfolioMix,_that.pnlTrend,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MerchantDashboardSummaryModel summary,  List<MerchantHoldingModel> holdings,  List<PortfolioMixItemModel> portfolioMix,  List<PnlTrendPointModel> pnlTrend,  List<ActivityTrendPointModel> activityTrend,  List<MerchantTransactionModel> recentTransactions,  List<MerchantInsightModel> insights,  List<MerchantMoverModel> movers)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MerchantDashboardSummaryModel summary,  List<MerchantHoldingModel> holdings, @JsonKey(fromJson: _portfolioMixFromJson)  List<PortfolioMixItemModel> portfolioMix,  List<PnlTrendPointModel> pnlTrend,  List<ActivityTrendPointModel> activityTrend,  List<MerchantTransactionModel> recentTransactions,  List<MerchantInsightModel> insights,  List<MerchantMoverModel> movers)?  $default,) {final _that = this;
 switch (_that) {
 case _MerchantDashboardModel() when $default != null:
 return $default(_that.summary,_that.holdings,_that.portfolioMix,_that.pnlTrend,_that.activityTrend,_that.recentTransactions,_that.insights,_that.movers);case _:
@@ -2464,7 +2464,7 @@ return $default(_that.summary,_that.holdings,_that.portfolioMix,_that.pnlTrend,_
 @JsonSerializable()
 
 class _MerchantDashboardModel implements MerchantDashboardModel {
-  const _MerchantDashboardModel({required this.summary, required final  List<MerchantHoldingModel> holdings, required final  List<PortfolioMixItemModel> portfolioMix, required final  List<PnlTrendPointModel> pnlTrend, required final  List<ActivityTrendPointModel> activityTrend, required final  List<MerchantTransactionModel> recentTransactions, required final  List<MerchantInsightModel> insights, required final  List<MerchantMoverModel> movers}): _holdings = holdings,_portfolioMix = portfolioMix,_pnlTrend = pnlTrend,_activityTrend = activityTrend,_recentTransactions = recentTransactions,_insights = insights,_movers = movers;
+  const _MerchantDashboardModel({required this.summary, required final  List<MerchantHoldingModel> holdings, @JsonKey(fromJson: _portfolioMixFromJson) final  List<PortfolioMixItemModel> portfolioMix = const [], required final  List<PnlTrendPointModel> pnlTrend, required final  List<ActivityTrendPointModel> activityTrend, required final  List<MerchantTransactionModel> recentTransactions, required final  List<MerchantInsightModel> insights, required final  List<MerchantMoverModel> movers}): _holdings = holdings,_portfolioMix = portfolioMix,_pnlTrend = pnlTrend,_activityTrend = activityTrend,_recentTransactions = recentTransactions,_insights = insights,_movers = movers;
   factory _MerchantDashboardModel.fromJson(Map<String, dynamic> json) => _$MerchantDashboardModelFromJson(json);
 
 @override final  MerchantDashboardSummaryModel summary;
@@ -2476,7 +2476,7 @@ class _MerchantDashboardModel implements MerchantDashboardModel {
 }
 
  final  List<PortfolioMixItemModel> _portfolioMix;
-@override List<PortfolioMixItemModel> get portfolioMix {
+@override@JsonKey(fromJson: _portfolioMixFromJson) List<PortfolioMixItemModel> get portfolioMix {
   if (_portfolioMix is EqualUnmodifiableListView) return _portfolioMix;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_portfolioMix);
@@ -2551,7 +2551,7 @@ abstract mixin class _$MerchantDashboardModelCopyWith<$Res> implements $Merchant
   factory _$MerchantDashboardModelCopyWith(_MerchantDashboardModel value, $Res Function(_MerchantDashboardModel) _then) = __$MerchantDashboardModelCopyWithImpl;
 @override @useResult
 $Res call({
- MerchantDashboardSummaryModel summary, List<MerchantHoldingModel> holdings, List<PortfolioMixItemModel> portfolioMix, List<PnlTrendPointModel> pnlTrend, List<ActivityTrendPointModel> activityTrend, List<MerchantTransactionModel> recentTransactions, List<MerchantInsightModel> insights, List<MerchantMoverModel> movers
+ MerchantDashboardSummaryModel summary, List<MerchantHoldingModel> holdings,@JsonKey(fromJson: _portfolioMixFromJson) List<PortfolioMixItemModel> portfolioMix, List<PnlTrendPointModel> pnlTrend, List<ActivityTrendPointModel> activityTrend, List<MerchantTransactionModel> recentTransactions, List<MerchantInsightModel> insights, List<MerchantMoverModel> movers
 });
 
 

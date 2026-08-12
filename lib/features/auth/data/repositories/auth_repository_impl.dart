@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/network/error_handler.dart';
 import '../../../../core/storage/secure_storage.dart';
 import '../../domain/entities/email_check_entity.dart';
 import '../../domain/entities/user_entity.dart';
@@ -32,7 +33,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -54,7 +55,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -66,7 +67,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -78,7 +79,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -86,12 +87,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, void>> logout() async {
     try {
       await remoteDataSource.logout();
-      await storage.deleteAll();
-      return const Right(null);
-    } on Failure catch (e) {
-      return Left(e);
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
+    } catch (_) {
+      // Always clear local session even if the logout API is unreachable.
     }
+    await storage.deleteAll();
+    return const Right(null);
   }
 }

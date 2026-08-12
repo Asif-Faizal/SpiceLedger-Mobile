@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/network/error_handler.dart';
 import '../../domain/entities/dashboard_entity.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/repositories/admin_repository.dart';
@@ -20,7 +21,7 @@ class AdminProductRepositoryImpl implements AdminProductRepository {
       final model = await remoteDataSource.getDashboard();
       return Right(model.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -31,7 +32,7 @@ class AdminProductRepositoryImpl implements AdminProductRepository {
       final models = await remoteDataSource.getProducts(date, search);
       return Right(models.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -42,7 +43,7 @@ class AdminProductRepositoryImpl implements AdminProductRepository {
       final model = await remoteDataSource.createProduct(input);
       return Right(model.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -53,7 +54,7 @@ class AdminProductRepositoryImpl implements AdminProductRepository {
       final model = await remoteDataSource.createGrade(input);
       return Right(model.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -64,7 +65,7 @@ class AdminProductRepositoryImpl implements AdminProductRepository {
       await remoteDataSource.createDailyPrice(input);
       return const Right(null);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 
@@ -74,7 +75,7 @@ class AdminProductRepositoryImpl implements AdminProductRepository {
       final models = await remoteDataSource.getProductsRest();
       return Right(models.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ErrorHandler.handle(e));
     }
   }
 }

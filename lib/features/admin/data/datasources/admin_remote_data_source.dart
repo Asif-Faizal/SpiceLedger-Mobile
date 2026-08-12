@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:graphql_flutter/graphql_flutter.dart' hide ErrorHandler;
 import 'package:injectable/injectable.dart';
 import '../models/dashboard_model.dart';
 import '../models/product_model.dart';
+import '../../../../core/network/error_handler.dart';
 
 abstract class AdminProductRemoteDataSource {
   Future<List<ProductModel>> getProducts(String? date, String? search);
@@ -53,7 +54,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
     final result = await _graphQLClient.query(options);
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final List? productsJson = result.data?['products'];
@@ -87,7 +88,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
     final result = await _graphQLClient.mutate(options);
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['createProduct'];
@@ -119,7 +120,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
     final result = await _graphQLClient.mutate(options);
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['createGrade'];
@@ -151,7 +152,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
     final result = await _graphQLClient.mutate(options);
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
   }
 
@@ -208,7 +209,7 @@ class AdminProductRemoteDataSourceImpl implements AdminProductRemoteDataSource {
     final result = await _graphQLClient.query(options);
 
     if (result.hasException) {
-      throw Exception(result.exception.toString());
+      throw ErrorHandler.handle(result.exception!);
     }
 
     final data = result.data?['adminDashboard'];
