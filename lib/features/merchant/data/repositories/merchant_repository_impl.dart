@@ -59,6 +59,30 @@ class MerchantRepositoryImpl implements MerchantRepository {
   }
 
   @override
+  Future<Either<Failure, MerchantPnlTrendEntity>> getPnlTrend({
+    int days = 7,
+  }) async {
+    try {
+      final trend = await remoteDataSource.getPnlTrend(days: days);
+      return Right(trend);
+    } catch (e) {
+      return Left(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MerchantActivityTrendEntity>> getActivityTrend({
+    int days = 7,
+  }) async {
+    try {
+      final trend = await remoteDataSource.getActivityTrend(days: days);
+      return Right(trend);
+    } catch (e) {
+      return Left(ErrorHandler.handle(e));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<MerchantProductEntity>>> getProducts({
     String? date,
     String? search,

@@ -11,6 +11,10 @@ abstract class MerchantRepository {
     MerchantEntity entity,
   );
   Future<Either<Failure, MerchantDashboardEntity>> getDashboard({int days});
+  Future<Either<Failure, MerchantPnlTrendEntity>> getPnlTrend({int days});
+  Future<Either<Failure, MerchantActivityTrendEntity>> getActivityTrend({
+    int days,
+  });
   Future<Either<Failure, List<MerchantProductEntity>>> getProducts({
     String? date,
     String? search,

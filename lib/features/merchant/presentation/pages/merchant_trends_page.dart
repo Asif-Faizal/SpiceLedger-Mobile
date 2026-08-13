@@ -1,19 +1,17 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/entities/merchant_dashboard_entity.dart';
+import '../../domain/usecases/get_merchant_dashboard_usecase.dart';
 
 class MerchantTrendsPage extends StatefulWidget {
-  final List<PnlTrendPointEntity> pnlTrend;
-  final List<ActivityTrendPointEntity> activityTrend;
   final int days;
 
   const MerchantTrendsPage({
     super.key,
-    required this.pnlTrend,
-    required this.activityTrend,
-    required this.days,
+    this.days = 7,
   });
 
   @override
@@ -25,6 +23,11 @@ class _MerchantTrendsPageState extends State<MerchantTrendsPage>
   late final TabController _tabController;
   int _selectedIndex = -1;
 
+  bool _loading = true;
+  String? _error;
+  MerchantPnlTrendEntity? _pnl;
+  MerchantActivityTrendEntity? _activity;
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +37,7 @@ class _MerchantTrendsPageState extends State<MerchantTrendsPage>
           setState(() => _selectedIndex = -1);
         }
       });
+    _load();
   }
 
   @override
@@ -42,23 +46,33 @@ class _MerchantTrendsPageState extends State<MerchantTrendsPage>
     super.dispose();
   }
 
-  double get _periodRealized =>
-      widget.pnlTrend.fold(0.0, (sum, p) => sum + p.dailyRealizedPnL);
+  Future<void> _load() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
 
-  double get _periodBuyKg => widget.activityTrend.fold(
-        0.0,
-        (sum, p) => sum + p.buyQuantity,
-      );
+    final pnlResult =
+        await getIt<GetMerchantPnlTrendUseCase>()(days: widget.days);
+    final activityResult =
+        await getIt<GetMerchantActivityTrendUseCase>()(days: widget.days);
 
-  double get _periodSellKg => widget.activityTrend.fold(
-        0.0,
-        (sum, p) => sum + p.sellQuantity,
-      );
+    if (!mounted) return;
 
-  int get _periodTrades => widget.activityTrend.fold(
-        0,
-        (sum, p) => sum + p.buyCount + p.sellCount,
-      );
+    String? error;
+    MerchantPnlTrendEntity? pnl;
+    MerchantActivityTrendEntity? activity;
+
+    pnlResult.fold((f) => error = f.message, (v) => pnl = v);
+    activityResult.fold((f) => error ??= f.message, (v) => activity = v);
+
+    setState(() {
+      _loading = false;
+      _error = error;
+      _pnl = pnl;
+      _activity = activity;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,63 +87,82 @@ class _MerchantTrendsPageState extends State<MerchantTrendsPage>
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: _SummaryTile(
-                    label: 'Period realized',
-                    value: '₹${_periodRealized.toStringAsFixed(0)}',
-                    color: _periodRealized >= 0
-                        ? AppColors.success
-                        : AppColors.danger,
-                    icon: Icons.trending_up,
+      body: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : _error != null
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(_error!, textAlign: TextAlign.center),
+                        const SizedBox(height: 12),
+                        TextButton(onPressed: _load, child: const Text('Retry')),
+                      ],
+                    ),
                   ),
+                )
+              : Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: _SummaryTile(
+                              label: 'Period realized',
+                              value:
+                                  '₹${(_pnl?.periodRealizedPnL ?? 0).toStringAsFixed(0)}',
+                              color: (_pnl?.periodRealizedPnL ?? 0) >= 0
+                                  ? AppColors.success
+                                  : AppColors.danger,
+                              icon: Icons.trending_up,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: _SummaryTile(
+                              label: 'Buy / Sell',
+                              value:
+                                  '${(_activity?.totalBuyQuantity ?? 0).toStringAsFixed(0)} / ${(_activity?.totalSellQuantity ?? 0).toStringAsFixed(0)} kg',
+                              color: AppColors.blueAccent,
+                              icon: Icons.swap_vert,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: _SummaryTile(
+                              label: 'Trades',
+                              value: '${_activity?.totalTrades ?? 0}',
+                              color: AppColors.neutralGray,
+                              icon: Icons.receipt_long_outlined,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          _PnLTab(
+                            points: _pnl?.points ?? const [],
+                            selectedIndex: _selectedIndex,
+                            onSelect: (i) =>
+                                setState(() => _selectedIndex = i),
+                          ),
+                          _ActivityTab(
+                            points: _activity?.points ?? const [],
+                            selectedIndex: _selectedIndex,
+                            onSelect: (i) =>
+                                setState(() => _selectedIndex = i),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _SummaryTile(
-                    label: 'Buy / Sell',
-                    value:
-                        '${_periodBuyKg.toStringAsFixed(0)} / ${_periodSellKg.toStringAsFixed(0)} kg',
-                    color: AppColors.blueAccent,
-                    icon: Icons.swap_vert,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _SummaryTile(
-                    label: 'Trades',
-                    value: '$_periodTrades',
-                    color: AppColors.neutralGray,
-                    icon: Icons.receipt_long_outlined,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _PnLTab(
-                  points: widget.pnlTrend,
-                  selectedIndex: _selectedIndex,
-                  onSelect: (i) => setState(() => _selectedIndex = i),
-                ),
-                _ActivityTab(
-                  points: widget.activityTrend,
-                  selectedIndex: _selectedIndex,
-                  onSelect: (i) => setState(() => _selectedIndex = i),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -211,7 +244,7 @@ class _PnLTab extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         const Text(
-          'Tap a bar for details · green = profit, red = loss',
+          'Tap a bar for product breakdown · green = profit, red = loss',
           style: TextStyle(fontSize: 11, color: AppColors.neutralGray),
         ),
         const SizedBox(height: 12),
@@ -253,6 +286,17 @@ class _PnLTab extends StatelessWidget {
                 '₹${selected.cumulativeRealizedPnL.toStringAsFixed(0)}',
               ),
             ],
+            productRows: selected.products
+                .map(
+                  (p) => _DetailRow(
+                    '${p.productName} · ${p.gradeName}',
+                    '₹${p.realizedPnL.toStringAsFixed(0)}',
+                    color: p.realizedPnL >= 0
+                        ? AppColors.success
+                        : AppColors.danger,
+                  ),
+                )
+                .toList(),
           ),
         ],
       ],
@@ -290,7 +334,7 @@ class _ActivityTab extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         const Text(
-          'Tap a day to see trade counts',
+          'Tap a day to see what was bought and sold by product',
           style: TextStyle(fontSize: 11, color: AppColors.neutralGray),
         ),
         const SizedBox(height: 12),
@@ -303,11 +347,11 @@ class _ActivityTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _LegendDot(color: AppColors.success, label: 'Buy'),
-            const SizedBox(width: 16),
+            SizedBox(width: 16),
             _LegendDot(color: AppColors.danger, label: 'Sell'),
           ],
         ),
@@ -317,20 +361,24 @@ class _ActivityTab extends StatelessWidget {
             date: _formatDate(selected.date),
             rows: [
               _DetailRow(
-                'Buy',
+                'Buy total',
                 '${selected.buyQuantity.toStringAsFixed(1)} kg (${selected.buyCount})',
                 color: AppColors.success,
               ),
               _DetailRow(
-                'Sell',
+                'Sell total',
                 '${selected.sellQuantity.toStringAsFixed(1)} kg (${selected.sellCount})',
                 color: AppColors.danger,
               ),
-              _DetailRow(
-                'Net flow',
-                '${(selected.buyQuantity - selected.sellQuantity).toStringAsFixed(1)} kg',
-              ),
             ],
+            productRows: selected.products
+                .map(
+                  (p) => _DetailRow(
+                    '${p.productName} · ${p.gradeName}',
+                    'Buy ${p.buyQuantity.toStringAsFixed(1)} kg · Sell ${p.sellQuantity.toStringAsFixed(1)} kg',
+                  ),
+                )
+                .toList(),
           ),
         ],
       ],
@@ -367,8 +415,13 @@ class _LegendDot extends StatelessWidget {
 class _DayDetailCard extends StatelessWidget {
   final String date;
   final List<_DetailRow> rows;
+  final List<_DetailRow> productRows;
 
-  const _DayDetailCard({required this.date, required this.rows});
+  const _DayDetailCard({
+    required this.date,
+    required this.rows,
+    this.productRows = const [],
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -382,33 +435,56 @@ class _DayDetailCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            date,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
+          Text(date, style: const TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          ...rows.map(
-            (row) => Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    row.label,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.neutralGray,
-                    ),
-                  ),
-                  Text(
-                    row.value,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: row.color ?? AppColors.nearBlack,
-                    ),
-                  ),
-                ],
+          ...rows.map(_row),
+          if (productRows.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            const Text(
+              'By product',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: AppColors.neutralGray,
+              ),
+            ),
+            const SizedBox(height: 6),
+            ...productRows.map(_row),
+          ] else ...[
+            const SizedBox(height: 6),
+            const Text(
+              'No product trades this day',
+              style: TextStyle(fontSize: 12, color: AppColors.neutralGray),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _row(_DetailRow row) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Text(
+              row.label,
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.neutralGray,
+              ),
+            ),
+          ),
+          Flexible(
+            child: Text(
+              row.value,
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: row.color ?? AppColors.nearBlack,
               ),
             ),
           ),
@@ -492,45 +568,31 @@ class _PnLBarChartPainter extends CustomPainter {
     final axisPaint = Paint()
       ..color = AppColors.outline
       ..strokeWidth = 1;
-    canvas.drawLine(
-      Offset(0, zeroY),
-      Offset(size.width, zeroY),
-      axisPaint,
-    );
+    canvas.drawLine(Offset(0, zeroY), Offset(size.width, zeroY), axisPaint);
 
     for (var i = 0; i < points.length; i++) {
       final p = points[i];
       final x = gap * i + gap / 2;
       final h = (p.dailyRealizedPnL.abs() / maxAbs) * (chartH / 2);
       final isSelected = i == selectedIndex;
-      final color = p.dailyRealizedPnL >= 0
-          ? AppColors.success
-          : AppColors.danger;
+      final color =
+          p.dailyRealizedPnL >= 0 ? AppColors.success : AppColors.danger;
+
+      if (h < 1) continue;
 
       final rect = p.dailyRealizedPnL >= 0
           ? Rect.fromLTWH(x - barW / 2, zeroY - h, barW, h)
           : Rect.fromLTWH(x - barW / 2, zeroY, barW, h);
 
       canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          rect,
-          const Radius.circular(3),
-        ),
-        Paint()..color = color.withValues(alpha: isSelected ? 1 : 0.65),
+        RRect.fromRectAndRadius(rect, const Radius.circular(3)),
+        Paint()..color = color.withValues(alpha: isSelected ? 1 : 0.7),
       );
 
-      if (isSelected) {
-        canvas.drawRRect(
-          RRect.fromRectAndRadius(rect.inflate(2), const Radius.circular(4)),
-          Paint()
-            ..color = color.withValues(alpha: 0.25)
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2,
-        );
-      }
-
       if (points.length <= 10 || i % 2 == 0 || i == points.length - 1) {
-        final label = points[i].date.substring(5);
+        final label = points[i].date.length >= 10
+            ? points[i].date.substring(5)
+            : points[i].date;
         final tp = TextPainter(
           text: TextSpan(
             text: label,
@@ -616,14 +678,9 @@ class _CumulativeLinePainter extends CustomPainter {
 
     if (selectedIndex >= 0 && selectedIndex < points.length) {
       final x = pad + (selectedIndex / (points.length - 1)) * w;
-      final y = pad +
-          h -
-          ((values[selectedIndex] - minV) / range) * h;
-      canvas.drawCircle(
-        Offset(x, y),
-        5,
-        Paint()..color = AppColors.blueAccent,
-      );
+      final y =
+          pad + h - ((values[selectedIndex] - minV) / range) * h;
+      canvas.drawCircle(Offset(x, y), 5, Paint()..color = AppColors.blueAccent);
     }
   }
 
@@ -708,6 +765,7 @@ class _ActivityBarChartPainter extends CustomPainter {
         final color = entry.$2;
         final x = entry.$3;
         final h = (qty / maxV) * chartH;
+        if (h < 1) continue;
         final rect = Rect.fromLTWH(
           x - barW / 2,
           topPad + chartH - h,
@@ -721,7 +779,9 @@ class _ActivityBarChartPainter extends CustomPainter {
       }
 
       if (points.length <= 10 || i % 2 == 0 || i == points.length - 1) {
-        final label = points[i].date.substring(5);
+        final label = points[i].date.length >= 10
+            ? points[i].date.substring(5)
+            : points[i].date;
         final tp = TextPainter(
           text: TextSpan(
             text: label,

@@ -211,6 +211,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i702.GetMerchantDashboardUseCase>(
       () => _i702.GetMerchantDashboardUseCase(gh<_i90.MerchantRepository>()),
     );
+    gh.factory<_i702.GetMerchantPnlTrendUseCase>(
+      () => _i702.GetMerchantPnlTrendUseCase(gh<_i90.MerchantRepository>()),
+    );
+    gh.factory<_i702.GetMerchantActivityTrendUseCase>(
+      () =>
+          _i702.GetMerchantActivityTrendUseCase(gh<_i90.MerchantRepository>()),
+    );
     gh.factory<_i214.GetMerchantProductsUseCase>(
       () => _i214.GetMerchantProductsUseCase(gh<_i90.MerchantRepository>()),
     );

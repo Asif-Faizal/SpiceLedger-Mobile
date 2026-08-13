@@ -8,6 +8,9 @@ Future<TransactionFilterEntity?> showMerchantTransactionFilterSheet({
   required TransactionFilterEntity initialFilter,
 }) {
   return showModalBottomSheet<TransactionFilterEntity>(
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
+    ),
     context: context,
     isScrollControlled: true,
     showDragHandle: true,

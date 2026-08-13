@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/error_handler.dart';
 import '../../../../core/network/models/api_response.dart';
+import '../../domain/entities/merchant_dashboard_entity.dart';
 import '../models/catalog_product_model.dart';
 import '../models/merchant_dashboard_model.dart';
 import '../models/merchant_model.dart';
@@ -13,6 +14,8 @@ abstract class MerchantRemoteDataSource {
   Future<MerchantModel?> getMerchantDetails();
   Future<MerchantModel> saveMerchantDetails(MerchantModel model);
   Future<MerchantDashboardModel> getDashboard({int days});
+  Future<MerchantPnlTrendEntity> getPnlTrend({int days});
+  Future<MerchantActivityTrendEntity> getActivityTrend({int days});
   Future<List<MerchantProductModel>> getProducts({String? date, String? search});
   Future<List<MerchantPositionModel>> getPositions();
   Future<MerchantPositionModel> getGradePosition(String spiceGradeId);
@@ -185,6 +188,153 @@ class MerchantRemoteDataSourceImpl implements MerchantRemoteDataSource {
     if (data == null) throw Exception('Failed to load merchant dashboard data');
 
     return MerchantDashboardModel.fromJson(Map<String, dynamic>.from(data));
+  }
+
+  @override
+  Future<MerchantPnlTrendEntity> getPnlTrend({int days = 7}) async {
+    const String query = r'''
+      query MerchantPnlTrend($days: Int) {
+        merchantPnlTrend(days: $days) {
+          days
+          periodRealizedPnL
+          points {
+            date
+            dailyRealizedPnL
+            cumulativeRealizedPnL
+            products {
+              spiceGradeId
+              productName
+              gradeName
+              realizedPnL
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await _graphQLClient.query(
+      QueryOptions(
+        document: gql(query),
+        variables: {'days': days},
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+    if (result.hasException) {
+      throw ErrorHandler.handle(result.exception!);
+    }
+    final data = result.data?['merchantPnlTrend'];
+    if (data == null) {
+      throw const ServerFailure('Failed to load P&L trend');
+    }
+    final map = Map<String, dynamic>.from(data as Map);
+    final points = (map['points'] as List<dynamic>? ?? [])
+        .map((e) {
+          final p = Map<String, dynamic>.from(e as Map);
+          final products = (p['products'] as List<dynamic>? ?? [])
+              .map((raw) {
+                final pr = Map<String, dynamic>.from(raw as Map);
+                return PnlProductDayEntity(
+                  spiceGradeId: pr['spiceGradeId']?.toString() ?? '',
+                  productName: pr['productName']?.toString() ?? '',
+                  gradeName: pr['gradeName']?.toString() ?? '',
+                  realizedPnL: (pr['realizedPnL'] as num?)?.toDouble() ?? 0,
+                );
+              })
+              .toList();
+          return PnlTrendPointEntity(
+            date: p['date']?.toString() ?? '',
+            dailyRealizedPnL: (p['dailyRealizedPnL'] as num?)?.toDouble() ?? 0,
+            cumulativeRealizedPnL:
+                (p['cumulativeRealizedPnL'] as num?)?.toDouble() ?? 0,
+            products: products,
+          );
+        })
+        .toList();
+    return MerchantPnlTrendEntity(
+      days: (map['days'] as num?)?.toInt() ?? days,
+      periodRealizedPnL: (map['periodRealizedPnL'] as num?)?.toDouble() ?? 0,
+      points: points,
+    );
+  }
+
+  @override
+  Future<MerchantActivityTrendEntity> getActivityTrend({int days = 7}) async {
+    const String query = r'''
+      query MerchantActivityTrend($days: Int) {
+        merchantActivityTrend(days: $days) {
+          days
+          totalBuyQuantity
+          totalSellQuantity
+          totalTrades
+          points {
+            date
+            buyQuantity
+            sellQuantity
+            buyCount
+            sellCount
+            products {
+              spiceGradeId
+              productName
+              gradeName
+              buyQuantity
+              sellQuantity
+              buyCount
+              sellCount
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await _graphQLClient.query(
+      QueryOptions(
+        document: gql(query),
+        variables: {'days': days},
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
+    );
+    if (result.hasException) {
+      throw ErrorHandler.handle(result.exception!);
+    }
+    final data = result.data?['merchantActivityTrend'];
+    if (data == null) {
+      throw const ServerFailure('Failed to load activity trend');
+    }
+    final map = Map<String, dynamic>.from(data as Map);
+    final points = (map['points'] as List<dynamic>? ?? [])
+        .map((e) {
+          final p = Map<String, dynamic>.from(e as Map);
+          final products = (p['products'] as List<dynamic>? ?? [])
+              .map((raw) {
+                final pr = Map<String, dynamic>.from(raw as Map);
+                return ActivityProductDayEntity(
+                  spiceGradeId: pr['spiceGradeId']?.toString() ?? '',
+                  productName: pr['productName']?.toString() ?? '',
+                  gradeName: pr['gradeName']?.toString() ?? '',
+                  buyQuantity: (pr['buyQuantity'] as num?)?.toDouble() ?? 0,
+                  sellQuantity: (pr['sellQuantity'] as num?)?.toDouble() ?? 0,
+                  buyCount: (pr['buyCount'] as num?)?.toInt() ?? 0,
+                  sellCount: (pr['sellCount'] as num?)?.toInt() ?? 0,
+                );
+              })
+              .toList();
+          return ActivityTrendPointEntity(
+            date: p['date']?.toString() ?? '',
+            buyQuantity: (p['buyQuantity'] as num?)?.toDouble() ?? 0,
+            sellQuantity: (p['sellQuantity'] as num?)?.toDouble() ?? 0,
+            buyCount: (p['buyCount'] as num?)?.toInt() ?? 0,
+            sellCount: (p['sellCount'] as num?)?.toInt() ?? 0,
+            products: products,
+          );
+        })
+        .toList();
+    return MerchantActivityTrendEntity(
+      days: (map['days'] as num?)?.toInt() ?? days,
+      totalBuyQuantity: (map['totalBuyQuantity'] as num?)?.toDouble() ?? 0,
+      totalSellQuantity: (map['totalSellQuantity'] as num?)?.toDouble() ?? 0,
+      totalTrades: (map['totalTrades'] as num?)?.toInt() ?? 0,
+      points: points,
+    );
   }
 
   @override

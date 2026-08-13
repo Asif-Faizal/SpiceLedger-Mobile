@@ -171,6 +171,9 @@ void showGradePositionDetailSheet(
   String? label,
 }) {
   showModalBottomSheet<void>(
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
+    ),
     context: context,
     showDragHandle: true,
     builder: (context) {
@@ -183,14 +186,6 @@ void showGradePositionDetailSheet(
             Text(
               label ?? 'Grade Position',
               style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              position.spiceGradeId,
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppColors.neutralGray,
-              ),
             ),
             const SizedBox(height: 20),
             _DetailRow('Quantity', '${position.totalQty.toStringAsFixed(1)} kg'),

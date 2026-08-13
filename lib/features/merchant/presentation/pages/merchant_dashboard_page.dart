@@ -58,11 +58,7 @@ class _MerchantDashboardView extends StatelessWidget {
                   const SizedBox(height: 10),
                   _NetPnLCard(summary: s.dashboard.summary),
                   const SizedBox(height: 12),
-                  _TrendsLink(
-                    days: s.days,
-                    pnlTrend: s.dashboard.pnlTrend,
-                    activityTrend: s.dashboard.activityTrend,
-                  ),
+                  _TrendsLink(days: s.days),
                   if (s.dashboard.insights.isNotEmpty) ...[
                     const SizedBox(height: 16),
                     ...s.dashboard.insights.take(2).map(
@@ -298,14 +294,8 @@ class _PnLBreakdownItem extends StatelessWidget {
 
 class _TrendsLink extends StatelessWidget {
   final int days;
-  final List<PnlTrendPointEntity> pnlTrend;
-  final List<ActivityTrendPointEntity> activityTrend;
 
-  const _TrendsLink({
-    required this.days,
-    required this.pnlTrend,
-    required this.activityTrend,
-  });
+  const _TrendsLink({required this.days});
 
   @override
   Widget build(BuildContext context) {
@@ -317,11 +307,7 @@ class _TrendsLink extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => MerchantTrendsPage(
-                days: days,
-                pnlTrend: pnlTrend,
-                activityTrend: activityTrend,
-              ),
+              builder: (_) => MerchantTrendsPage(days: days),
             ),
           );
         },
@@ -353,7 +339,7 @@ class _TrendsLink extends StatelessWidget {
                     ),
                     SizedBox(height: 2),
                     Text(
-                      'Charts · daily P&L · buy/sell activity',
+                      'Charts · daily P&L · buy/sell by product',
                       style: TextStyle(
                         fontSize: 11,
                         color: AppColors.neutralGray,

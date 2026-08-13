@@ -197,9 +197,9 @@ _MerchantDashboardModel _$MerchantDashboardModelFromJson(
   holdings: (json['holdings'] as List<dynamic>)
       .map((e) => MerchantHoldingModel.fromJson(e as Map<String, dynamic>))
       .toList(),
-  portfolioMix: (json['portfolioMix'] as List<dynamic>)
-      .map((e) => PortfolioMixItemModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  portfolioMix: json['portfolioMix'] == null
+      ? const []
+      : _portfolioMixFromJson(json['portfolioMix']),
   pnlTrend: (json['pnlTrend'] as List<dynamic>)
       .map((e) => PnlTrendPointModel.fromJson(e as Map<String, dynamic>))
       .toList(),

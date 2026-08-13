@@ -105,15 +105,35 @@ class PnlTrendPointEntity extends Equatable {
   final String date;
   final double dailyRealizedPnL;
   final double cumulativeRealizedPnL;
+  final List<PnlProductDayEntity> products;
 
   const PnlTrendPointEntity({
     required this.date,
     required this.dailyRealizedPnL,
     required this.cumulativeRealizedPnL,
+    this.products = const [],
   });
 
   @override
-  List<Object?> get props => [date, dailyRealizedPnL, cumulativeRealizedPnL];
+  List<Object?> get props =>
+      [date, dailyRealizedPnL, cumulativeRealizedPnL, products];
+}
+
+class PnlProductDayEntity extends Equatable {
+  final String spiceGradeId;
+  final String productName;
+  final String gradeName;
+  final double realizedPnL;
+
+  const PnlProductDayEntity({
+    required this.spiceGradeId,
+    required this.productName,
+    required this.gradeName,
+    required this.realizedPnL,
+  });
+
+  @override
+  List<Object?> get props => [spiceGradeId, productName, gradeName, realizedPnL];
 }
 
 class ActivityTrendPointEntity extends Equatable {
@@ -122,6 +142,7 @@ class ActivityTrendPointEntity extends Equatable {
   final double sellQuantity;
   final int buyCount;
   final int sellCount;
+  final List<ActivityProductDayEntity> products;
 
   const ActivityTrendPointEntity({
     required this.date,
@@ -129,11 +150,78 @@ class ActivityTrendPointEntity extends Equatable {
     required this.sellQuantity,
     required this.buyCount,
     required this.sellCount,
+    this.products = const [],
   });
 
   @override
   List<Object?> get props =>
-      [date, buyQuantity, sellQuantity, buyCount, sellCount];
+      [date, buyQuantity, sellQuantity, buyCount, sellCount, products];
+}
+
+class ActivityProductDayEntity extends Equatable {
+  final String spiceGradeId;
+  final String productName;
+  final String gradeName;
+  final double buyQuantity;
+  final double sellQuantity;
+  final int buyCount;
+  final int sellCount;
+
+  const ActivityProductDayEntity({
+    required this.spiceGradeId,
+    required this.productName,
+    required this.gradeName,
+    required this.buyQuantity,
+    required this.sellQuantity,
+    required this.buyCount,
+    required this.sellCount,
+  });
+
+  @override
+  List<Object?> get props => [
+        spiceGradeId,
+        productName,
+        gradeName,
+        buyQuantity,
+        sellQuantity,
+        buyCount,
+        sellCount,
+      ];
+}
+
+class MerchantPnlTrendEntity extends Equatable {
+  final int days;
+  final double periodRealizedPnL;
+  final List<PnlTrendPointEntity> points;
+
+  const MerchantPnlTrendEntity({
+    required this.days,
+    required this.periodRealizedPnL,
+    required this.points,
+  });
+
+  @override
+  List<Object?> get props => [days, periodRealizedPnL, points];
+}
+
+class MerchantActivityTrendEntity extends Equatable {
+  final int days;
+  final double totalBuyQuantity;
+  final double totalSellQuantity;
+  final int totalTrades;
+  final List<ActivityTrendPointEntity> points;
+
+  const MerchantActivityTrendEntity({
+    required this.days,
+    required this.totalBuyQuantity,
+    required this.totalSellQuantity,
+    required this.totalTrades,
+    required this.points,
+  });
+
+  @override
+  List<Object?> get props =>
+      [days, totalBuyQuantity, totalSellQuantity, totalTrades, points];
 }
 
 class MerchantTransactionEntity extends Equatable {

@@ -14,3 +14,25 @@ class GetMerchantDashboardUseCase {
     return repository.getDashboard(days: days);
   }
 }
+
+@injectable
+class GetMerchantPnlTrendUseCase {
+  final MerchantRepository repository;
+
+  GetMerchantPnlTrendUseCase(this.repository);
+
+  Future<Either<Failure, MerchantPnlTrendEntity>> call({int days = 7}) {
+    return repository.getPnlTrend(days: days);
+  }
+}
+
+@injectable
+class GetMerchantActivityTrendUseCase {
+  final MerchantRepository repository;
+
+  GetMerchantActivityTrendUseCase(this.repository);
+
+  Future<Either<Failure, MerchantActivityTrendEntity>> call({int days = 7}) {
+    return repository.getActivityTrend(days: days);
+  }
+}
